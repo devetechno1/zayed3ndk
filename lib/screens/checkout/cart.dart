@@ -46,7 +46,7 @@ class _CartState extends State<Cart> {
             app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
         child: Scaffold(
           key: cartProvider.scaffoldKey,
-          backgroundColor: Color(0xffF2F1F6),
+          backgroundColor: MyTheme.mainColor,
           appBar: buildAppBar(context),
           body: Stack(
             children: [
@@ -90,7 +90,7 @@ class _CartState extends State<Cart> {
   Container buildBottomContainer(cartProvider) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xffF2F1F6),
+        color: MyTheme.mainColor,
       ),
 
       height: widget.has_bottomnav! ? 200 : 120,
@@ -197,7 +197,7 @@ class _CartState extends State<Cart> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xffF2F1F6),
+      backgroundColor: MyTheme.mainColor,
       leading: Builder(
         builder: (context) => widget.from_navigation
             ? UsefulElements.backToMain(context, go_back: false)

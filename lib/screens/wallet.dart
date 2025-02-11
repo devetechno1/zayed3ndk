@@ -27,7 +27,6 @@ class _WalletState extends State<Wallet> {
   final _amountValidator = RegExInputFormatter.withRegex(
       '^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
   ScrollController _mainScrollController = ScrollController();
-  ScrollController _scrollController = ScrollController();
   TextEditingController _amountController = TextEditingController();
 
   GlobalKey appBarKey = GlobalKey();
@@ -143,18 +142,18 @@ class _WalletState extends State<Wallet> {
         textDirection:
             app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
         child: Scaffold(
-          backgroundColor: Color(0xffF2F1F6),
+          backgroundColor: MyTheme.mainColor,
           appBar: buildAppBar(context),
           body: RefreshIndicator(
             color: MyTheme.accent_color,
-            backgroundColor: Color(0xffF2F1F6),
+            backgroundColor: MyTheme.mainColor,
             onRefresh: _onPageRefresh,
             displacement: 10,
             child: Stack(
               children: [
                 Container(
                   width: double.infinity,
-                  color: Color(0xffF2F1F6),
+                  color: MyTheme.mainColor,
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 0.0, left: 16.0, right: 16.0),
@@ -192,7 +191,7 @@ class _WalletState extends State<Wallet> {
     return AppBar(
       scrolledUnderElevation: 0.0,
       key: appBarKey,
-      backgroundColor: Color(0xffF2F1F6),
+      backgroundColor: MyTheme.mainColor,
       centerTitle: false,
       leading: Builder(
         builder: (context) => IconButton(

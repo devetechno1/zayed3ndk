@@ -23,16 +23,16 @@ import '../custom/home_search_box.dart';
 import '../custom/pirated_widget.dart';
 
 class Home extends StatefulWidget {
-  Home({
+  const Home({
     Key? key,
     this.title,
     this.show_back_button = false,
-    go_back = true,
+    this.go_back = true,
   }) : super(key: key);
 
   final String? title;
-  bool show_back_button;
-  late bool go_back;
+  final bool show_back_button;
+  final bool go_back;
 
   @override
   _HomeState createState() => _HomeState();
@@ -65,7 +65,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     // ignore: deprecated_member_use
     return WillPopScope(
@@ -201,7 +200,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             delegate: SliverChildListDelegate([
                               Container(
                                 height: 305,
-                                color: Color(0xffF2F1F6),
+                                color: MyTheme.accent_color.withOpacity(0.1),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -242,47 +241,44 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           // ),
                           SliverList(
                             delegate: SliverChildListDelegate([
-                              Container(
-                                color: Color(0xffF2F1F6),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            18.0, 0.0, 20.0, 0.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .all_products_ucf,
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
-                                        ),
+                              SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          18.0, 20, 20.0, 0.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .all_products_ucf,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
                                       ),
-                                      //Home All Product
-                                      SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            HomeAllProducts2(
-                                                context: context,
-                                                homeData: homeData),
-                                          ],
-                                        ),
+                                    ),
+                                    //Home All Product
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          HomeAllProducts2(
+                                              context: context,
+                                              homeData: homeData),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Container(
-                                height: 80,
-                              ),
+                              // Container(
+                              //   height: 80,
+                              // ),
                             ]),
                           ),
                         ],

@@ -17,8 +17,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class Main extends StatefulWidget {
-  Main({Key? key, go_back = true}) : super(key: key);
-  late bool go_back;
+  const Main({Key? key, this.go_back = true}) : super(key: key);
+  final bool go_back;
 
   @override
   _MainState createState() => _MainState();
@@ -199,95 +199,92 @@ class _MainState extends State<Main> {
         child: Scaffold(
           extendBody: true,
           body: _children[_currentIndex],
-          bottomNavigationBar: SizedBox(
-            height: 70,
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              onTap: onTapped,
-              currentIndex: _currentIndex,
-              backgroundColor: Colors.white.withOpacity(0.95),
-              unselectedItemColor: Color.fromRGBO(168, 175, 179, 1),
-              selectedItemColor: MyTheme.accent_color,
-              selectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: MyTheme.accent_color,
-                  fontSize: 12),
-              unselectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: Color.fromRGBO(168, 175, 179, 1),
-                  fontSize: 12),
-              items: [
-                BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Image.asset(
-                        "assets/home.png",
-                        color: _currentIndex == 0
-                            ? MyTheme.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        height: 16,
-                      ),
-                    ),
-                    label: AppLocalizations.of(context)!.home_ucf),
-                BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Image.asset(
-                        "assets/categories.png",
-                        color: _currentIndex == 1
-                            ? MyTheme.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        height: 16,
-                      ),
-                    ),
-                    label: AppLocalizations.of(context)!.categories_ucf),
-                BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: badges.Badge(
-                        badgeStyle: badges.BadgeStyle(
-                          shape: badges.BadgeShape.circle,
-                          badgeColor: MyTheme.accent_color,
-                          borderRadius: BorderRadius.circular(10),
-                          padding: EdgeInsets.all(5),
-                        ),
-                        badgeAnimation: badges.BadgeAnimation.slide(
-                          toAnimate: false,
-                        ),
-                        child: Image.asset(
-                          "assets/cart.png",
-                          color: _currentIndex == 2
-                              ? MyTheme.accent_color
-                              : Color.fromRGBO(153, 153, 153, 1),
-                          height: 16,
-                        ),
-                        badgeContent: Consumer<CartCounter>(
-                          builder: (context, cart, child) {
-                            return Text(
-                              "${cart.cartCounter}",
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.white),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    label: AppLocalizations.of(context)!.cart_ucf),
-                BottomNavigationBarItem(
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            onTap: onTapped,
+            currentIndex: _currentIndex,
+            backgroundColor: Colors.white.withOpacity(0.95),
+            unselectedItemColor: Color.fromRGBO(168, 175, 179, 1),
+            selectedItemColor: MyTheme.accent_color,
+            selectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: MyTheme.accent_color,
+                fontSize: 12),
+            unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(168, 175, 179, 1),
+                fontSize: 12),
+            items: [
+              BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Image.asset(
-                      "assets/profile.png",
-                      color: _currentIndex == 3
+                      "assets/home.png",
+                      color: _currentIndex == 0
                           ? MyTheme.accent_color
                           : Color.fromRGBO(153, 153, 153, 1),
                       height: 16,
                     ),
                   ),
-                  label: AppLocalizations.of(context)!.profile_ucf,
+                  label: AppLocalizations.of(context)!.home_ucf),
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Image.asset(
+                      "assets/categories.png",
+                      color: _currentIndex == 1
+                          ? MyTheme.accent_color
+                          : Color.fromRGBO(153, 153, 153, 1),
+                      height: 16,
+                    ),
+                  ),
+                  label: AppLocalizations.of(context)!.categories_ucf),
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: badges.Badge(
+                      badgeStyle: badges.BadgeStyle(
+                        shape: badges.BadgeShape.circle,
+                        badgeColor: MyTheme.accent_color,
+                        borderRadius: BorderRadius.circular(10),
+                        padding: EdgeInsets.all(5),
+                      ),
+                      badgeAnimation: badges.BadgeAnimation.slide(
+                        toAnimate: false,
+                      ),
+                      child: Image.asset(
+                        "assets/cart.png",
+                        color: _currentIndex == 2
+                            ? MyTheme.accent_color
+                            : Color.fromRGBO(153, 153, 153, 1),
+                        height: 16,
+                      ),
+                      badgeContent: Consumer<CartCounter>(
+                        builder: (context, cart, child) {
+                          return Text(
+                            "${cart.cartCounter}",
+                            style:
+                                TextStyle(fontSize: 10, color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  label: AppLocalizations.of(context)!.cart_ucf),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Image.asset(
+                    "assets/profile.png",
+                    color: _currentIndex == 3
+                        ? MyTheme.accent_color
+                        : Color.fromRGBO(153, 153, 153, 1),
+                    height: 16,
+                  ),
                 ),
-              ],
-            ),
+                label: AppLocalizations.of(context)!.profile_ucf,
+              ),
+            ],
           ),
         ),
       ),

@@ -149,7 +149,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
       flexibleSpace: Container(
         height: DeviceInfo(context).height! / 4,
         width: DeviceInfo(context).width,
-        color: Color(0xffF2F1F6),
+        color: MyTheme.mainColor,
         alignment: Alignment.topRight,
       ),
       bottom: PreferredSize(

@@ -24,6 +24,7 @@ class SelectAddressProvider with ChangeNotifier {
 
   void dispose() {
     mainScrollController.dispose();
+    super.dispose();
   }
 
   void fetchAll(BuildContext context) {

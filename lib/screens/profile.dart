@@ -54,9 +54,9 @@ import 'wallet.dart';
 import 'wishlist/wishlist.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key? key, this.show_back_button = false}) : super(key: key);
+  const Profile({Key? key, this.show_back_button = false}) : super(key: key);
 
-  bool show_back_button;
+  final bool show_back_button;
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -64,7 +64,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ScrollController _mainScrollController = ScrollController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   bool _auctionExpand = false;
   int? _cartCounter = 0;
@@ -299,27 +299,27 @@ class _ProfileState extends State<Profile> {
       decoration: BoxDecorations.buildBoxDecoration_1(),
       child: Column(
         children: [
-          if (false)
-            // ignore: dead_code
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildBottomVerticalCardListItem(
-                    "assets/coupon.png", LangText(context).local.coupons_ucf,
-                    onPressed: () {}),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-                buildBottomVerticalCardListItem("assets/favoriteseller.png",
-                    LangText(context).local.favorite_seller_ucf,
-                    onPressed: () {}),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
+          // if (false)
+          //   // dead_code
+          //   Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       buildBottomVerticalCardListItem(
+          //           "assets/coupon.png", LangText(context).local.coupons_ucf,
+          //           onPressed: () {}),
+          //       Divider(
+          //         thickness: 1,
+          //         color: MyTheme.light_grey,
+          //       ),
+          //       buildBottomVerticalCardListItem("assets/favoriteseller.png",
+          //           LangText(context).local.favorite_seller_ucf,
+          //           onPressed: () {}),
+          //       Divider(
+          //         thickness: 1,
+          //         color: MyTheme.light_grey,
+          //       ),
+          //     ],
+          //   ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -888,14 +888,15 @@ class _ProfileState extends State<Profile> {
 
   Widget buildSettingAndAddonsHorizontalMenu() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 25),
       margin: EdgeInsets.only(top: 14),
       width: DeviceInfo(context).width,
       height: 208,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(6)),
       child: GridView(
         scrollDirection: Axis.horizontal,
+        padding:  EdgeInsets.symmetric(vertical: 2, horizontal: 25),
         physics: const PageScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 50.0,
@@ -943,6 +944,7 @@ class _ProfileState extends State<Profile> {
                     : () => null),
           Container(
             child: badges.Badge(
+              showBadge: is_logged_in.$,
               position: badges.BadgePosition.topEnd(top: 8, end: 20),
               badgeStyle: badges.BadgeStyle(
                 shape: badges.BadgeShape.circle,

@@ -115,7 +115,7 @@ class FlashDealBanner extends StatelessWidget {
 
     // Default container if no condition matches
     else {
-      return Container(height: 100);
+      return SizedBox(height: 100);
     }
   }
 }

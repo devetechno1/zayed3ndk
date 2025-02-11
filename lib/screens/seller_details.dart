@@ -986,6 +986,8 @@
 //     );
 //   }
 
+// ignore_for_file: unused_field
+
 //   Widget buildAllProductList() {
 //     return MasonryGridView.count(
 //         crossAxisCount: 2,
@@ -1032,6 +1034,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+// ignore: must_be_immutable
 class SellerDetails extends StatefulWidget {
   String slug;
 
@@ -1399,7 +1402,7 @@ class _SellerDetailsState extends State<SellerDetails> {
       child: Container(
         height: 296,
         decoration: BoxDecoration(
-          color: Color(0xffF2F1F6),
+          color: MyTheme.mainColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
