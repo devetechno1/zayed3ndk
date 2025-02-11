@@ -339,7 +339,7 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildBottomVerticalCardListItem(
-                    "assets/wholesale.png", 'Wholesale', onPressed: () {
+                    "assets/wholesale.png", LangText(context).local.wholesale_product, onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -354,7 +354,7 @@ class _ProfileState extends State<Profile> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildBottomVerticalCardListItem("assets/blog.png", 'Blog List',
+              buildBottomVerticalCardListItem("assets/blog.png", LangText(context).local.blog_list_ucf,
                   onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => BlogListScreen()));
@@ -410,7 +410,7 @@ class _ProfileState extends State<Profile> {
             Column(
               children: [
                 buildBottomVerticalCardListItem(
-                    "assets/my_clissified.png", 'My Classified Ads',
+                    "assets/my_clissified.png", LangText(context).local.my_classified_ads_ucf,
                     onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return MyClassifiedAds();
@@ -427,7 +427,7 @@ class _ProfileState extends State<Profile> {
             Column(
               children: [
                 buildBottomVerticalCardListItem(
-                    "assets/classified_product.png", 'All Classified Ads',
+                    "assets/classified_product.png", LangText(context).local.all_classified_ads_ucf,
                     onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return ClassifiedAds();
@@ -671,7 +671,7 @@ class _ProfileState extends State<Profile> {
             ),
 
           buildBottomVerticalCardListItem("assets/delete.png",
-                  'Privacy Policy', onPressed: () {
+                LangText(context).local.privacy_policy_ucf, onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -724,7 +724,7 @@ class _ProfileState extends State<Profile> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 24.0),
+              padding: const EdgeInsetsDirectional.only(end: 24.0),
               child: icon == null? Image.asset(
                 img,
                 height: 16,
@@ -962,7 +962,7 @@ class _ProfileState extends State<Profile> {
               ),
               child: buildSettingAndAddonsHorizontalMenuItem(
                   "assets/notification.png",
-                  "Notifications",
+                  AppLocalizations.of(context)!.notification_ucf,
                   is_logged_in.$
                       ? () {
                           Navigator.push(context,
@@ -1018,7 +1018,7 @@ class _ProfileState extends State<Profile> {
                   : () => null),
           buildSettingAndAddonsHorizontalMenuItem(
               "assets/upload.png",
-              "Upload file",
+              AppLocalizations.of(context)!.upload_file_ucf,
               is_logged_in.$
                   ? () {
                       Navigator.push(
