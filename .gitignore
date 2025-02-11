@@ -8,8 +8,10 @@
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
+*.jks
 *.iml
 *.ipr
 *.iws
@@ -30,6 +32,12 @@
 .pub-cache/
 .pub/
 /build/
+.firebaserc
+firebase.json
+.firebase
+changes.tar
+changes.zip
+get_changed_files.sh
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -39,3 +47,8 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
