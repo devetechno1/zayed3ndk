@@ -4,10 +4,8 @@ class AppConfig {
   //configure this
   // static String copyright_text =
   //     "@ Deve Finance " + this_year; //this shows in the splash screen
-  static String app_name =
-      "Devefinance Store"; //this shows in the splash screen
-  static String search_bar_text =
-      ""; //this will show in app Search bar.
+  static String app_name = "Zayed3ndk"; //this shows in the splash screen
+  static String search_bar_text = ""; //this will show in app Search bar.
   static String purchase_code =
       "a"; //enter your purchase code for the app from codecanyon
   static String system_key =
@@ -22,7 +20,7 @@ class AppConfig {
   static const bool HTTPS =
       true; //if you are using localhost , set this to false
   static const DOMAIN_PATH =
-      "devefinance.com"; //use only domain name without http:// or https://
+      "zayed3ndk.com"; //use only domain name without http:// or https://
 
   //do not configure these below
   static const String API_ENDPATH = "api/v2";
