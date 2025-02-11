@@ -13,6 +13,7 @@ import 'package:active_ecommerce_cms_demo_app/single_banner/sincle_banner_page.d
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import '../custom/feature_categories_widget.dart';
 import '../custom/featured_product_horizontal_list_widget.dart';
@@ -167,17 +168,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           if (homeData.isFlashDeal)
                             SliverList(
                                 delegate: SliverChildListDelegate([
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  AppLocalizations.of(context)!.flash_deals_ucf,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700),
+                              InkWell(
+                                onTap: () => GoRouter.of(context).go('/flash-deals'),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.flash_deals_ucf,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700),
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 10),
                               FlashDealBanner(
                                 context: context,
                                 homeData: homeData,
@@ -192,9 +194,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           //   ),
                           // ])),
 
-                          SliverList(
-                            delegate: SliverChildListDelegate([PhotoWidget()]),
-                          ),
+                          SliverList(delegate: SliverChildListDelegate(const [PhotoWidget()])),
                           //Featured Products
                           SliverList(
                             delegate: SliverChildListDelegate([

@@ -1,4 +1,3 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
 import 'package:active_ecommerce_cms_demo_app/custom/aiz_image.dart';
 import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
 import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
@@ -27,7 +26,7 @@ class FlashDealBanner extends StatelessWidget {
 
     // When data is loading and no images are available
     if (homeData!.isFlashDealInitial &&
-        homeData!.flashDealBannerImageList.isEmpty) {
+        homeData!.banners.isEmpty) {
       return Padding(
         padding:
             const EdgeInsets.only(left: 18.0, right: 18, top: 10, bottom: 20),
@@ -36,7 +35,7 @@ class FlashDealBanner extends StatelessWidget {
     }
 
     // When banner images are available
-    else if (homeData!.flashDealBannerImageList.isNotEmpty) {
+    else if (homeData!.banners.isNotEmpty) {
       return CarouselSlider(
         options: CarouselOptions(
           height: 237,
@@ -50,7 +49,7 @@ class FlashDealBanner extends StatelessWidget {
             // Optionally handle page change
           },
         ),
-        items: homeData!.flashDealBannerImageList.map((i) {
+        items: homeData!.banners.map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Padding(
@@ -74,20 +73,8 @@ class FlashDealBanner extends StatelessWidget {
                     borderRadius: BorderRadius.circular(
                         10), // round corners for the image too
                     child: InkWell(
-                      onTap: () {
-                        // Null safety for URL and handle it properly
-                        var url =
-                            i.url?.split(AppConfig.DOMAIN_PATH).last ?? null;
-                        if (url != null && url.isNotEmpty) {
-                          GoRouter.of(context).go(url);
-                        } else {
-                          // Handle invalid or empty URL case
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('Invalid URL'),
-                          ));
-                        }
-                      },
-                      child: AIZImage.radiusImage(i.photo, 6),
+                      onTap: () => GoRouter.of(context).go('/flash-deal/${i.slug}'),
+                      child: AIZImage.radiusImage(i.banner, 6),
                       // Display the image with rounded corners
                     ),
                   ),
@@ -101,7 +88,7 @@ class FlashDealBanner extends StatelessWidget {
 
     // When images are not found and loading is complete
     else if (!homeData!.isFlashDealInitial &&
-        homeData!.flashDealBannerImageList.isEmpty) {
+        homeData!.banners.isEmpty) {
       return Container(
         height: 100,
         child: Center(

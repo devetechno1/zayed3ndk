@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'photo_provider.dart'; // Path to your provider file
 
 class PhotoWidget extends StatelessWidget {
+  const PhotoWidget();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -23,8 +24,9 @@ class PhotoWidget extends StatelessWidget {
         return Consumer<PhotoProvider>(
           builder: (context, photoProvider, child) {
             if (photoProvider.singleBanner.isEmpty) {
-              return Center(
-                  child: Text('No photos available.')); // No photos fallback
+              return SizedBox(); // No photos fallback
+              // return Center(
+              //     child: Text('No photos available.')); // No photos fallback
             }
 
             final photoData = photoProvider.singleBanner[0];

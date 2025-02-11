@@ -102,15 +102,16 @@ class HomeBannerOne extends StatelessWidget {
     // When images are not found and loading is complete
     else if (!homeData!.isBannerOneInitial &&
         homeData!.bannerOneImageList.isEmpty) {
-      return Container(
-        height: 100,
-        child: Center(
-          child: Text(
-            AppLocalizations.of(context)!.no_carousel_image_found,
-            style: TextStyle(color: MyTheme.font_grey),
-          ),
-        ),
-      );
+      return SizedBox();
+      // return Container(
+      //   height: 100,
+      //   child: Center(
+      //     child: Text(
+      //       AppLocalizations.of(context)!.no_carousel_image_found,
+      //       style: TextStyle(color: MyTheme.font_grey),
+      //     ),
+      //   ),
+      // );
     }
 
     // Default container if no condition matches

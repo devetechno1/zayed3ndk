@@ -714,12 +714,14 @@ class HomePresenter extends ChangeNotifier {
   }
 
   fetchFlashDealData() async {
-    var deal = await FlashDealRepository().getFlashDeals();
+    FlashDealResponse deal = await FlashDealRepository().getFlashDeals();
 
     if (deal.success == true &&
         deal.flashDeals != null &&
         deal.flashDeals!.isNotEmpty) {
       isFlashDeal = true;
+      _banners.clear();
+      _banners.addAll(deal.flashDeals!);
       notifyListeners();
     } else {
       isFlashDeal = false;
