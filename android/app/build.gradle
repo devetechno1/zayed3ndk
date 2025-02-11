@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.devefinance"
+        applicationId "com.zayed3ndk"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
