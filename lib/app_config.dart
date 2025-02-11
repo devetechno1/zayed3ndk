@@ -2,8 +2,8 @@ final String this_year = DateTime.now().year.toString();
 
 class AppConfig {
   //configure this
-  static String copyright_text =
-      "@ Deve Finance " + this_year; //this shows in the splash screen
+  // static String copyright_text =
+  //     "@ Deve Finance " + this_year; //this shows in the splash screen
   static String app_name =
       "Devefinance Store"; //this shows in the splash screen
   static String search_bar_text =

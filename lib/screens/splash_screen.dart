@@ -103,22 +103,22 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 51.0),
-                  child: Text(
-                    AppConfig.copyright_text,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned.fill(
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(bottom: 51.0),
+            //       child: Text(
+            //         AppConfig.copyright_text,
+            //         style: TextStyle(
+            //           fontWeight: FontWeight.w400,
+            //           fontSize: 13.0,
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
