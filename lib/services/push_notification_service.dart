@@ -43,8 +43,7 @@ class PushNotificationService {
     // print(fcmToken);
     if (is_logged_in.$ == true) {
       // update device token
-      var deviceTokenUpdateResponse =
-          await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);
+      await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);
     }
 
     FirebaseMessaging.onMessage.listen((event) {
@@ -57,7 +56,7 @@ class PushNotificationService {
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
           FlutterLocalNotificationsPlugin();
       var initializationSettingsAndroid = AndroidInitializationSettings(
-          '@mipmap/ic_launcher'); // <- default icon name is @mipmap/ic_launcher
+          '@drawable/notification_icon'); // <- default icon name is @drawable/notification_icon
 
       var initializationSettings =
           InitializationSettings(android: initializationSettingsAndroid);

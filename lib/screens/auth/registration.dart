@@ -170,8 +170,7 @@ class _RegistrationState extends State<Registration> {
         print(fcmToken);
         if (is_logged_in.$ == true) {
           // update device token
-          var deviceTokenUpdateResponse =
-              await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken!);
+          await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken!);
         }
       }
 
@@ -195,7 +194,6 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
-    final _screen_height = MediaQuery.of(context).size.height;
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context,
