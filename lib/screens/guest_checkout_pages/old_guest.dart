@@ -119,7 +119,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
     });
     var postBody = jsonEncode(postValue);
     var response =
-    await GuestCheckoutRepository().guestCustomerInfoCheck(postBody);
+        await GuestCheckoutRepository().guestCustomerInfoCheck(postBody);
 
     Loading.close();
 
@@ -158,7 +158,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
 
   bool requiredFieldVerification() {
     emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(_emailController.text.trim());
 
     if (_nameController.text.trim().toString().isEmpty) {
@@ -288,7 +288,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text("${AppLocalizations.of(context)!.address_ucf} *",
                     style:
-                    TextStyle(color: MyTheme.dark_font_grey, fontSize: 12)),
+                        TextStyle(color: MyTheme.dark_font_grey, fontSize: 12)),
               ),
 
               Padding(
@@ -319,7 +319,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                   child: TypeAheadField(
                     suggestionsCallback: (name) async {
                       var countryResponse =
-                      await AddressRepository().getCountryList(name: name);
+                          await AddressRepository().getCountryList(name: name);
                       return countryResponse.countries;
                     },
                     loadingBuilder: (context) {
@@ -375,7 +375,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                       }
                       var stateResponse = await AddressRepository()
                           .getStateListByCountry(
-                          country_id: _selected_country!.id, name: name);
+                              country_id: _selected_country!.id, name: name);
                       return stateResponse.states;
                     },
                     loadingBuilder: (context) {
@@ -441,7 +441,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                       }
                       var cityResponse = await AddressRepository()
                           .getCityListByState(
-                          state_id: _selected_state!.id, name: name);
+                              state_id: _selected_state!.id, name: name);
                       return cityResponse.cities;
                     },
                     loadingBuilder: (context) {
@@ -570,7 +570,11 @@ AppBar buildAppBar(BuildContext context) {
     centerTitle: false,
     leading: Builder(
       builder: (context) => IconButton(
-        icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.dark_font_grey),
+        icon: Icon(
+            app_language_rtl.$!
+                ? CupertinoIcons.arrow_right
+                : CupertinoIcons.arrow_left,
+            color: MyTheme.dark_font_grey),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
@@ -590,4 +594,3 @@ AppBar buildAppBar(BuildContext context) {
     titleSpacing: 0,
   );
 }
-

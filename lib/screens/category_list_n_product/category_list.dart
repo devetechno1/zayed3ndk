@@ -98,7 +98,11 @@ class _CategoryListState extends State<CategoryList> {
             )
           : Builder(
               builder: (context) => IconButton(
-                icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.white),
+                icon: Icon(
+                    app_language_rtl.$!
+                        ? CupertinoIcons.arrow_right
+                        : CupertinoIcons.arrow_left,
+                    color: MyTheme.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),

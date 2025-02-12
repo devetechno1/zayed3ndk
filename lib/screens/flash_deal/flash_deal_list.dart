@@ -189,31 +189,30 @@ class _FlashDealListState extends State<FlashDealList> {
                         ]),
                     child: Column(
                       children: [
-                        Container(
-                          child: Center(
-                              child: time == null
-                                  ? Text(
-                                      AppLocalizations.of(context)!.ended_ucf,
-                                      style: TextStyle(
-                                          color: MyTheme.accent_color,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w600),
-                                    )
-                                  : buildTimerRow(time)),
-                        ),
+                        Center(
+                            child: time == null
+                                ? Text(
+                                    AppLocalizations.of(context)!.ended_ucf,
+                                    style: TextStyle(
+                                        color: MyTheme.accent_color,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                : buildTimerRow(time)),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           child: Container(
                             padding:
-                                EdgeInsets.only(top: 0, left: 2, bottom: 17),
+                                EdgeInsetsDirectional.only(top: 0, start: 2, bottom: 17),
                             width: 460,
                             child: Wrap(
-                              //spacing: 10,
                               runSpacing: 10,
+                              spacing: 10,
                               crossAxisAlignment: WrapCrossAlignment.center,
                               runAlignment: WrapAlignment.spaceBetween,
                               alignment: WrapAlignment.start,
+                              direction: Axis.vertical,
 
                               children: List.generate(
                                 flashDealResponse.flashDeals![index].products!
@@ -289,7 +288,7 @@ class _FlashDealListState extends State<FlashDealList> {
   Widget buildFlashDealsProductItem(
       flashDealResponse, flashDealIndex, productIndex) {
     return Container(
-      margin: EdgeInsets.only(left: 10),
+      margin: EdgeInsetsDirectional.only(start: 10),
       height: 50,
       width: 136,
       decoration: BoxDecoration(
@@ -411,7 +410,7 @@ class _FlashDealListState extends State<FlashDealList> {
                 height: 5,
               ),
               Text(
-                'Days',
+                LangText(context).local.days,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -431,7 +430,7 @@ class _FlashDealListState extends State<FlashDealList> {
                 height: 5,
               ),
               Text(
-                'Hours',
+                LangText(context).local.hours,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -451,7 +450,7 @@ class _FlashDealListState extends State<FlashDealList> {
                 height: 5,
               ),
               Text(
-                'Minutes',
+                LangText(context).local.minutes,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -471,7 +470,7 @@ class _FlashDealListState extends State<FlashDealList> {
                 height: 5,
               ),
               Text(
-                'Seconds',
+                LangText(context).local.seconds,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],

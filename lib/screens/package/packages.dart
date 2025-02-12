@@ -107,7 +107,10 @@ class _UpdatePackageState extends State<UpdatePackage> {
           leading: widget.goHome
               ? UsefulElements.backToMain(context, go_back: false)
               : IconButton(
-                  icon: Icon(CupertinoIcons.arrow_left,
+                  icon: Icon(
+                      app_language_rtl.$!
+                          ? CupertinoIcons.arrow_right
+                          : CupertinoIcons.arrow_left,
                       color: MyTheme.dark_font_grey),
                   onPressed: () => Navigator.of(context).pop(),
                 ),

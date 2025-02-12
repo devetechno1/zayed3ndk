@@ -1,4 +1,8 @@
 {
+    "seconds": "ثوان",
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "days": "ايام",
     "my_classified_ads_ucf": "إعلاناتي المبوبة",
     "all_classified_ads_ucf": "جميع الإعلانات المبوبة",
     "terms_conditions_ucf": "الشروط والأحكام",

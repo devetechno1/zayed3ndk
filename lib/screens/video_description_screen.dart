@@ -86,7 +86,7 @@ class _VideoDescriptionState extends State<VideoDescription> {
                 width: 40,
                 height: 40,
                 child: IconButton(
-                  icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.white),
+                  icon: Icon(app_language_rtl.$! ?  CupertinoIcons.arrow_right : CupertinoIcons.arrow_left, color: MyTheme.white),
                   onPressed: () {
                     if (MediaQuery.of(context).orientation ==
                         Orientation.landscape) {

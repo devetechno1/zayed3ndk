@@ -374,7 +374,7 @@ class _ProductDetailsState extends State<ProductDetails>
     addToCart(mode: "buy_now", context: context);
   }
 
-  addToCart({mode,required BuildContext context, snackbar = null}) async {
+  addToCart({mode, required BuildContext context, snackbar = null}) async {
     // if (is_logged_in.$ == false) {
     //   // ToastComponent.showDialog(AppLocalizations.of(context).common_login_warning, context,
     //   //     gravity: Toast.center, duration: Toast.lengthLong);
@@ -2033,7 +2033,11 @@ class _ProductDetailsState extends State<ProductDetails>
       backgroundColor: Colors.white,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.dark_grey),
+          icon: Icon(
+              app_language_rtl.$!
+                  ? CupertinoIcons.arrow_right
+                  : CupertinoIcons.arrow_left,
+              color: MyTheme.dark_grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -2072,69 +2076,64 @@ class _ProductDetailsState extends State<ProductDetails>
     return BottomNavigationBar(
       backgroundColor: MyTheme.white.withOpacity(0.9),
       items: [
-        bottomTap(
-          context,
-          text: AppLocalizations.of(context)!.add_to_cart_ucf,
-          color: MyTheme.accent_color,
-          shadowColor: MyTheme.accent_color_shadow,
-          onTap:()=> onPressAddToCart(context, _addedToCartSnackbar)
-        ),
-        bottomTap(
-          context,
-          text: AppLocalizations.of(context)!.buy_now_ucf,
-          color: MyTheme.golden,
-          shadowColor: MyTheme.golden_shadow,
-          onTap:()=> onPressBuyNow(context)
-        ),
+        bottomTap(context,
+            text: AppLocalizations.of(context)!.add_to_cart_ucf,
+            color: MyTheme.accent_color,
+            shadowColor: MyTheme.accent_color_shadow,
+            onTap: () => onPressAddToCart(context, _addedToCartSnackbar)),
+        bottomTap(context,
+            text: AppLocalizations.of(context)!.buy_now_ucf,
+            color: MyTheme.golden,
+            shadowColor: MyTheme.golden_shadow,
+            onTap: () => onPressBuyNow(context)),
       ],
     );
   }
 
   BottomNavigationBarItem bottomTap(
-    BuildContext context, 
-    {
-      required String text,
-      required Color color,
-      required Color shadowColor,
-      required void Function() onTap,
-    }) {
+    BuildContext context, {
+    required String text,
+    required Color color,
+    required Color shadowColor,
+    required void Function() onTap,
+  }) {
     return BottomNavigationBarItem(
-        backgroundColor: Colors.transparent,
-        label: '',
-        icon: Padding(
-          padding: EdgeInsets.only(
-            left: 23,
-            right: 14,
-          ),
-          child: InkWell(
-            onTap: onTap,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
-                color: color,
-                boxShadow: [
-                  BoxShadow(
-                    color: color,
-                    blurRadius: 20,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 10.0), // shadow direction: bottom right
-                  )
-                ],
-              ),
-              height: 50,
-              child: Center(
-                child: Text(
-                  text,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
+      backgroundColor: Colors.transparent,
+      label: '',
+      icon: Padding(
+        padding: EdgeInsets.only(
+          left: 23,
+          right: 14,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6.0),
+              color: color,
+              boxShadow: [
+                BoxShadow(
+                  color: color,
+                  blurRadius: 20,
+                  spreadRadius: 0.0,
+                  offset: Offset(0.0, 10.0), // shadow direction: bottom right
+                )
+              ],
+            ),
+            height: 50,
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 
   buildRatingAndWishButtonRow() {

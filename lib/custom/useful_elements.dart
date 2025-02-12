@@ -29,7 +29,9 @@ class UsefulElements {
 
   static backToMain(context, {color = 'black', go_back = true}) {
     return IconButton(
-      icon: Icon(CupertinoIcons.arrow_left,
+      icon: Icon(app_language_rtl.$!
+              ? CupertinoIcons.arrow_right
+              : CupertinoIcons.arrow_left,
           color: color == 'white' ? Colors.white : MyTheme.dark_font_grey),
       onPressed: () => Navigator.push(
           context,

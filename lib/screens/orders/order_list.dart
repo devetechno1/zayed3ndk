@@ -254,16 +254,14 @@ class _OrderListState extends State<OrderList> {
         children: [
           Container(
             decoration: BoxDecorations.buildBoxDecoration_1(),
-            padding: EdgeInsets.symmetric(horizontal: 14),
             height: 36,
             width: MediaQuery.of(context).size.width * .4,
             child: new DropdownButton<PaymentStatus>(
               dropdownColor: Colors.white,
               borderRadius: BorderRadius.circular(6),
-              icon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(Icons.expand_more, color: Colors.black54),
-              ),
+              icon: Icon(Icons.expand_more, color: Colors.black54),
+              isExpanded: true,
+              padding: EdgeInsets.symmetric(horizontal: 14),
               hint: Text(
                 AppLocalizations.of(context)!.all_payments_ucf,
                 style: TextStyle(
@@ -286,16 +284,14 @@ class _OrderListState extends State<OrderList> {
           ),
           Container(
             decoration: BoxDecorations.buildBoxDecoration_1(),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             height: 36,
             width: MediaQuery.of(context).size.width * .4,
             child: new DropdownButton<DeliveryStatus>(
               dropdownColor: Colors.white,
               borderRadius: BorderRadius.circular(6),
-              icon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(Icons.expand_more, color: Colors.black54),
-              ),
+              icon: Icon(Icons.expand_more, color: Colors.black54),
+              isExpanded: true,
+              padding: EdgeInsets.symmetric(horizontal: 14),
               hint: Text(
                 AppLocalizations.of(context)!.all_deliveries_ucf,
                 style: TextStyle(
