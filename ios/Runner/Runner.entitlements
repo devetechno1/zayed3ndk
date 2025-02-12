@@ -8,5 +8,10 @@
 	<array>
 		<string>Default</string>
 	</array>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>webcredentials:zayed3ndk.com</string>
+		<string>applinks:zayed3ndk.com</string>
+	</array>
 </dict>
 </plist>

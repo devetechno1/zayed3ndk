@@ -510,8 +510,9 @@ class _ProductDetailsState extends State<ProductDetails>
                             AppLocalizations.of(context)!.share_options_ucf,
                             style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: () {
-                            Share.share(_productDetails!.link!);
+                          onPressed: () async{
+
+                            Share.share(_productDetails!.link!,sharePositionOrigin: Rect.fromLTWH(0, 0, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height / 1.92));
                           },
                         ),
                       ),
@@ -874,7 +875,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                     height: 36,
                                     child: Center(
                                       child: Icon(
-                                        CupertinoIcons.arrow_left,
+                                        app_language_rtl.$! ? CupertinoIcons.arrow_right : CupertinoIcons.arrow_left,
                                         color: MyTheme.dark_font_grey,
                                         size: 20,
                                       ),
