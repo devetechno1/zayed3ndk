@@ -309,7 +309,7 @@ class _InputWidgetState extends State<CustomInternationalPhoneNumberInput> {
       if (isValid) {
         setState(() {
           this.selectorButtonBottomPadding =
-              widget.selectorButtonOnErrorPadding ?? 24;
+              widget.selectorButtonOnErrorPadding;
         });
       } else {
         setState(() {
@@ -535,10 +535,11 @@ class CustomSelectorButton extends StatelessWidget {
                     }
                   : null,
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsetsDirectional.only(end: 8.0),
                 child: Item(
                     country: country,
                     showFlag: selectorConfig.showFlags,
+                    trailingSpace: false,
                     useEmoji: selectorConfig.useEmoji,
                     textStyle: TextStyle(
                         color: MyTheme.textfield_grey) //selectorTextStyle,
@@ -594,7 +595,7 @@ class CustomSelectorButton extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       clipBehavior: Clip.hardEdge,
-      isScrollControlled: isScrollControlled ?? true,
+      isScrollControlled: isScrollControlled,
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

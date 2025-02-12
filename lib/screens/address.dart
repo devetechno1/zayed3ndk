@@ -1218,7 +1218,7 @@ class _AddressState extends State<Address> {
       centerTitle: false,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.dark_font_grey),
+          icon: Icon(app_language_rtl.$! ?  CupertinoIcons.arrow_right : CupertinoIcons.arrow_left, color: MyTheme.dark_font_grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -1584,44 +1584,38 @@ class _AddressState extends State<Address> {
   }
 
   Widget showOptions({listIndex, productId}) {
-    return Container(
-      width: 45,
-      child: PopupMenuButton<MenuOptions>(
-        offset: Offset(-25, 0),
-        child: Padding(
-          padding: EdgeInsets.zero,
-          child: Container(
-            width: 45,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            alignment: Alignment.topRight,
-            child: Image.asset("assets/more.png",
-                width: 4,
-                height: 16,
-                fit: BoxFit.contain,
-                color: MyTheme.grey_153),
-          ),
-        ),
-        onSelected: (MenuOptions result) {
-          _tabOption(result.index, listIndex);
-          // setState(() {
-          //   //_menuOptionSelected = result;
-          // });
-        },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuOptions>>[
-          PopupMenuItem<MenuOptions>(
-            value: MenuOptions.Edit,
-            child: Text(AppLocalizations.of(context)!.edit_ucf),
-          ),
-          PopupMenuItem<MenuOptions>(
-            value: MenuOptions.Delete,
-            child: Text(AppLocalizations.of(context)!.delete_ucf),
-          ),
-          PopupMenuItem<MenuOptions>(
-            value: MenuOptions.AddLocation,
-            child: Text(AppLocalizations.of(context)!.add_location_ucf),
-          ),
-        ],
+    return PopupMenuButton<MenuOptions>(
+      offset: Offset(-25, 0),
+      child: Container(
+        width: 45,
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        alignment: Alignment.topRight,
+        child: Image.asset("assets/more.png",
+            width: 4,
+            height: 16,
+            fit: BoxFit.contain,
+            color: MyTheme.grey_153),
       ),
+      onSelected: (MenuOptions result) {
+        _tabOption(result.index, listIndex);
+        // setState(() {
+        //   //_menuOptionSelected = result;
+        // });
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuOptions>>[
+        PopupMenuItem<MenuOptions>(
+          value: MenuOptions.Edit,
+          child: Text(AppLocalizations.of(context)!.edit_ucf),
+        ),
+        PopupMenuItem<MenuOptions>(
+          value: MenuOptions.Delete,
+          child: Text(AppLocalizations.of(context)!.delete_ucf),
+        ),
+        PopupMenuItem<MenuOptions>(
+          value: MenuOptions.AddLocation,
+          child: Text(AppLocalizations.of(context)!.add_location_ucf),
+        ),
+      ],
     );
   }
 }

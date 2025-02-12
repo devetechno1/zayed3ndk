@@ -493,27 +493,25 @@ class _FlashDealListState extends State<FlashDealList> {
             ],
           ),
           Spacer(),
-          InkWell(
-              onTap: () {},
-              child: Row(
-                children: [
-                  Text(
-                    LangText(context).local.shop_more_ucf,
-                    style: TextStyle(fontSize: 10, color: Color(0xffA8AFB3)),
-                  ),
-                  SizedBox(
-                    width: 3,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_outlined,
-                    size: 10,
-                    color: MyTheme.grey_153,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  )
-                ],
-              ))
+          Row(
+            children: [
+              Text(
+                LangText(context).local.shop_more_ucf,
+                style: TextStyle(fontSize: 10, color: Color(0xffA8AFB3)),
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Icon(
+                Icons.arrow_forward_outlined,
+                size: 10,
+                color: MyTheme.grey_153,
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
+          )
         ],
       ),
     );

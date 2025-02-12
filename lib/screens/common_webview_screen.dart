@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CommonWebviewScreen extends StatefulWidget {
-  String url;
-  String page_name;
+  final String url;
+  final String page_name;
 
   CommonWebviewScreen({Key? key, this.url = "", this.page_name = ""})
       : super(key: key);
@@ -65,7 +65,7 @@ class _CommonWebviewScreenState extends State<CommonWebviewScreen> {
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.dark_grey),
+          icon: Icon(app_language_rtl.$! ?  CupertinoIcons.arrow_right : CupertinoIcons.arrow_left, color: MyTheme.dark_grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),

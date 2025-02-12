@@ -200,13 +200,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             delegate: SliverChildListDelegate([
                               Container(
                                 height: 305,
+                                margin: EdgeInsets.only(top: 12),
                                 color: MyTheme.accent_color.withOpacity(0.1),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 22, 0, 0),
+                                      padding: const EdgeInsetsDirectional.only(top: 20, start: 20),
                                       child: Text(
                                         AppLocalizations.of(context)!
                                             .featured_products_ucf,
@@ -217,14 +217,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 15, 20, 0),
-                                      child:
-                                          FeaturedProductHorizontalListWidget(
-                                        homeData: homeData,
-                                      ),
-                                    ),
+                                    Flexible(child: FeaturedProductHorizontalListWidget(homeData: homeData)),
                                   ],
                                 ),
                               ),
@@ -379,7 +372,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           return GestureDetector(
             onTap: item['onTap'],
             child: Container(
-              margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
+              margin: EdgeInsetsDirectional.only(start: 8),
               height: 40,
               width: 106,
               decoration: BoxDecoration(
@@ -395,19 +388,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       child: Container(
                         height: 16,
                         width: 16,
+                        alignment: Alignment.center,
                         child: Image.asset(
                           item['image'],
                           color: item['Textcolor'],
                         ),
                       ),
                     ),
-                    Text(
-                      item['title'],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: item['Textcolor'],
-                        fontWeight: FontWeight.w300,
-                        fontSize: 10,
+                    Flexible(
+                      child: Text(
+                        item['title'],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: item['Textcolor'],
+                          fontWeight: FontWeight.w300,
+                          fontSize: 10,
+                        ),
                       ),
                     ),
                   ],

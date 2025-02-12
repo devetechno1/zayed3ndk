@@ -448,14 +448,14 @@ class _RegistrationState extends State<Registration> {
                                                 builder: (context) =>
                                                     CommonWebviewScreen(
                                                       page_name:
-                                                          "Terms Conditions",
+                                                          AppLocalizations.of(context)!.terms_conditions_ucf,
                                                       url:
                                                           "${AppConfig.RAW_BASE_URL}/mobile-page/terms",
                                                     )));
                                       },
                                     style:
                                         TextStyle(color: MyTheme.accent_color),
-                                    text: " Terms Conditions",
+                                    text: " ${AppLocalizations.of(context)!.terms_conditions_ucf}",
                                   ),
                                   TextSpan(
                                     text: " &",
@@ -469,12 +469,12 @@ class _RegistrationState extends State<Registration> {
                                                 builder: (context) =>
                                                     CommonWebviewScreen(
                                                       page_name:
-                                                          "Privacy Policy",
+                                                          AppLocalizations.of(context)!.privacy_policy_ucf,
                                                       url:
                                                           "${AppConfig.RAW_BASE_URL}/mobile-page/privacy-policy",
                                                     )));
                                       },
-                                    text: " Privacy Policy",
+                                    text: " ${AppLocalizations.of(context)!.privacy_policy_ucf}",
                                     style:
                                         TextStyle(color: MyTheme.accent_color),
                                   )

@@ -33,6 +33,7 @@ class _TopSellingProductsCardState extends State<TopSellingProductsCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(8),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return ProductDetails(

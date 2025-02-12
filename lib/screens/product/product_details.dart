@@ -46,9 +46,9 @@ import 'widgets/product_slider_image_widget.dart';
 import 'widgets/tappable_icon_widget.dart';
 
 class ProductDetails extends StatefulWidget {
-  String slug;
+  final String slug;
 
-  ProductDetails({Key? key, required this.slug}) : super(key: key);
+  const ProductDetails({Key? key, required this.slug}) : super(key: key);
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
@@ -789,7 +789,6 @@ class _ProductDetailsState extends State<ProductDetails>
 
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
     SnackBar _addedToCartSnackbar = SnackBar(
       content: Text(
         AppLocalizations.of(context)!.added_to_cart,
@@ -832,7 +831,7 @@ class _ProductDetailsState extends State<ProductDetails>
                   scrolledUnderElevation: 0.0,
                   backgroundColor: MyTheme.mainColor,
                   pinned: true,
-                  automaticallyImplyLeading: false,
+                  automaticallyImplyLeading: _scrollPosition > 250,
                   expandedHeight: 355.0,
                   title: AnimatedOpacity(
                       opacity: _scrollPosition > 250 ? 1 : 0,
@@ -947,9 +946,8 @@ class _ProductDetailsState extends State<ProductDetails>
                               ),
                               SizedBox(width: 15),
                               InkWell(
-                                onTap: () {
-                                  onWishTap();
-                                },
+                                onTap: onWishTap,
+                                borderRadius: BorderRadius.circular(100),
                                 child: TappableIconWidget(
                                   icon: Icons.favorite,
                                   color: _isInWishList
@@ -1377,18 +1375,8 @@ class _ProductDetailsState extends State<ProductDetails>
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        16.0,
-                        0.0,
-                        16.0,
-                        0.0,
-                      ),
-                      child: buildTopSellingProductList(),
-                    ),
-                    Container(
-                      height: 83,
-                    )
+                    buildTopSellingProductList(),
+                    Container(height: 120)
                   ]),
                 ),
               ],
@@ -2321,27 +2309,23 @@ class _ProductDetailsState extends State<ProductDetails>
         ],
       );
     } else if (_topProducts.length > 0) {
-      return SingleChildScrollView(
-        child: ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(
-            height: 16,
-          ),
-          itemCount: _topProducts.length,
-          scrollDirection: Axis.vertical,
-          padding: EdgeInsets.only(top: 16),
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return TopSellingProductsCard(
-                id: _topProducts[index].id,
-                slug: _topProducts[index].slug,
-                image: _topProducts[index].thumbnail_image,
-                name: _topProducts[index].name,
-                main_price: _topProducts[index].main_price,
-                stroked_price: _topProducts[index].stroked_price,
-                has_discount: _topProducts[index].has_discount);
-          },
-        ),
+      return ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(height: 16),
+        itemCount: _topProducts.length,
+        scrollDirection: Axis.vertical,
+        padding: const EdgeInsets.all(16),
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return TopSellingProductsCard(
+              id: _topProducts[index].id,
+              slug: _topProducts[index].slug,
+              image: _topProducts[index].thumbnail_image,
+              name: _topProducts[index].name,
+              main_price: _topProducts[index].main_price,
+              stroked_price: _topProducts[index].stroked_price,
+              has_discount: _topProducts[index].has_discount);
+        },
       );
     } else {
       return Container(

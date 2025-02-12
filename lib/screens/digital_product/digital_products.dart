@@ -129,7 +129,7 @@ class _DigitalProductsState extends State<DigitalProducts> {
       centerTitle: false,
       leading: UsefulElements.backButton(context),
       title: Padding(
-        padding: const EdgeInsets.only(right: 37),
+        padding: const EdgeInsetsDirectional.only(end: 37),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -140,13 +140,13 @@ class _DigitalProductsState extends State<DigitalProducts> {
                   color: MyTheme.dark_font_grey,
                   fontWeight: FontWeight.bold),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Image.asset(
-                'assets/search.png',
-                height: 20,
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: Image.asset(
+            //     'assets/search.png',
+            //     height: 20,
+            //   ),
+            // ),
           ],
         ),
       ),

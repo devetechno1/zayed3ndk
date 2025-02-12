@@ -5,7 +5,7 @@
 /// box slides in to the screen.
 ///
 
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
 import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
@@ -18,8 +18,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 
 class MapLocation extends StatefulWidget {
-  MapLocation({Key? key, this.address}) : super(key: key);
-  var address;
+  const MapLocation({Key? key, this.address}) : super(key: key);
+  final address;
 
   @override
   State<MapLocation> createState() => MapLocationState();
@@ -31,15 +31,15 @@ class MapLocationState extends State<MapLocation>
   static LatLng kInitialPosition = LatLng(
       51.52034098371205, -0.12637399200000668); // London , arbitary value
 
-  GoogleMapController? _controller;
+  // GoogleMapController? _controller;
 
-  Future<void> _onMapCreated(GoogleMapController controller) async {
-    _controller = controller;
-    // String value = await DefaultAssetBundle.of(context)
-    //     .loadString('assets/map_style.json');
-    // _controller.setMapStyle(value);
-    setState(() {});
-  }
+  // Future<void> _onMapCreated(GoogleMapController controller) async {
+  //   _controller = controller;
+  //   // String value = await DefaultAssetBundle.of(context)
+  //   //     .loadString('assets/map_style.json');
+  //   // _controller.setMapStyle(value);
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
@@ -77,6 +77,8 @@ class MapLocationState extends State<MapLocation>
       );
       return;
     }
+
+    Navigator.pop(context);
 
     ToastComponent.showDialog(
       addressUpdateLocationResponse.message,
@@ -192,17 +194,14 @@ class MapLocationState extends State<MapLocation>
               );
       },
       pinBuilder: (context, state) {
-        if (state == PinState.Idle) {
-          return Image.asset(
+        return AnimatedScale(
+          duration: Duration(milliseconds: 200),
+          scale: state == PinState.Idle ? 1 : 1.3,
+          child: Image.asset(
             'assets/delivery_map_icon.png',
             height: 60,
-          );
-        } else {
-          return Image.asset(
-            'assets/delivery_map_icon.png',
-            height: 80,
-          );
-        }
+          ),
+        );
       },
     );
   }

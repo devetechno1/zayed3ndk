@@ -255,26 +255,29 @@ class _ProfileState extends State<Profile> {
 
   PreferredSize buildCustomAppBar(context) {
     return PreferredSize(
-      preferredSize: Size(DeviceInfo(context).width!, 80),
+      preferredSize: Size(DeviceInfo(context).width!, 92),
       child: Container(
         // color: Colors.green,
         child: SafeArea(
           child: Column(
             children: [
               Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  margin: EdgeInsets.only(right: 18),
-                  height: 30,
+                alignment: AlignmentDirectional.topEnd,
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(end: 18,bottom: 12),
                   child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(100),
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
                       child: Icon(
-                        Icons.close,
-                        color: MyTheme.white,
-                        size: 20,
-                      )),
+                          Icons.close,
+                          color: MyTheme.white,
+                          size: 20,
+                        ),
+                    ),
+                  ),
                 ),
               ),
 
@@ -678,7 +681,7 @@ class _ProfileState extends State<Profile> {
                       builder: (context) =>
                           CommonWebviewScreen(
                             page_name:
-                                "Privacy Policy",
+                                AppLocalizations.of(context)!.privacy_policy_ucf,
                             url:
                                 "${AppConfig.RAW_BASE_URL}/mobile-page/privacy-policy",
                           )));
@@ -1145,12 +1148,12 @@ class _ProfileState extends State<Profile> {
           ),*/
           // SizedBox(width: 10,),
           Padding(
-            padding: const EdgeInsets.only(right: 14.0),
+            padding: const EdgeInsetsDirectional.only(end: 14.0),
             child: Container(
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: MyTheme.accent_color,
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(color: MyTheme.white, width: 1),
                 //shape: BoxShape.rectangle,
@@ -1174,31 +1177,27 @@ class _ProfileState extends State<Profile> {
           ),
           buildUserInfo(),
           Spacer(),
-          Container(
-            width: 70,
-            height: 26,
-            child: Btn.basic(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-              // 	rgb(50,205,50)
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                  side: BorderSide(color: MyTheme.white)),
-              child: Text(
-                is_logged_in.$
-                    ? AppLocalizations.of(context)!.logout_ucf
-                    : LangText(context).local.login_ucf,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-              ),
-              onPressed: () {
-                if (is_logged_in.$)
-                  onTapLogout(context);
-                else
-                  context.push("/users/login");
-              },
+          Btn.basic(
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            // 	rgb(50,205,50)
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+                side: BorderSide(color: MyTheme.white)),
+            child: Text(
+              is_logged_in.$
+                  ? AppLocalizations.of(context)!.logout_ucf
+                  : LangText(context).local.login_ucf,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500),
             ),
+            onPressed: () {
+              if (is_logged_in.$)
+                onTapLogout(context);
+              else
+                context.push("/users/login");
+            },
           ),
         ],
       ),

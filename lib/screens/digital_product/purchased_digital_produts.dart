@@ -86,19 +86,19 @@ class _PurchasedDigitalProductsState extends State<PurchasedDigitalProducts> {
       scrolledUnderElevation: 0.0,
       centerTitle: false,
       leading: UsefulElements.backButton(context),
-      actions: [
-        GestureDetector(
-          onTap: () {},
-          child: Image.asset(
-            'assets/search.png',
-            height: 16,
-            color: Color(0xff121423),
-          ),
-        ),
-        SizedBox(
-          width: 37,
-        )
-      ],
+      // actions: [
+      //   GestureDetector(
+      //     onTap: () {},
+      //     child: Image.asset(
+      //       'assets/search.png',
+      //       height: 16,
+      //       color: Color(0xff121423),
+      //     ),
+      //   ),
+      //   SizedBox(
+      //     width: 37,
+      //   )
+      // ],
       title: Text(
         AppLocalizations.of(context)!.digital_product_ucf,
         style: TextStyle(
