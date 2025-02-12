@@ -374,7 +374,7 @@ class _ProductDetailsState extends State<ProductDetails>
     addToCart(mode: "buy_now", context: context);
   }
 
-  addToCart({mode, BuildContext? context, snackbar = null}) async {
+  addToCart({mode,required BuildContext context, snackbar = null}) async {
     // if (is_logged_in.$ == false) {
     //   // ToastComponent.showDialog(AppLocalizations.of(context).common_login_warning, context,
     //   //     gravity: Toast.center, duration: Toast.lengthLong);
@@ -385,7 +385,8 @@ class _ProductDetailsState extends State<ProductDetails>
 
     if (!guest_checkout_status.$) {
       if (is_logged_in.$ == false) {
-        context?.go("/users/login");
+        print("object $context");
+        context.push("/users/login");
         return;
       }
     }
@@ -402,7 +403,7 @@ class _ProductDetailsState extends State<ProductDetails>
       );
       return;
     } else {
-      Provider.of<CartCounter>(context!, listen: false).getCount();
+      Provider.of<CartCounter>(context, listen: false).getCount();
 
       if (mode == "add_to_cart") {
         if (snackbar != null) {
@@ -816,7 +817,7 @@ class _ProductDetailsState extends State<ProductDetails>
       child: Scaffold(
           extendBody: true,
           backgroundColor: MyTheme.mainColor,
-          bottomNavigationBar: buildBottomAppBar(context, _addedToCartSnackbar),
+          bottomNavigationBar: buildBottomAppBar(_addedToCartSnackbar),
           body: RefreshIndicator(
             color: MyTheme.accent_color,
             backgroundColor: Colors.white,
@@ -2067,28 +2068,53 @@ class _ProductDetailsState extends State<ProductDetails>
     );
   }
 
-  Widget buildBottomAppBar(BuildContext context, _addedToCartSnackbar) {
+  Widget buildBottomAppBar(_addedToCartSnackbar) {
     return BottomNavigationBar(
       backgroundColor: MyTheme.white.withOpacity(0.9),
       items: [
-        BottomNavigationBarItem(
-          backgroundColor: Colors.transparent,
-          label: '',
-          icon: InkWell(
-            onTap: () {
-              onPressAddToCart(context, _addedToCartSnackbar);
-            },
+        bottomTap(
+          context,
+          text: AppLocalizations.of(context)!.add_to_cart_ucf,
+          color: MyTheme.accent_color,
+          shadowColor: MyTheme.accent_color_shadow,
+          onTap:()=> onPressAddToCart(context, _addedToCartSnackbar)
+        ),
+        bottomTap(
+          context,
+          text: AppLocalizations.of(context)!.buy_now_ucf,
+          color: MyTheme.golden,
+          shadowColor: MyTheme.golden_shadow,
+          onTap:()=> onPressBuyNow(context)
+        ),
+      ],
+    );
+  }
+
+  BottomNavigationBarItem bottomTap(
+    BuildContext context, 
+    {
+      required String text,
+      required Color color,
+      required Color shadowColor,
+      required void Function() onTap,
+    }) {
+    return BottomNavigationBarItem(
+        backgroundColor: Colors.transparent,
+        label: '',
+        icon: Padding(
+          padding: EdgeInsets.only(
+            left: 23,
+            right: 14,
+          ),
+          child: InkWell(
+            onTap: onTap,
             child: Container(
-              margin: EdgeInsets.only(
-                left: 23,
-                right: 14,
-              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.0),
-                color: MyTheme.accent_color,
+                color: color,
                 boxShadow: [
                   BoxShadow(
-                    color: MyTheme.accent_color_shadow,
+                    color: color,
                     blurRadius: 20,
                     spreadRadius: 0.0,
                     offset: Offset(0.0, 10.0), // shadow direction: bottom right
@@ -2098,7 +2124,7 @@ class _ProductDetailsState extends State<ProductDetails>
               height: 50,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.add_to_cart_ucf,
+                  text,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -2108,41 +2134,7 @@ class _ProductDetailsState extends State<ProductDetails>
             ),
           ),
         ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: InkWell(
-            onTap: () {
-              onPressBuyNow(context);
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 14, right: 23),
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
-                color: MyTheme.golden,
-                boxShadow: [
-                  BoxShadow(
-                    color: MyTheme.golden_shadow,
-                    blurRadius: 20,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 10.0), // shadow direction: bottom right
-                  )
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  AppLocalizations.of(context)!.buy_now_ucf,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
-    );
+      );
   }
 
   buildRatingAndWishButtonRow() {
