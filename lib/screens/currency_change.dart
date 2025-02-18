@@ -10,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import 'home.dart';
+
 class CurrencyChange extends StatefulWidget {
   CurrencyChange({Key? key}) : super(key: key);
 
@@ -24,6 +26,7 @@ class _CurrencyChangeState extends State<CurrencyChange> {
     setState(() {});
 
     system_currency.save().then((value) {
+      homeData.onRefresh();
       context.go("/");
     });
   }

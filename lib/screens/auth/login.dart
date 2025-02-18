@@ -147,8 +147,8 @@ class _LoginState extends State<Login> {
           print('Caught exception: $e');
         }
 
-        print("--fcm token--");
-        // print("token: $fcmToken");
+        print("--fcm token-- login");
+        print("fcmToken $fcmToken");
         // update device token
         if (fcmToken != null && is_logged_in.$) {
           await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);

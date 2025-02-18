@@ -188,7 +188,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
             child: UsefulElements.backButton(context, color: "black"),
           ),
           Container(
-            padding: EdgeInsets.only(left: 10),
+            padding: EdgeInsetsDirectional.only(start: 10),
             width: DeviceInfo(context).width! / 2,
             child: Text(
               categoryInfo?.name ?? "",
@@ -218,7 +218,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
       height: 40,
       child: TextField(
         controller: _searchController,
-        onTap: () {},
         onChanged: (txt) {
           _searchKey = txt;
           reset();

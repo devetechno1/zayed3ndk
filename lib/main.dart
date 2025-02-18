@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:active_ecommerce_cms_demo_app/middlewares/auth_middleware.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/auth/login.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/filter.dart';
+import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -249,10 +250,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Future.microtask(() async {
       await Firebase.initializeApp();
-      if (OtherConfig.USE_PUSH_NOTIFICATION) {
-        PushNotificationService().initialise();
-      }
+      if (OtherConfig.USE_PUSH_NOTIFICATION) PushNotificationService.initialize();
     });
+    _handleDeepLink();
   }
 
   @override
@@ -280,6 +280,7 @@ class _MyAppState extends State<MyApp> {
             routerConfig: routes,
             title: AppConfig.app_name,
             debugShowCheckedModeBanner: false,
+            builder: OneContext().builder,
             theme: ThemeData(
               primaryColor: MyTheme.white,
               scaffoldBackgroundColor: MyTheme.white,
@@ -310,4 +311,23 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+void _handleDeepLink() async{
+  final appLinks = AppLinks(); // AppLinks is singleton
+  final Uri? uri = await appLinks.getInitialLink();
+  WidgetsBinding.instance.addPostFrameCallback(
+    (_) {
+      if(uri != null) OneContext().key.currentContext!.go(uri.path);
+    },
+  );
+  appLinks.uriLinkStream.listen(
+    (Uri? uriStream) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          if(uriStream != null) OneContext().key.currentContext!.go(uriStream.path);
+        },
+      );
+    }
+  );
 }

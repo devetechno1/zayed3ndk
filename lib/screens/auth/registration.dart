@@ -167,7 +167,7 @@ class _RegistrationState extends State<Registration> {
         String? fcmToken = await _fcm.getToken();
 
         print("--fcm token--");
-        print(fcmToken);
+        print("fcmToken $fcmToken");
         if (is_logged_in.$ == true) {
           // update device token
           await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken!);
@@ -426,9 +426,9 @@ class _RegistrationState extends State<Registration> {
                             setState(() {});
                           }),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    Flexible(
                       child: Container(
+                        margin: const EdgeInsetsDirectional.only(start: 8.0),
                         width: DeviceInfo(context).width! - 130,
                         child: RichText(
                             maxLines: 2,

@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
 import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
 import 'package:active_ecommerce_cms_demo_app/repositories/profile_repository.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/auth/login.dart';
@@ -8,6 +9,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:one_context/one_context.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+
+import '../custom/toast_component.dart';
+import '../helpers/shimmer_helper.dart';
 
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -21,7 +27,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class PushNotificationService {
-  Future initialise() async {
+  static Future initialize() async {
     await _fcm.requestPermission(
       alert: true,
       announcement: false,
@@ -31,61 +37,101 @@ class PushNotificationService {
       provisional: false,
       sound: true,
     );
-    String? fcmToken = 'fhjghjgjkhjhjk';
-    // String? fcmToken = await _fcm.getToken();
 
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
+    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
 
-    // print("--fcm token--");
-    // print(fcmToken);
-    if (is_logged_in.$ == true) {
-      // update device token
-      await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);
-    }
+    updateDeviceToken();
 
-    FirebaseMessaging.onMessage.listen((event) {
-      //print("onLaunch: " + event.toString());
-      _showMessage(event);
+
+    FirebaseMessaging.onMessage.listen((event) async{
+      print("onLaunch: ${event.toMap()}");
+      if(Platform.isIOS) {
+        _showIosMessage(event);
+        return;
+      }
       //(Map<String, dynamic> message) async => _showMessage(message);
-
       RemoteNotification? notification = event.notification;
-      AndroidNotification? android = event.notification?.android;
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-          FlutterLocalNotificationsPlugin();
-      var initializationSettingsAndroid = AndroidInitializationSettings(
-          '@drawable/notification_icon'); // <- default icon name is @drawable/notification_icon
 
-      var initializationSettings =
-          InitializationSettings(android: initializationSettingsAndroid);
+      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+      final DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+      );
+
+
+      final AndroidNotification? android = notification?.android;
+      final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@drawable/notification_icon'); 
+
+      final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+
+      BigPictureStyleInformation? bigPictureStyle;
+      FilePathAndroidBitmap? image;
+      if(android?.imageUrl != null){
+        final String largeIconPath = await _downloadAndSaveFile(android!.imageUrl!, 'largeIcon');
+        image = FilePathAndroidBitmap(largeIconPath);
+        bigPictureStyle = BigPictureStyleInformation(
+            image, 
+            contentTitle: notification?.title,
+            summaryText: notification?.body,
+            hideExpandedLargeIcon: true,
+          );
+
+      }
+      
+      final AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          importance: Importance.max,
+          priority: Priority.max,
+          icon: android?.smallIcon,
+          styleInformation: bigPictureStyle,
+          largeIcon: image,
+        );
+      
+      final DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails();
+
+      
 
       flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                icon: android.smallIcon,
-                // other properties...
-              ),
-            ));
+
+      if (notification != null) {
+        return flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(android: androidNotificationDetails, iOS: darwinNotificationDetails),
+          payload: notification.toMap().toString(),
+        );
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print("onResume: $message");
-      (Map<String, dynamic> message) async => _serialiseAndNavigate(message);
+      print("onResume: ${message.toMap()}");
+      _serialiseAndNavigate(message.toMap());
     });
   }
+  static Future<String> _downloadAndSaveFile(String url, String fileName) async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final String filePath = '${directory.path}/$fileName';
+    final http.Response response = await http.get(Uri.parse(url));
+    final File file = File(filePath);
+    await file.writeAsBytes(response.bodyBytes);
+    return filePath;
+  }
 
-  void _showMessage(RemoteMessage message) {
+  static Future<void> updateDeviceToken() async {
+    if (is_logged_in.$) {
+      String fcmToken = await _fcm.getToken() ?? '';
+      print("fcmToken $fcmToken");
+    
+      await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);
+    }
+  }
+
+  static void _showIosMessage(RemoteMessage message) {
     //print("onMessage: $message");
 
     OneContext().showDialog(
@@ -93,7 +139,7 @@ class PushNotificationService {
       builder: (context) => AlertDialog(
         content: ListTile(
           title: Text(message.notification!.title!),
-          subtitle: Text(message.notification!.body!),
+          subtitle:message.notification?.apple?.imageUrl == null ? Text(message.notification!.body!) : _dialogImageBody(message),
         ),
         actions: <Widget>[
           Btn.basic(
@@ -125,8 +171,7 @@ class PushNotificationService {
     );
   }
 
-  void _serialiseAndNavigate(Map<String, dynamic> message) {
-    print(message.toString());
+  static void _serialiseAndNavigate(Map<String, dynamic> message) {
     if (is_logged_in.$ == false) {
       OneContext().showDialog(
           // barrierDismissible: false,
@@ -157,5 +202,32 @@ class PushNotificationService {
             from_notification: true);
       }));
     } // If there's no view it'll just open the app on the first view    }
+  }
+}
+
+class _dialogImageBody extends StatelessWidget {
+  const _dialogImageBody(this.message);
+  final RemoteMessage message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 16),
+        Text(message.notification!.body!),
+        SizedBox(height: 16),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(
+            message.notification!.apple!.imageUrl!,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return ShimmerHelper().buildBasicShimmer(height: 120.0);
+            },
+          )
+        ),
+      ],
+    );
   }
 }

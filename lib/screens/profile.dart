@@ -498,24 +498,26 @@ class _ProfileState extends State<Profile> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 24.0),
-                                  child: Image.asset(
-                                    "assets/auction.png",
-                                    height: 16,
-                                    width: 16,
-                                    color: MyTheme.dark_font_grey,
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.only(end: 24.0),
+                                    child: Image.asset(
+                                      "assets/auction.png",
+                                      height: 16,
+                                      width: 16,
+                                      color: MyTheme.dark_font_grey,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  LangText(context).local.auction_ucf,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: MyTheme.dark_font_grey),
-                                ),
-                              ],
+                                  Text(
+                                    LangText(context).local.auction_ucf,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: MyTheme.dark_font_grey),
+                                  ),
+                                ],
+                              ),
                             ),
                             Icon(
                               _auctionExpand
@@ -526,13 +528,11 @@ class _ProfileState extends State<Profile> {
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Visibility(
                           visible: _auctionExpand,
                           child: Container(
-                            padding: const EdgeInsets.only(left: 40),
+                            padding: const EdgeInsetsDirectional.only(start: 40),
                             width: double.infinity,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -948,13 +948,14 @@ class _ProfileState extends State<Profile> {
           Container(
             child: badges.Badge(
               showBadge: is_logged_in.$,
-              position: badges.BadgePosition.topEnd(top: 8, end: 20),
+              position: badges.BadgePosition.topEnd(top: 2, end: 20),
               badgeStyle: badges.BadgeStyle(
                 shape: badges.BadgeShape.circle,
                 badgeColor: MyTheme.accent_color,
                 borderRadius: BorderRadius.circular(10),
                 padding: EdgeInsets.all(5),
               ),
+              ignorePointer: true,
               badgeContent: Consumer<UnReadNotificationCounter>(
                 builder: (context, notification, child) {
                   return Text(
