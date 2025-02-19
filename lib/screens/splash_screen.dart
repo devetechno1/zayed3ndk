@@ -12,8 +12,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  PackageInfo _packageInfo = PackageInfo(
-    appName: AppConfig.app_name,
+  late PackageInfo _packageInfo = PackageInfo(
+    appName: AppConfig.appNameOnAppLang(context),
     packageName: 'Unknown',
     version: 'Unknown',
     buildNumber: 'Unknown',
@@ -85,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
                     child: Text(
-                      AppConfig.app_name,
+                      AppConfig.appNameOnAppLang(context),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14.0,

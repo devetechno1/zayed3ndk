@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">زايد عندك</string>
+
+    <!-- Replace "000000000000" with your Facebook App ID here. -->
+    <string name="facebook_app_id"></string>
+
+
+    <string name="facebook_client_token"></string>
+
+    <!--
+      Replace "000000000000" with your Facebook App ID here.
+      **NOTE**: The scheme needs to start with `fb` and then your ID.
+    -->
+    <string name="fb_login_protocol_scheme">fb</string>
+
+    <string name="flutter_downloader_notification_started">تم بدء التنزيل</string>
+    <string name="flutter_downloader_notification_in_progress">جاري التنزيل</string>
+    <string name="flutter_downloader_notification_canceled">تم إلغاء التنزيل</string>
+    <string name="flutter_downloader_notification_failed">فشل التنزيل</string>
+    <string name="flutter_downloader_notification_complete">اكتمل التنزيل</string>
+    <string name="flutter_downloader_notification_paused">تم إيقاف التنزيل مؤقتًا</string>
+</resources>

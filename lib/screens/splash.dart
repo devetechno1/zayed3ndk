@@ -14,8 +14,8 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  PackageInfo _packageInfo = PackageInfo(
-    appName: AppConfig.app_name,
+  late PackageInfo _packageInfo = PackageInfo(
+    appName: AppConfig.appNameOnAppLang(context),
     packageName: 'Unknown',
     version: 'Unknown',
     buildNumber: 'Unknown',

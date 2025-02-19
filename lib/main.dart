@@ -278,7 +278,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, provider, snapshot) {
           return MaterialApp.router(
             routerConfig: routes,
-            title: AppConfig.app_name,
+            title: AppConfig.appNameOnDeviceLang,
             debugShowCheckedModeBanner: false,
             builder: OneContext().builder,
             theme: ThemeData(

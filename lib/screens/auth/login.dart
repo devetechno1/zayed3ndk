@@ -371,7 +371,7 @@ class _LoginState extends State<Login> {
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context,
-        "${AppLocalizations.of(context)!.login_to} " + AppConfig.app_name,
+        "${AppLocalizations.of(context)!.login_to} " + AppConfig.appNameOnAppLang(context),
         buildBody(context, _screen_width));
   }
 

@@ -197,7 +197,7 @@ class _RegistrationState extends State<Registration> {
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context,
-        "${AppLocalizations.of(context)!.join_ucf} " + AppConfig.app_name,
+        "${AppLocalizations.of(context)!.join_ucf} " + AppConfig.appNameOnAppLang(context),
         buildBody(context, _screen_width));
   }
 
