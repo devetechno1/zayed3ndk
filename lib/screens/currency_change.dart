@@ -1,10 +1,10 @@
-import 'package:active_ecommerce_cms_demo_app/custom/box_decorations.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/useful_elements.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/currency_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/currency_presenter.dart';
+import 'package:zayed3ndk/custom/box_decorations.dart';
+import 'package:zayed3ndk/custom/useful_elements.dart';
+import 'package:zayed3ndk/data_model/currency_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/presenter/currency_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';

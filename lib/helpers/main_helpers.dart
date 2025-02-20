@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 

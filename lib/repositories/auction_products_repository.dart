@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/data_model/auction_product_bid_place_response.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/data_model/auction_product_bid_place_response.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 import '../app_config.dart';
 import '../data_model/auction_bidded_products.dart';

@@ -1,4 +1,4 @@
-import 'package:active_ecommerce_cms_demo_app/custom/only_number_formatter.dart';
+import 'package:zayed3ndk/custom/only_number_formatter.dart';
 import 'package:flutter/material.dart';
 
 class QuantityInputField {

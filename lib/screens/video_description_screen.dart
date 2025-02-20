@@ -1,5 +1,5 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

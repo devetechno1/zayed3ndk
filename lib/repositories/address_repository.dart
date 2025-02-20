@@ -1,20 +1,20 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_add_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_delete_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_make_default_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_update_in_cart_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_update_location_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/address_update_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/city_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/country_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/shipping_cost_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/state_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/banned_user.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/address_add_response.dart';
+import 'package:zayed3ndk/data_model/address_delete_response.dart';
+import 'package:zayed3ndk/data_model/address_make_default_response.dart';
+import 'package:zayed3ndk/data_model/address_response.dart';
+import 'package:zayed3ndk/data_model/address_update_in_cart_response.dart';
+import 'package:zayed3ndk/data_model/address_update_location_response.dart';
+import 'package:zayed3ndk/data_model/address_update_response.dart';
+import 'package:zayed3ndk/data_model/city_response.dart';
+import 'package:zayed3ndk/data_model/country_response.dart';
+import 'package:zayed3ndk/data_model/shipping_cost_response.dart';
+import 'package:zayed3ndk/data_model/state_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/middlewares/banned_user.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 class AddressRepository {
   Future<dynamic> getAddressList() async {

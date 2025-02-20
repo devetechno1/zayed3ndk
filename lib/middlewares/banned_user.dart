@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/auth_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/middleware.dart';
+import 'package:zayed3ndk/helpers/auth_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/middlewares/middleware.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 

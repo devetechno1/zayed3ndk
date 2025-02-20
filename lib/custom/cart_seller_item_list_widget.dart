@@ -1,4 +1,4 @@
-import 'package:active_ecommerce_cms_demo_app/presenter/cart_provider.dart';
+import 'package:zayed3ndk/presenter/cart_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'cart_seller_item_card_widget.dart';

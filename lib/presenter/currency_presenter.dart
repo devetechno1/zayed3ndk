@@ -1,7 +1,7 @@
-import 'package:active_ecommerce_cms_demo_app/data_model/currency_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/currency_repository.dart';
+import 'package:zayed3ndk/data_model/currency_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/repositories/currency_repository.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyPresenter extends ChangeNotifier {

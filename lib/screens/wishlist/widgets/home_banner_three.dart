@@ -1,5 +1,5 @@
-import 'package:active_ecommerce_cms_demo_app/custom/aiz_image.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/home_presenter.dart';
+import 'package:zayed3ndk/custom/aiz_image.dart';
+import 'package:zayed3ndk/presenter/home_presenter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

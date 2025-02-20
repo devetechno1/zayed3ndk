@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/custom/btn.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
 

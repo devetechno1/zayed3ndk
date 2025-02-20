@@ -1,15 +1,15 @@
-import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/enum_classes.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/useful_elements.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/reg_ex_inpur_formatter.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/wallet_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/checkout/checkout.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/main.dart';
+import 'package:zayed3ndk/custom/btn.dart';
+import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/custom/enum_classes.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
+import 'package:zayed3ndk/custom/useful_elements.dart';
+import 'package:zayed3ndk/helpers/reg_ex_inpur_formatter.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/shimmer_helper.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/repositories/wallet_repository.dart';
+import 'package:zayed3ndk/screens/checkout/checkout.dart';
+import 'package:zayed3ndk/screens/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

@@ -1,13 +1,13 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/common_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/order_detail_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/order_item_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/order_mini_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/purchased_ditital_product_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/main_helpers.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/banned_user.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/common_response.dart';
+import 'package:zayed3ndk/data_model/order_detail_response.dart';
+import 'package:zayed3ndk/data_model/order_item_response.dart';
+import 'package:zayed3ndk/data_model/order_mini_response.dart';
+import 'package:zayed3ndk/data_model/purchased_ditital_product_response.dart';
+import 'package:zayed3ndk/helpers/main_helpers.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/middlewares/banned_user.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 import '../data_model/reorder_response.dart';
 

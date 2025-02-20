@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/address_repository.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
+import 'package:zayed3ndk/repositories/address_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../helpers/shared_value_helper.dart';

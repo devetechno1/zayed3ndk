@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:active_ecommerce_cms_demo_app/middlewares/auth_middleware.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/auth/login.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/filter.dart';
+import 'package:zayed3ndk/middlewares/auth_middleware.dart';
+import 'package:zayed3ndk/screens/auth/login.dart';
+import 'package:zayed3ndk/screens/filter.dart';
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';

@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/bkash_begin_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/bkash_payment_process_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/flutterwave_url_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/iyzico_payment_success_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/nagad_begin_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/nagad_payment_process_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/order_create_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/payment_type_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/paypal_url_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/paystack_payment_success_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/razorpay_payment_success_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/sslcommerz_begin_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/banned_user.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/bkash_begin_response.dart';
+import 'package:zayed3ndk/data_model/bkash_payment_process_response.dart';
+import 'package:zayed3ndk/data_model/flutterwave_url_response.dart';
+import 'package:zayed3ndk/data_model/iyzico_payment_success_response.dart';
+import 'package:zayed3ndk/data_model/nagad_begin_response.dart';
+import 'package:zayed3ndk/data_model/nagad_payment_process_response.dart';
+import 'package:zayed3ndk/data_model/order_create_response.dart';
+import 'package:zayed3ndk/data_model/payment_type_response.dart';
+import 'package:zayed3ndk/data_model/paypal_url_response.dart';
+import 'package:zayed3ndk/data_model/paystack_payment_success_response.dart';
+import 'package:zayed3ndk/data_model/razorpay_payment_success_response.dart';
+import 'package:zayed3ndk/data_model/sslcommerz_begin_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/middlewares/banned_user.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 class PaymentRepository {
   Future<dynamic> getPaymentResponseList({mode = "", list = "both"}) async {

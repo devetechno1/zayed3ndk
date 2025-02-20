@@ -1,5 +1,5 @@
-import 'package:active_ecommerce_cms_demo_app/data_model/guest_customer_info_check_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/login_response.dart';
+import 'package:zayed3ndk/data_model/guest_customer_info_check_response.dart';
+import 'package:zayed3ndk/data_model/login_response.dart';
 
 import '../app_config.dart';
 import '../helpers/shared_value_helper.dart';

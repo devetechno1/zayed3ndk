@@ -1,7 +1,7 @@
-import 'package:active_ecommerce_cms_demo_app/custom/AIZTypeDef.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/custom/AIZTypeDef.dart';
+import 'package:zayed3ndk/custom/btn.dart';
+import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmDialog {

@@ -1,12 +1,12 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/product_repository.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/shimmer_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/repositories/product_repository.dart';
 
-import 'package:active_ecommerce_cms_demo_app/data_model/wholesale_model.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/auction/auction_products_details.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/product/product_details.dart';
+import 'package:zayed3ndk/data_model/wholesale_model.dart';
+import 'package:zayed3ndk/screens/auction/auction_products_details.dart';
+import 'package:zayed3ndk/screens/product/product_details.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

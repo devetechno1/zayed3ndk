@@ -1,9 +1,9 @@
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/useful_elements.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/shop_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/ui_elements/shop_square_card.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/custom/useful_elements.dart';
+import 'package:zayed3ndk/helpers/shimmer_helper.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/repositories/shop_repository.dart';
+import 'package:zayed3ndk/ui_elements/shop_square_card.dart';
 import 'package:flutter/material.dart';
 
 import '../data_model/shop_response.dart';

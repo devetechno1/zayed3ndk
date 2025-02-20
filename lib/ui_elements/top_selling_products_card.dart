@@ -1,5 +1,5 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/product/product_details.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/screens/product/product_details.dart';
 import 'package:flutter/material.dart';
 
 import '../my_theme.dart';

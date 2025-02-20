@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/main_helpers.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/group_middleware.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/middleware.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/aiz_api_response.dart';
+import 'package:zayed3ndk/helpers/main_helpers.dart';
+import 'package:zayed3ndk/middlewares/group_middleware.dart';
+import 'package:zayed3ndk/middlewares/middleware.dart';
+import 'package:zayed3ndk/repositories/aiz_api_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 

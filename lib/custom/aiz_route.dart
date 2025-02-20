@@ -1,9 +1,9 @@
-import 'package:active_ecommerce_cms_demo_app/data_model/address_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/auth/otp.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/checkout/select_address.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/profile.dart';
+import 'package:zayed3ndk/data_model/address_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/screens/auth/otp.dart';
+import 'package:zayed3ndk/screens/checkout/select_address.dart';
+import 'package:zayed3ndk/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

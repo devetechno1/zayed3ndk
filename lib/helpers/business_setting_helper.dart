@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/data_model/business_setting_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/business_setting_repository.dart';
+import 'package:zayed3ndk/data_model/business_setting_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/repositories/business_setting_repository.dart';
 
 class BusinessSettingHelper {
   setBusinessSettingData() async {

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:active_ecommerce_cms_demo_app/data_model/category.dart';
+import 'package:zayed3ndk/data_model/category.dart';
 import 'package:flutter/material.dart';
 import '../../custom/aiz_summer_note.dart';
 import '../../custom/device_info.dart';

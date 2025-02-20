@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/middleware.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/middlewares/middleware.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:one_context/one_context.dart';

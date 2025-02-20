@@ -1,12 +1,12 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/common_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/followed_sellers_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/shop_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/shop_details_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/product_mini_response.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/common_response.dart';
+import 'package:zayed3ndk/data_model/followed_sellers_response.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/data_model/shop_response.dart';
+import 'package:zayed3ndk/data_model/shop_details_response.dart';
+import 'package:zayed3ndk/data_model/product_mini_response.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
 
 class ShopRepository {
   Future<dynamic> getShops({name = "", page = 1}) async {

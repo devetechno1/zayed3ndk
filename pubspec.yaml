@@ -1,4 +1,4 @@
-name: active_ecommerce_cms_demo_app
+name: zayed3ndk
 description: This is the flutter mobile application for Zayed3ndk cms
 
 # The following line prevents the package from being accidentally published to
@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
 # flutter pub upgrade --major-versions
-version: 1.1.1+3
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.5.0 <4.0.0"

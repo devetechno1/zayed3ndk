@@ -1,7 +1,7 @@
-// import 'package:active_ecommerce_cms_demo_app/custom/box_decorations.dart';
-// import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-// import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-// import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+// import 'package:zayed3ndk/custom/box_decorations.dart';
+// import 'package:zayed3ndk/custom/device_info.dart';
+// import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+// import 'package:zayed3ndk/my_theme.dart';
 // import 'package:flutter/material.dart';
 
 // class AuthScreen {
@@ -96,10 +96,10 @@
 //     );
 //   }
 // }
-import 'package:active_ecommerce_cms_demo_app/custom/box_decorations.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/custom/box_decorations.dart';
+import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen {

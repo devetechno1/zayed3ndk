@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/data_model/common_response.dart';
+import 'package:zayed3ndk/data_model/common_response.dart';
 
 import '../app_config.dart';
 import '../helpers/main_helpers.dart';

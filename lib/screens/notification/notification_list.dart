@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/custom/device_info.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/notification_repository.dart';
+import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/repositories/notification_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../../custom/loading.dart';

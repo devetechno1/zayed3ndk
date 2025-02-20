@@ -7,11 +7,11 @@
 
 // import 'dart:async';
 
-import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/other_config.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/address_repository.dart';
+import 'package:zayed3ndk/custom/btn.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/other_config.dart';
+import 'package:zayed3ndk/repositories/address_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

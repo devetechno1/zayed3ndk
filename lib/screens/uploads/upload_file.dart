@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 

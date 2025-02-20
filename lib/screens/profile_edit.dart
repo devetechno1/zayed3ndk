@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/custom/box_decorations.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/btn.dart';
+import 'package:zayed3ndk/custom/box_decorations.dart';
+import 'package:zayed3ndk/custom/btn.dart';
 
-import 'package:active_ecommerce_cms_demo_app/custom/input_decorations.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
+import 'package:zayed3ndk/custom/input_decorations.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/file_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/profile_repository.dart';
+import 'package:zayed3ndk/helpers/file_helper.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/repositories/profile_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/blog_mode.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/blog_mode.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

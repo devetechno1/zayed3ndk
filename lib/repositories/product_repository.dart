@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/category.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/product_details_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/product_mini_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/variant_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/wholesale_model.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/category.dart';
+import 'package:zayed3ndk/data_model/product_details_response.dart';
+import 'package:zayed3ndk/data_model/product_mini_response.dart';
+import 'package:zayed3ndk/data_model/variant_response.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
+import 'package:zayed3ndk/data_model/wholesale_model.dart';
 
 import '../data_model/variant_price_response.dart';
 

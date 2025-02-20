@@ -1,8 +1,8 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/wallet_balance_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/wallet_recharge_response.dart';
-import 'package:active_ecommerce_cms_demo_app/middlewares/banned_user.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/wallet_balance_response.dart';
+import 'package:zayed3ndk/data_model/wallet_recharge_response.dart';
+import 'package:zayed3ndk/middlewares/banned_user.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 import '../helpers/main_helpers.dart';
 

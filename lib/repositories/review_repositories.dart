@@ -1,11 +1,11 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
+import 'package:zayed3ndk/app_config.dart';
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/data_model/review_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/review_submit_response.dart';
+import 'package:zayed3ndk/data_model/review_response.dart';
+import 'package:zayed3ndk/data_model/review_submit_response.dart';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 class ReviewRepository {
   Future<dynamic> getReviewResponse(int? product_id, {page = 1}) async {

@@ -614,14 +614,14 @@
 
 import 'dart:async';
 
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/flash_deal_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/slider_response.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/category_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/flash_deal_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/product_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/sliders_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/single_banner/model.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
+import 'package:zayed3ndk/data_model/flash_deal_response.dart';
+import 'package:zayed3ndk/data_model/slider_response.dart';
+import 'package:zayed3ndk/repositories/category_repository.dart';
+import 'package:zayed3ndk/repositories/flash_deal_repository.dart';
+import 'package:zayed3ndk/repositories/product_repository.dart';
+import 'package:zayed3ndk/repositories/sliders_repository.dart';
+import 'package:zayed3ndk/single_banner/model.dart';
 import 'package:flutter/material.dart';
 
 class HomePresenter extends ChangeNotifier {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
 
 class LocaleProvider with ChangeNotifier {
   Locale? _locale;

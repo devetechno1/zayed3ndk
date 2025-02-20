@@ -1,4 +1,4 @@
-import 'package:active_ecommerce_cms_demo_app/repositories/notification_repository.dart';
+import 'package:zayed3ndk/repositories/notification_repository.dart';
 import 'package:flutter/material.dart';
 
 class UnReadNotificationCounter extends ChangeNotifier {

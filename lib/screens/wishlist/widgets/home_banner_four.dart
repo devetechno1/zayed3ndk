@@ -1,5 +1,5 @@
-// import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
-// import 'package:active_ecommerce_cms_demo_app/screens/flash_deal/flash_deal_banner.dart';
+// import 'package:zayed3ndk/helpers/shimmer_helper.dart';
+// import 'package:zayed3ndk/screens/flash_deal/flash_deal_banner.dart';
 // import 'package:flutter/material.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:provider/provider.dart';

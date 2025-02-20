@@ -2,7 +2,7 @@
 //
 //     final offlineWalletRechargeResponse = offlineWalletRechargeResponseFromJson(jsonString);
 
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
 import 'dart:convert';

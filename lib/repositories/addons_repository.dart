@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/addons_response.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/addons_response.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 class AddonsRepository {
   Future<List<AddonsListResponse>> getAddonsListResponse() async {

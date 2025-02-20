@@ -1,12 +1,12 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/addons_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/auth_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/business_setting_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/currency_presenter.dart';
-import 'package:active_ecommerce_cms_demo_app/providers/locale_provider.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/main.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/splash_screen.dart';
+import 'package:zayed3ndk/helpers/addons_helper.dart';
+import 'package:zayed3ndk/helpers/auth_helper.dart';
+import 'package:zayed3ndk/helpers/business_setting_helper.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/presenter/currency_presenter.dart';
+import 'package:zayed3ndk/providers/locale_provider.dart';
+import 'package:zayed3ndk/screens/main.dart';
+import 'package:zayed3ndk/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

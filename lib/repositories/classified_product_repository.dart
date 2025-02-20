@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/screens/classified_ads/classified_model.dart';
+import 'package:zayed3ndk/screens/classified_ads/classified_model.dart';
 
 import '../app_config.dart';
 import '../data_model/classified_ads_details_response.dart';

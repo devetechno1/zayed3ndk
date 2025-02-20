@@ -1,14 +1,14 @@
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/profile_image_update_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/user_info_response.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/data_model/profile_image_update_response.dart';
+import 'package:zayed3ndk/data_model/user_info_response.dart';
 import 'dart:convert';
-import 'package:active_ecommerce_cms_demo_app/data_model/profile_counters_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/profile_update_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/device_token_update_response.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/phone_email_availability_response.dart';
+import 'package:zayed3ndk/data_model/profile_counters_response.dart';
+import 'package:zayed3ndk/data_model/profile_update_response.dart';
+import 'package:zayed3ndk/data_model/device_token_update_response.dart';
+import 'package:zayed3ndk/data_model/phone_email_availability_response.dart';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/api-request.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/repositories/api-request.dart';
 
 class ProfileRepository {
   Future<dynamic> getProfileCountersResponse() async {

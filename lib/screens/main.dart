@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/main.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/bottom_appbar_index.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/cart_counter.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/auth/login.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/category_list_n_product/category_list.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/checkout/cart.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/home.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/profile.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/main.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/presenter/bottom_appbar_index.dart';
+import 'package:zayed3ndk/presenter/cart_counter.dart';
+import 'package:zayed3ndk/screens/auth/login.dart';
+import 'package:zayed3ndk/screens/category_list_n_product/category_list.dart';
+import 'package:zayed3ndk/screens/checkout/cart.dart';
+import 'package:zayed3ndk/screens/home.dart';
+import 'package:zayed3ndk/screens/profile.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

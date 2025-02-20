@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/product/product_details.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/my_theme.dart';
+import 'package:zayed3ndk/screens/product/product_details.dart';
 import 'package:flutter/material.dart';
 
 import '../helpers/shared_value_helper.dart';

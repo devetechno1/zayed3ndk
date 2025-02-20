@@ -1,8 +1,8 @@
-// import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-// import 'package:active_ecommerce_cms_demo_app/data_model/cart_response.dart';
-// import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-// import 'package:active_ecommerce_cms_demo_app/presenter/cart_counter.dart';
-// import 'package:active_ecommerce_cms_demo_app/repositories/cart_repository.dart';
+// import 'package:zayed3ndk/custom/toast_component.dart';
+// import 'package:zayed3ndk/data_model/cart_response.dart';
+// import 'package:zayed3ndk/helpers/system_config.dart';
+// import 'package:zayed3ndk/presenter/cart_counter.dart';
+// import 'package:zayed3ndk/repositories/cart_repository.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
@@ -249,11 +249,11 @@
 //   }
 // }
 
-import 'package:active_ecommerce_cms_demo_app/custom/toast_component.dart';
-import 'package:active_ecommerce_cms_demo_app/data_model/cart_response.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/system_config.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/cart_counter.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/cart_repository.dart';
+import 'package:zayed3ndk/custom/toast_component.dart';
+import 'package:zayed3ndk/data_model/cart_response.dart';
+import 'package:zayed3ndk/helpers/system_config.dart';
+import 'package:zayed3ndk/presenter/cart_counter.dart';
+import 'package:zayed3ndk/repositories/cart_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -14,7 +14,7 @@
 // }
 import 'dart:async';
 
-import 'package:active_ecommerce_cms_demo_app/repositories/cart_repository.dart';
+import 'package:zayed3ndk/repositories/cart_repository.dart';
 import 'package:flutter/material.dart';
 
 class CartCounter extends ChangeNotifier {

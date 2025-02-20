@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/custom/lang_text.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/guest_checkout_repository.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/auth/login.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/repositories/guest_checkout_repository.dart';
+import 'package:zayed3ndk/screens/auth/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
-import 'package:active_ecommerce_cms_demo_app/my_theme.dart';
+import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/brand_products.dart';
-import 'package:active_ecommerce_cms_demo_app/custom/box_decorations.dart';
+import 'package:zayed3ndk/screens/brand_products.dart';
+import 'package:zayed3ndk/custom/box_decorations.dart';
 
 class BrandSquareCard extends StatefulWidget {
   int? id;

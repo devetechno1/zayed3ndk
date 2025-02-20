@@ -1,6 +1,6 @@
-import 'package:active_ecommerce_cms_demo_app/helpers/shimmer_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/presenter/home_presenter.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/category_list_n_product/category_products.dart';
+import 'package:zayed3ndk/helpers/shimmer_helper.dart';
+import 'package:zayed3ndk/presenter/home_presenter.dart';
+import 'package:zayed3ndk/screens/category_list_n_product/category_products.dart';
 import 'package:flutter/material.dart';
 import '../my_theme.dart';
 

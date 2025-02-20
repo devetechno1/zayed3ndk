@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:active_ecommerce_cms_demo_app/app_config.dart';
-import 'package:active_ecommerce_cms_demo_app/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_cms_demo_app/repositories/classified_product_repository.dart';
+import 'package:zayed3ndk/app_config.dart';
+import 'package:zayed3ndk/helpers/shared_value_helper.dart';
+import 'package:zayed3ndk/repositories/classified_product_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'classified_model.dart';
