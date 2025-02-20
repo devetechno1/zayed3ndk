@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:zayed3ndk/custom/btn.dart';
@@ -12,7 +13,6 @@ import 'package:one_context/one_context.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../custom/toast_component.dart';
 import '../helpers/shimmer_helper.dart';
 
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -42,7 +42,6 @@ class PushNotificationService {
 
     updateDeviceToken();
 
-
     FirebaseMessaging.onMessage.listen((event) async{
       print("onLaunch: ${event.toMap()}");
       if(Platform.isIOS) {
@@ -53,6 +52,7 @@ class PushNotificationService {
       RemoteNotification? notification = event.notification;
 
       final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
 
       final DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
@@ -94,7 +94,12 @@ class PushNotificationService {
 
       
 
-      flutterLocalNotificationsPlugin.initialize(initializationSettings);
+      flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+        onDidReceiveNotificationResponse: (details) {
+          _serialiseAndNavigate(jsonDecode(details.payload ??'{}'));
+        },
+      );
 
 
       if (notification != null) {
@@ -103,7 +108,7 @@ class PushNotificationService {
           notification.title,
           notification.body,
           NotificationDetails(android: androidNotificationDetails, iOS: darwinNotificationDetails),
-          payload: notification.toMap().toString(),
+          payload: jsonEncode(event.toMap()),
         );
       }
     });
@@ -136,6 +141,7 @@ class PushNotificationService {
 
     OneContext().showDialog(
       // barrierDismissible: false,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
         content: ListTile(
           title: Text(message.notification!.title!),
@@ -143,27 +149,14 @@ class PushNotificationService {
         ),
         actions: <Widget>[
           Btn.basic(
-            child: Text('close'),
+            child: Text('Close'),
             onPressed: () => Navigator.of(context).pop(),
           ),
           Btn.basic(
             child: Text('GO'),
             onPressed: () {
-              if (is_logged_in.$ == false) {
-                ToastComponent.showDialog(
-                  "You are not logged in",
-                );
-                return;
-              }
-              //print(message);
               Navigator.of(context).pop();
-              if (message.data['item_type'] == 'order') {
-                OneContext().push(MaterialPageRoute(builder: (_) {
-                  return OrderDetails(
-                      id: int.parse(message.data['item_type_id']),
-                      from_notification: true);
-                }));
-              }
+              _serialiseAndNavigate(message.toMap());
             },
           ),
         ],

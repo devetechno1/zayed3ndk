@@ -24,9 +24,9 @@ class AppConfig {
       r"a"; //enter your purchase code for the app from codecanyon
 
   //Default language config
-  static String default_language = "en";
-  static String mobile_app_code = "en";
-  static bool app_language_rtl = false;
+  static String default_language = "ar";
+  static String mobile_app_code = "ar";
+  static bool app_language_rtl = true;
 
   //configure this
   static const bool HTTPS =

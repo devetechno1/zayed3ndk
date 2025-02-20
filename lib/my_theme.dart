@@ -5,8 +5,8 @@ ThemeData lightMode = ThemeData();
 class MyTheme {
   /*configurable colors stars*/
   static const Color mainColor = Color(0xffF2F1F6);
-  static const Color accent_color = Color(0xff2c2c2c);
-  static const Color accent_color_shadow = Color.fromRGBO(229, 65, 28, .40); // this color is a dropshadow of
+  static const Color accent_color = Color(0xFFc3181e);
+  static const Color accent_color_shadow = Color(0xFF6C0004); // this color is a dropshadow of
   static Color soft_accent_color = Color.fromRGBO(254, 234, 209, 1);
   static Color splash_screen_color = accent_color; // if not sure , use the same color as accent color
   /*configurable colors ends*/
