@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+import '../../app_config.dart';
 import '../../repositories/address_repository.dart';
 
 class PasswordForget extends StatefulWidget {
@@ -20,9 +21,7 @@ class PasswordForget extends StatefulWidget {
 }
 
 class _PasswordForgetState extends State<PasswordForget> {
-  String _send_code_by = "email"; //phone or email
-  String initialCountry = 'US';
-  // PhoneNumber phoneCode = PhoneNumber(isoCode: 'US');
+  String _send_code_by = otp_addon_installed.$ ? "phone" : "email"; //phone or email
   String? _phone = "";
   var countries_code = <String?>[];
   //controllers
@@ -77,6 +76,7 @@ class _PasswordForgetState extends State<PasswordForget> {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return PasswordOtp(
           verify_by: _send_code_by,
+          email_or_code: _send_code_by == 'email' ? email : _phone,
         );
       }));
     }
@@ -89,7 +89,6 @@ class _PasswordForgetState extends State<PasswordForget> {
 
   @override
   Widget build(BuildContext context) {
-    final _screen_height = MediaQuery.of(context).size.height;
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context, "Forget Password!", buildBody(_screen_width, context));
@@ -162,9 +161,11 @@ class _PasswordForgetState extends State<PasswordForget> {
                         height: 36,
                         child: CustomInternationalPhoneNumberInput(
                           countries: countries_code,
+                          initialValue: PhoneNumber(isoCode: AppConfig.default_country),
                           onInputChanged: (PhoneNumber number) {
                             //print(number.phoneNumber);
                             setState(() {
+                              if(number.isoCode != null)  AppConfig.default_country = number.isoCode!;
                               _phone = number.phoneNumber;
                             });
                           },

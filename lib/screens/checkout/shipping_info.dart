@@ -751,7 +751,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
           side: BorderSide(color: MyTheme.accent_color)),
-      padding: EdgeInsets.only(right: 14),
+      padding: EdgeInsetsDirectional.only(end: 14),
       onPressed: () {
         changeShippingOption(ShippingOption.HomeDelivery, sellerIndex);
       },
@@ -762,19 +762,19 @@ class _ShippingInfoState extends State<ShippingInfo> {
         child: Row(
           children: [
             Radio(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                fillColor: WidgetStateProperty.resolveWith((states) {
-                  if (!states.contains(WidgetState.selected)) {
-                    return MyTheme.accent_color;
-                  }
-                  return MyTheme.white;
-                }),
-                value: ShippingOption.HomeDelivery,
-                groupValue:
-                    _sellerWiseShippingOption[sellerIndex].shippingOption,
-                onChanged: (dynamic newOption) {
-                  changeShippingOption(newOption, sellerIndex);
-                }),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              fillColor: WidgetStateProperty.resolveWith((states) {
+                if (!states.contains(WidgetState.selected)) {
+                  return MyTheme.accent_color;
+                }
+                return MyTheme.white;
+              }),
+              value: ShippingOption.HomeDelivery,
+              groupValue:
+                  _sellerWiseShippingOption[sellerIndex].shippingOption,
+              onChanged: (dynamic newOption) {
+                changeShippingOption(newOption, sellerIndex);
+            }),
             Text(
               AppLocalizations.of(context)!.home_delivery_ucf,
               style: TextStyle(

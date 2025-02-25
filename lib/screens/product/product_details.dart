@@ -75,6 +75,7 @@ class _ProductDetailsState extends State<ProductDetails>
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..enableZoom(false);
   double webViewHeight = 50.0;
+  late double initHeight = webViewHeight;
 
   CarouselSliderController _carouselController = CarouselSliderController();
   late BuildContext loadingcontext;
@@ -106,6 +107,19 @@ class _ProductDetailsState extends State<ProductDetails>
 
   @override
   void initState() {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          controller.runJavaScriptReturningResult("document.getElementById('scaled-frame').clientHeight").then(
+            (value) {
+              initHeight = double.parse(value.toString());
+              if(webViewHeight < initHeight){
+                webViewHeight = initHeight;
+              }else{
+                initHeight = webViewHeight;
+              }
+              setState(() {});
+            },
+          );
+        });
     quantityText.text = "${_quantity ?? 0}";
     controller;
     _ColorAnimationController =
@@ -2250,7 +2264,7 @@ class _ProductDetailsState extends State<ProductDetails>
           ),
           Btn.basic(
               onPressed: () async {
-                if (webViewHeight == 50) {
+                if (webViewHeight == initHeight) {
                   webViewHeight = double.parse(
                     (await controller.runJavaScriptReturningResult(
                             "document.getElementById('scaled-frame').clientHeight"))
@@ -2264,12 +2278,12 @@ class _ProductDetailsState extends State<ProductDetails>
                   // 400;
                   print(webViewHeight);
                 } else {
-                  webViewHeight = 50;
+                  webViewHeight = initHeight;
                 }
                 setState(() {});
               },
               child: Text(
-                webViewHeight == 50
+                webViewHeight == initHeight
                     ? LangText(context).local.view_more
                     : LangText(context).local.less,
                 style: TextStyle(color: Color(0xff0077B6)),

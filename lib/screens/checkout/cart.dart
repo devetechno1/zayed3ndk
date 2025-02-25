@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../custom/cart_seller_item_list_widget.dart';
+import '../../custom/lang_text.dart';
 import '../../presenter/cart_provider.dart';
 
 class Cart extends StatefulWidget {
@@ -63,13 +64,51 @@ class _CartState extends State<Cart> {
                     SliverList(
                       delegate: SliverChildListDelegate(
                         [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: cartProvider.isMinOrderQuantityNotEnough ? 25:0,
+                            width: double.maxFinite,
+                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+                            color: MyTheme.accent_color,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.white),
+                                  children: [
+                                    TextSpan(text: '${LangText(context).local.minimum_order_qty_is} ${minimum_order_quantity.$} , '),
+                                    TextSpan(text: LangText(context).local.remaining),
+                                    TextSpan(text: ' ${minimum_order_quantity.$ - (cartProvider.shopList.firstOrNull?.cartItems?.length ?? 0)} '),
+                                  ]
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: cartProvider.isMinOrderAmountNotEnough?25:0,
+                            width: double.maxFinite,
+                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+                            color: MyTheme.accent_color,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.white),
+                                  children: [
+                                    TextSpan(text: '${LangText(context).local.minimum_order_amount_is} ${minimum_order_amount.$} , '),
+                                    TextSpan(text: LangText(context).local.remaining),
+                                    TextSpan(text: ' ${minimum_order_amount.$ - cartProvider.cartTotal} '),
+                                  ]
+                                ),
+                              ),
+                            ),
+                          ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                             child: buildCartSellerList(cartProvider, context),
                           ),
-                          Container(
-                            height: widget.has_bottomnav! ? 140 : 100,
-                          )
+                          SizedBox(height: widget.has_bottomnav! ? 140 : 100),
                         ],
                       ),
                     )
@@ -203,6 +242,7 @@ class _CartState extends State<Cart> {
             ? UsefulElements.backToMain(context, go_back: false)
             : UsefulElements.backButton(context),
       ),
+      centerTitle: widget.from_navigation,
       title: Text(
         AppLocalizations.of(context)!.shopping_cart_ucf,
         style: TextStyles.buildAppBarTexStyle(),

@@ -108,7 +108,7 @@ class _OrderDetailsState extends State<OrderDetails> {
     try {
       String? _taskid = await FlutterDownloader.enqueue(
           url: AppConfig.BASE_URL + "/invoice/download/$id",
-          saveInPublicStorage: true,
+          // saveInPublicStorage: true,
           savedDir: folder,
           showNotification: true,
           headers: {
@@ -1192,11 +1192,11 @@ class _OrderDetailsState extends State<OrderDetails> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: const EdgeInsetsDirectional.only(end: 8.0),
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
+                    padding: const EdgeInsetsDirectional.only(end: 8.0),
                     child: Text(
                       _orderDetails!.payment_status_string!,
                       style: TextStyle(
@@ -1381,6 +1381,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       SizedBox(
                         height: 8,
                       ),
+                      /*
                       Btn.basic(
                         // shape: RoundedRectangleBorder(side: Border()),
 
@@ -1411,6 +1412,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           ),
                         ),
                       )
+                      */
                     ],
                   ),
                 ],
@@ -1491,7 +1493,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                               fontWeight: FontWeight.w600),
                         )
                       : Text(
-                          "item",
+                          LangText(context).local.item_all_lower,
                           style: TextStyle(
                               color: MyTheme.font_grey,
                               fontSize: 13,

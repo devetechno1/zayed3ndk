@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 
-final String this_year = DateTime.now().year.toString();
+// final String this_year = DateTime.now().year.toString();
 
 class AppConfig {
   //configure this
@@ -27,6 +27,9 @@ class AppConfig {
   static String default_language = "ar";
   static String mobile_app_code = "ar";
   static bool app_language_rtl = true;
+
+  //Default country config
+  static String default_country = "EG";
 
   //configure this
   static const bool HTTPS =

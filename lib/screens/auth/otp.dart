@@ -2,6 +2,7 @@ import 'package:zayed3ndk/custom/btn.dart';
 import 'package:zayed3ndk/custom/input_decorations.dart';
 import 'package:zayed3ndk/custom/toast_component.dart';
 import 'package:zayed3ndk/helpers/auth_helper.dart';
+import 'package:zayed3ndk/helpers/num_ex.dart';
 import 'package:zayed3ndk/helpers/shared_value_helper.dart';
 import 'package:zayed3ndk/helpers/system_config.dart';
 import 'package:zayed3ndk/my_theme.dart';
@@ -10,12 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:timer_count_down/timer_controller.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 import '../../main.dart';
 
 class Otp extends StatefulWidget {
-  String? title;
-  Otp({Key? key, this.title}) : super(key: key);
+  final String? title;
+  final bool fromRegistration;
+  const Otp({Key? key, this.title, required this.fromRegistration}) : super(key: key);
 
   @override
   _OtpState createState() => _OtpState();
@@ -24,10 +28,13 @@ class Otp extends StatefulWidget {
 class _OtpState extends State<Otp> {
   //controllers
   TextEditingController _verificationCodeController = TextEditingController();
-
+  CountdownController countdownController = CountdownController(autoStart: true);
+  bool canResend = false;
   @override
   void initState() {
     //on Splash Screen hide statusbar
+    if(!widget.fromRegistration) AuthRepository().getResendCodeResponse();
+    
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
     super.initState();
@@ -35,6 +42,8 @@ class _OtpState extends State<Otp> {
 
   @override
   void dispose() {
+    countdownController.pause();
+    _verificationCodeController.dispose();
     //before going to other screen show statusbar
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
@@ -42,6 +51,9 @@ class _OtpState extends State<Otp> {
   }
 
   onTapResend() async {
+    setState(() {
+      canResend = false;
+    });
     var resendCodeResponse = await AuthRepository().getResendCodeResponse();
 
     if (resendCodeResponse.result == false) {
@@ -73,19 +85,22 @@ class _OtpState extends State<Otp> {
         confirmCodeResponse.message,
       );
     } else {
-      ToastComponent.showDialog(
-        confirmCodeResponse.message,
-      );
       if (SystemConfig.systemUser != null) {
         SystemConfig.systemUser!.emailVerified = true;
       }
-      context.go("/");
+      if(widget.fromRegistration){
+        context.go("/");
+      }else{
+        context.pop();
+      }
+      ToastComponent.showDialog(confirmCodeResponse.message);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final _screen_width = MediaQuery.of(context).size.width;
+    final double _screen_width = MediaQuery.sizeOf(context).width;
+    final double _screen_height = MediaQuery.sizeOf(context).height;
     return Directionality(
       textDirection:
           app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
@@ -94,7 +109,7 @@ class _OtpState extends State<Otp> {
         body: Stack(
           children: [
             Container(
-              color: Colors.red,
+              color: MyTheme.soft_accent_color,
               width: _screen_width,
               height: 200,
               child: Image.asset(
@@ -121,7 +136,7 @@ class _OtpState extends State<Otp> {
                     ),
                   ),
                   Container(
-                    width: _screen_width * (3 / 4),
+                    width: _screen_width * 0.7,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -135,6 +150,7 @@ class _OtpState extends State<Otp> {
                                 child: TextField(
                                   controller: _verificationCodeController,
                                   autofocus: false,
+                                  textAlign: TextAlign.center,
                                   decoration:
                                       InputDecorations.buildInputDecoration_1(
                                           hint_text: "A X B 4 J H"),
@@ -144,7 +160,7 @@ class _OtpState extends State<Otp> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 40.0),
+                          padding: EdgeInsets.only(top: _screen_height * 0.2),
                           child: Container(
                             height: 45,
                             decoration: BoxDecoration(
@@ -175,32 +191,56 @@ class _OtpState extends State<Otp> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(AppLocalizations.of(context)!.check_your_WhatsApp_messages_to_retrieve_the_verification_code,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).disabledColor,
+                            fontSize: 13)),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(top: 60),
                     child: InkWell(
-                      onTap: () {
-                        onTapResend();
-                      },
+                      onTap: canResend ? onTapResend : null,
                       child: Text(AppLocalizations.of(context)!.resend_code_ucf,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: MyTheme.accent_color,
+                              color: canResend? MyTheme.accent_color : Theme.of(context).disabledColor,
                               decoration: TextDecoration.underline,
                               fontSize: 13)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40, bottom: 60),
+                    child: Visibility(
+                      visible: !canResend,
+                      child: TimerWidget(
+                        duration: Duration(seconds: 20), 
+                        callback: () {
+                            setState(() {
+                              countdownController.restart();
+                              canResend = true;
+                            });
+                        }, 
+                        controller: countdownController,
+                      ),
                     ),
                   ),
                   // SizedBox(height: 15,),
                   Padding(
                     padding: const EdgeInsets.only(top: 40),
-                    child: InkWell(
-                      onTap: () {
-                        onTapLogout(context);
-                      },
-                      child: Text(AppLocalizations.of(context)!.logout_ucf,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: MyTheme.accent_color,
-                              decoration: TextDecoration.underline,
-                              fontSize: 13)),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          onTapLogout(context);
+                        },
+                        child: Text(AppLocalizations.of(context)!.logout_ucf,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: MyTheme.accent_color,
+                                decoration: TextDecoration.underline,
+                                fontSize: 13)),
+                      ),
                     ),
                   ),
                 ],
@@ -219,5 +259,35 @@ class _OtpState extends State<Otp> {
     } catch (e) {
       print('Error navigating to Main: $e');
     }
+  }
+}
+
+
+class TimerWidget extends StatelessWidget {
+  const TimerWidget({
+    required this.duration,
+    required this.callback,
+    required this.controller,
+  });
+  final CountdownController? controller;
+
+  final Duration duration;
+  final void Function() callback;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 6, bottom: 2, left: 12, right: 12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Countdown(
+        controller: controller,
+        seconds: duration.inSeconds,
+        onFinished: callback,
+        build: (BuildContext context, double seconds) => Text(seconds.fromSeconds ?? ''),
+      ),
+    );
   }
 }

@@ -28,6 +28,7 @@ class UsefulElements {
   }
 
   static backToMain(context, {color = 'black', go_back = true}) {
+    if(!go_back) return SizedBox();
     return IconButton(
       icon: Icon(app_language_rtl.$!
               ? CupertinoIcons.arrow_right

@@ -87,14 +87,11 @@ class _CategoryListState extends State<CategoryList> {
     return AppBar(
       backgroundColor: MyTheme.mainColor,
       scrolledUnderElevation: 0.0,
+      centerTitle: widget.is_base_category,
       leading: widget.is_base_category
           ? Builder(
-              builder: (context) => Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                child: UsefulElements.backToMain(context,
-                    go_back: false, color: "black"),
-              ),
+              builder: (context) => UsefulElements.backToMain(context,
+                  go_back: false, color: "black"),
             )
           : Builder(
               builder: (context) => IconButton(

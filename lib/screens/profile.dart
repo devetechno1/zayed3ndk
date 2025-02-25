@@ -63,7 +63,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  ScrollController _mainScrollController = ScrollController();
+  // ScrollController _mainScrollController = ScrollController();
   // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   bool _auctionExpand = false;
@@ -85,10 +85,10 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  void dispose() {
-    _mainScrollController.dispose();
-    super.dispose();
-  }
+  // void dispose() {
+  //   _mainScrollController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _onPageRefresh() async {
     reset();
@@ -216,7 +216,6 @@ class _ProfileState extends State<Profile> {
   RefreshIndicator buildBody() {
     return RefreshIndicator(
       color: MyTheme.accent_color,
-      backgroundColor: Colors.red,
       onRefresh: _onPageRefresh,
       displacement: 10,
       child: buildBodyChildren(),
@@ -225,29 +224,20 @@ class _ProfileState extends State<Profile> {
 
   CustomScrollView buildBodyChildren() {
     return CustomScrollView(
-      controller: _mainScrollController,
+      // controller: _mainScrollController,
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: buildCountersRow(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: buildHorizontalSettings(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: buildSettingAndAddonsHorizontalMenu(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: buildBottomVerticalCardList(),
-            ),
-          ]),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate([
+              buildCountersRow(),
+              buildHorizontalSettings(),
+              buildSettingAndAddonsHorizontalMenu(),
+              buildBottomVerticalCardList(),
+            ]),
+          ),
         )
       ],
     );
@@ -480,11 +470,12 @@ class _ProfileState extends State<Profile> {
           if (auction_addon_installed.$)
             Column(
               children: [
-                Container(
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
                   height: _auctionExpand
                       ? is_logged_in.$
-                          ? 140
-                          : 77
+                          ? 150
+                          : 80
                       : 40,
                   alignment: Alignment.topCenter,
                   padding: const EdgeInsets.only(top: 10.0),
@@ -529,101 +520,105 @@ class _ProfileState extends State<Profile> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Visibility(
-                          visible: _auctionExpand,
-                          child: Container(
-                            padding: const EdgeInsetsDirectional.only(start: 40),
-                            width: double.infinity,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => OneContext().push(
-                                    MaterialPageRoute(
-                                      builder: (_) => AuctionProducts(),
+                        Flexible(
+                          child: AnimatedScale(
+                            duration: Duration(milliseconds: 300),
+                            scale: _auctionExpand ? 1 : 0,
+                            alignment: app_language_rtl.$ == true? Alignment.centerRight : Alignment.centerLeft,
+                            child: Container(
+                              padding: const EdgeInsetsDirectional.only(start: 40),
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => OneContext().push(
+                                      MaterialPageRoute(
+                                        builder: (_) => AuctionProducts(),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '-',
+                                          style: TextStyle(
+                                            color: MyTheme.dark_font_grey,
+                                          ),
+                                        ),
+                                        Text(
+                                          " ${LangText(context).local.on_auction_products_ucf}",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: MyTheme.dark_font_grey,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '-',
-                                        style: TextStyle(
-                                          color: MyTheme.dark_font_grey,
-                                        ),
-                                      ),
-                                      Text(
-                                        " ${LangText(context).local.on_auction_products_ucf}",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: MyTheme.dark_font_grey,
-                                        ),
-                                      ),
-                                    ],
+                                  const SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                if (is_logged_in.$)
-                                  Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => OneContext().push(
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                AuctionBiddedProducts(),
+                                  if (is_logged_in.$)
+                                    Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () => OneContext().push(
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  AuctionBiddedProducts(),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                '-',
+                                                style: TextStyle(
+                                                  color: MyTheme.dark_font_grey,
+                                                ),
+                                              ),
+                                              Text(
+                                                " ${LangText(context).local.bidded_products_ucf}",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: MyTheme.dark_font_grey,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '-',
-                                              style: TextStyle(
-                                                color: MyTheme.dark_font_grey,
-                                              ),
-                                            ),
-                                            Text(
-                                              " ${LangText(context).local.bidded_products_ucf}",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: MyTheme.dark_font_grey,
-                                              ),
-                                            ),
-                                          ],
+                                        const SizedBox(
+                                          height: 20,
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () => OneContext().push(
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                AuctionPurchaseHistory(),
+                                        GestureDetector(
+                                          onTap: () => OneContext().push(
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  AuctionPurchaseHistory(),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                '-',
+                                                style: TextStyle(
+                                                  color: MyTheme.dark_font_grey,
+                                                ),
+                                              ),
+                                              Text(
+                                                " ${LangText(context).local.purchase_history_ucf}",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: MyTheme.dark_font_grey,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '-',
-                                              style: TextStyle(
-                                                color: MyTheme.dark_font_grey,
-                                              ),
-                                            ),
-                                            Text(
-                                              " ${LangText(context).local.purchase_history_ucf}",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: MyTheme.dark_font_grey,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                              ],
+                                      ],
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -713,9 +708,9 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Container buildBottomVerticalCardListItem(String img, String label,
+  SizedBox buildBottomVerticalCardListItem(String img, String label,
       {Function()? onPressed, bool isDisable = false, IconData? icon}) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: TextButton(
         onPressed: onPressed,

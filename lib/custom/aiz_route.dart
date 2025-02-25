@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 class AIZRoute {
   static final otpRoute = Otp(
     title: "Verify your account",
+    fromRegistration: false,
   );
 
   static Future<T?> push<T extends Object?>(
@@ -105,7 +106,18 @@ class AIZRoute {
     if (is_logged_in.$ &&
         mailVerifiedRoute &&
         SystemConfig.systemUser != null) {
-      return !(SystemConfig.systemUser!.emailVerified ?? true);
+          final bool isMailVerified = SystemConfig.systemUser!.emailVerified ?? false;
+
+          if(isMailVerified){
+            return false;
+          }else{
+            if(SystemConfig.systemUser!.phone != null){
+              if(!must_otp.$) return false;
+            }
+            return true;
+          }
+
+      // return !isMailVerified;
     }
     return false;
   }

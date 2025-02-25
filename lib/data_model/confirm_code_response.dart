@@ -18,7 +18,7 @@ class ConfirmCodeResponse {
   String message;
 
   factory ConfirmCodeResponse.fromJson(Map<String, dynamic> json) => ConfirmCodeResponse(
-    result: json["result"],
+    result: json["result"] ?? false,
     message: json["message"],
   );
 

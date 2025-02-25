@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../helpers/shimmer_helper.dart';
+import 'navigation_service.dart';
 
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -43,7 +44,7 @@ class PushNotificationService {
     updateDeviceToken();
 
     FirebaseMessaging.onMessage.listen((event) async{
-      print("onLaunch: ${event.toMap()}");
+      print("onLaunch: ${jsonEncode(event.toMap())}");
       if(Platform.isIOS) {
         _showIosMessage(event);
         return;
@@ -194,7 +195,9 @@ class PushNotificationService {
             id: int.parse(message['data']['item_type_id']),
             from_notification: true);
       }));
-    } // If there's no view it'll just open the app on the first view    }
+    }else{
+      NavigationService.handleUrls(message['data']['link']); 
+    }
   }
 }
 

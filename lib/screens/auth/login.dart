@@ -40,11 +40,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String _login_by = "email"; //phone or email
+  String _login_by = otp_addon_installed.$? "phone" : "email"; //phone or email
   String initialCountry = 'US';
 
   // PhoneNumber phoneCode = PhoneNumber(isoCode: 'US', dialCode: "+1");
-  var countries_code = <String?>[];
+  List<String?> countries_code = <String?>[];
 
   String? _phone = "";
 
@@ -65,6 +65,7 @@ class _LoginState extends State<Login> {
   fetch_country() async {
     var data = await AddressRepository().getCountryList();
     data.countries.forEach((c) => countries_code.add(c.code));
+    setState(() {});
   }
 
   @override
@@ -160,9 +161,10 @@ class _LoginState extends State<Login> {
         context.push("/");
       } else {
         if ((mail_verification_status.$ && _login_by == "email") ||
-            (mail_verification_status.$ && _login_by == "phone")) {
+            (must_otp.$ && _login_by == "phone")) {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return Otp(
+              fromRegistration: false ,
                 // verify_by: _register_by,
                 // user_id: signupResponse.user_id,
                 );
@@ -406,7 +408,7 @@ class _LoginState extends State<Login> {
                           controller: _emailController,
                           autofocus: false,
                           decoration: InputDecorations.buildInputDecoration_1(
-                              hint_text: "johndoe@example.com"),
+                              hint_text: "user@example.com"),
                         ),
                       ),
                       otp_addon_installed.$
@@ -435,13 +437,14 @@ class _LoginState extends State<Login> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 36,
                         child: CustomInternationalPhoneNumberInput(
                           countries: countries_code,
+                          initialValue: PhoneNumber(isoCode: AppConfig.default_country),
                           onInputChanged: (PhoneNumber number) {
-                            print(number.phoneNumber);
                             setState(() {
+                              if(number.isoCode != null)  AppConfig.default_country = number.isoCode!;
                               _phone = number.phoneNumber;
                             });
                           },

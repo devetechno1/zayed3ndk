@@ -44,7 +44,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   XFile? _file;
 
   chooseAndUploadImage(context) async {
-    var status = await Permission.camera.request();
+    await Permission.camera.request();
     // var status = await Permission.photos.request();
     //
     // if (status.isDenied) {
@@ -606,6 +606,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             height: 40,
             child: TextField(
               controller: _phoneController,
+              enabled: otp_addon_installed.$,
               autofocus: false,
               keyboardType: TextInputType.phone,
               style: TextStyle(color: Color(0xff999999), fontSize: 12),

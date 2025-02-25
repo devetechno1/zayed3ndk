@@ -87,7 +87,6 @@ class _MyClassifiedAdsState extends State<MyClassifiedAds> {
     }
     ToastComponent.showDialog(
       response.message,
-      duration: 3,
     );
   }
 
@@ -103,7 +102,6 @@ class _MyClassifiedAdsState extends State<MyClassifiedAds> {
     Navigator.pop(switchContext);
     ToastComponent.showDialog(
       response.message,
-      duration: 3,
     );
   }
 

@@ -11,6 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../data_model/language_list_response.dart';
+
 class ChangeLanguage extends StatefulWidget {
   ChangeLanguage({Key? key}) : super(key: key);
 
@@ -21,7 +23,7 @@ class ChangeLanguage extends StatefulWidget {
 class _ChangeLanguageState extends State<ChangeLanguage> {
   var _selected_index = 0;
   ScrollController _mainScrollController = ScrollController();
-  var _list = [];
+  List<Language> _list = [];
   bool _isInitial = true;
 
   @override
@@ -104,7 +106,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
       // var local_provider = new LocaleProvider();
       // local_provider.setLocale(_list[_selected_index].code);
       Provider.of<LocaleProvider>(context, listen: false)
-          .setLocale(_list[_selected_index].mobile_app_code);
+          .setLocale(_list[_selected_index].mobile_app_code ?? 'en');
       context.go('/');
     }
   }
@@ -235,7 +237,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                         ),*/
                               FadeInImage.assetNetwork(
                             placeholder: 'assets/placeholder.png',
-                            image: _list[index].image,
+                            image: _list[index].image ?? '',
                             fit: BoxFit.fitWidth,
                           ))),
                   Container(

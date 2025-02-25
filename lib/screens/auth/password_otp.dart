@@ -6,12 +6,14 @@ import 'package:zayed3ndk/custom/toast_component.dart';
 import 'package:zayed3ndk/my_theme.dart';
 import 'package:zayed3ndk/repositories/auth_repository.dart';
 import 'package:zayed3ndk/screens/auth/login.dart';
+import 'package:zayed3ndk/screens/auth/otp.dart';
 import 'package:zayed3ndk/ui_elements/auth_ui.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 class PasswordOtp extends StatefulWidget {
   PasswordOtp({Key? key, this.verify_by = "email", this.email_or_code})
@@ -28,7 +30,8 @@ class _PasswordOtpState extends State<PasswordOtp> {
   TextEditingController _codeController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _passwordConfirmController = TextEditingController();
-  bool _resetPasswordSuccess = false;
+  CountdownController countdownController = CountdownController(autoStart: true);
+  bool canResend = false;
 
   String headeText = "";
 
@@ -48,6 +51,10 @@ class _PasswordOtpState extends State<PasswordOtp> {
 
   @override
   void dispose() {
+    _codeController.dispose();
+    _passwordController.dispose();
+    _passwordConfirmController.dispose();
+    countdownController.pause();
     //before going to other screen show statusbar
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
@@ -106,8 +113,11 @@ class _PasswordOtpState extends State<PasswordOtp> {
   }
 
   onTapResend() async {
+    setState(() {
+      canResend = false;
+    });
     var passwordResendCodeResponse = await AuthRepository()
-        .getPasswordResendCodeResponse(widget.email_or_code, widget.verify_by);
+        .getPasswordForgetResponse(widget.email_or_code, widget.verify_by);
 
     if (passwordResendCodeResponse.result == false) {
       ToastComponent.showDialog(
@@ -128,7 +138,6 @@ class _PasswordOtpState extends State<PasswordOtp> {
   @override
   Widget build(BuildContext context) {
     String _verify_by = widget.verify_by; //phone or email
-    final _screen_height = MediaQuery.of(context).size.height;
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context,
@@ -166,7 +175,7 @@ class _PasswordOtpState extends State<PasswordOtp> {
                               TextStyle(color: MyTheme.dark_grey, fontSize: 14))
                       : Text(
                           AppLocalizations.of(context)!
-                              .enter_the_verification_code_that_sent_to_your_phone_recently,
+                              .check_your_WhatsApp_messages_to_retrieve_the_verification_code,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: MyTheme.dark_grey, fontSize: 14))),
@@ -296,16 +305,28 @@ class _PasswordOtpState extends State<PasswordOtp> {
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: InkWell(
-                onTap: () {
-                  onTapResend();
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.resend_code_ucf,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: MyTheme.accent_color,
-                      decoration: TextDecoration.underline,
-                      fontSize: 13),
+                onTap: canResend ? onTapResend : null,
+                child: Text(AppLocalizations.of(context)!.resend_code_ucf,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: canResend? MyTheme.accent_color : Theme.of(context).disabledColor,
+                        decoration: TextDecoration.underline,
+                        fontSize: 13)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40, bottom: 60),
+              child: Visibility(
+                visible: !canResend,
+                child: TimerWidget(
+                  duration: Duration(seconds: 20), 
+                  callback: () {
+                      setState(() {
+                        countdownController.restart();
+                        canResend = true;
+                      });
+                  }, 
+                  controller: countdownController,
                 ),
               ),
             ),

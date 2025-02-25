@@ -104,8 +104,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             delegate: SliverChildListDelegate([
                               AppConfig.purchase_code == ""
                                   ? PiratedWidget(homeData: homeData)
-                                  : Container(),
-                              SizedBox(height: 2),
+                                  : SizedBox(),
+                              SizedBox(height: 10),
 
                               //Header Search
                               // Padding(
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               //       const EdgeInsets.symmetric(horizontal: 20),
                               //   child: HomeSearchBox(),
                               // ),
-                              SizedBox(height: 8),
+                              // SizedBox(height: 8),
                               //Header Banner
                               HomeCarouselSlider(
                                 homeData: homeData,
@@ -123,17 +123,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
                               if (homeData.isFlashDeal || homeData.isTodayDeal)
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      12.0, 0.0, 0.0, 16.0),
+                                  padding: const EdgeInsets.only(bottom: 16.0),
                                   child: buildHomeMenu(context, homeData),
                                 ),
                               // SizedBox(height: 16),
 
                               //Home slider one
-                              HomeBannerOne(
-                                context: context,
-                                homeData: homeData,
-                              ),
+                              HomeBannerOne(homeData: homeData),
                             ]),
                           ),
 
@@ -142,8 +138,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             SliverList(
                               delegate: SliverChildListDelegate([
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 10.0, 18.0, 0.0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 18.0, 0.0),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -362,6 +357,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: 12),
         itemCount: menuItems.length,
         itemBuilder: (context, index) {
           final item = menuItems[index];

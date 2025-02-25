@@ -882,8 +882,8 @@ class HomePresenter extends ChangeNotifier {
       //print("position: " + xcrollController.position.pixels.toString());
       //print("max: " + xcrollController.position.maxScrollExtent.toString());
 
-      if (mainScrollController.position.pixels ==
-          mainScrollController.position.maxScrollExtent) {
+      if (mainScrollController.positions.isNotEmpty && mainScrollController.positions.first.pixels ==
+          mainScrollController.positions.first.maxScrollExtent) {
         allProductPage++;
         ToastComponent.showDialog(
           "More Products Loading...",

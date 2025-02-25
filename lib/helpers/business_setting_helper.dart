@@ -72,6 +72,15 @@ class BusinessSettingHelper {
             }
           }
           break;
+        case 'must_otp':
+          {
+            if (element.value.toString() == "1") {
+              must_otp.$ = true;
+            } else {
+              must_otp.$ = false;
+            }
+          }
+          break;
         case 'conversation_system':
           {
             if (element.value.toString() == "1") {
@@ -155,6 +164,35 @@ class BusinessSettingHelper {
             }
           }
           break;
+        case 'minimum_order_quantity_check':
+          {
+            if (element.value.toString() == "1") {
+              minimum_order_quantity_check.$ = true;
+            } else {
+              minimum_order_quantity_check.$ = false;
+            }
+          }
+          break;
+        case 'minimum_order_amount_check':
+          {
+            if (element.value.toString() == "1") {
+              minimum_order_amount_check.$ = true;
+            } else {
+              minimum_order_amount_check.$ = false;
+            }
+          }
+          break;
+        case 'minimum_order_amount':
+          {
+            minimum_order_amount.$ = double.parse(element.value?.toString() ?? '0.0');
+          }
+          break;
+        case 'minimum_order_quantity':
+          {
+            minimum_order_quantity.$ = int.parse(element.value?.toString() ?? '0');
+          }
+          break;
+
 
         default:
           {}

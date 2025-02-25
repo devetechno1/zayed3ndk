@@ -6,7 +6,7 @@ class Btn {
       {color = const Color.fromARGB(0, 0, 0, 0),
       shape = const RoundedRectangleBorder(),
       child = const SizedBox(),
-      EdgeInsets padding = EdgeInsets.zero,
+      EdgeInsetsGeometry padding = EdgeInsets.zero,
       dynamic minWidth,
       dynamic onPressed}) {
     //if (width != null && height != null)

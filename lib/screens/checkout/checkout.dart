@@ -38,15 +38,15 @@ import '../../repositories/guest_checkout_repository.dart';
 import '../guest_checkout_pages/guest_checkout_address.dart';
 
 class Checkout extends StatefulWidget {
-  int? order_id; // only need when making manual payment from order details
-  String list;
+  final int? order_id; // only need when making manual payment from order details
+  final String list;
   final PaymentFor? paymentFor;
   final double rechargeAmount;
   final String? title;
-  var packageId;
+  final packageId;
   final String? guestCheckOutShippingAddress;
 
-  Checkout({
+  const Checkout({
     Key? key,
     this.guestCheckOutShippingAddress,
     this.order_id = 0,
@@ -82,7 +82,6 @@ class _CheckoutState extends State<Checkout> {
   bool? _coupon_applied = false;
   late BuildContext loadingcontext;
   String payment_type = "cart_payment";
-  String? _title;
 
   @override
   void initState() {
@@ -535,6 +534,7 @@ class _CheckoutState extends State<Checkout> {
     if (orderCreateResponse.result == false) {
       ToastComponent.showDialog(
         orderCreateResponse.message,
+        isError: true
       );
       return;
     }
@@ -597,179 +597,7 @@ class _CheckoutState extends State<Checkout> {
   onPressDetails() {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        contentPadding:
-            EdgeInsets.only(top: 16.0, left: 2.0, right: 2.0, bottom: 2.0),
-        content: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 16.0),
-          child: Container(
-            height: 150,
-            child: Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!.subtotal_all_capital,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                color: MyTheme.font_grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          SystemConfig.systemCurrency != null
-                              ? _subTotalString!.replaceAll(
-                                  SystemConfig.systemCurrency!.code!,
-                                  SystemConfig.systemCurrency!.symbol!)
-                              : _subTotalString!,
-                          style: TextStyle(
-                              color: MyTheme.font_grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!.tax_all_capital,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                color: MyTheme.font_grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          SystemConfig.systemCurrency != null
-                              ? _taxString!.replaceAll(
-                                  SystemConfig.systemCurrency!.code!,
-                                  SystemConfig.systemCurrency!.symbol!)
-                              : _taxString!,
-                          style: TextStyle(
-                              color: MyTheme.font_grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .shipping_cost_all_capital,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                color: MyTheme.font_grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          SystemConfig.systemCurrency != null
-                              ? _shippingCostString.replaceAll(
-                                  SystemConfig.systemCurrency!.code!,
-                                  SystemConfig.systemCurrency!.symbol!)
-                              : _shippingCostString,
-                          style: TextStyle(
-                              color: MyTheme.font_grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!.discount_all_capital,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                color: MyTheme.font_grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          SystemConfig.systemCurrency != null
-                              ? _discountString!.replaceAll(
-                                  SystemConfig.systemCurrency!.code!,
-                                  SystemConfig.systemCurrency!.symbol!)
-                              : _discountString!,
-                          style: TextStyle(
-                              color: MyTheme.font_grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
-                Divider(),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .grand_total_all_capital,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                color: MyTheme.font_grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          SystemConfig.systemCurrency != null
-                              ? _totalString!.replaceAll(
-                                  SystemConfig.systemCurrency!.code!,
-                                  SystemConfig.systemCurrency!.symbol!)
-                              : _totalString!,
-                          style: TextStyle(
-                              color: MyTheme.accent_color,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-          ),
-        ),
-        actions: [
-          Btn.basic(
-            child: Text(
-              AppLocalizations.of(context)!.close_all_lower,
-              style: TextStyle(color: MyTheme.medium_grey),
-            ),
-            onPressed: () {
-              Navigator.of(context, rootNavigator: true).pop();
-            },
-          ),
-        ],
-      ),
+      builder: (_) => _AlertDialogDetailsWidget(subTotalString: _subTotalString, taxString: _taxString, shippingCostString: _shippingCostString, discountString: _discountString, totalString: _totalString),
     );
   }
 
@@ -1100,10 +928,7 @@ class _CheckoutState extends State<Checkout> {
         width: 16,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0), color: Colors.green),
-        child: Padding(
-          padding: const EdgeInsets.all(3),
-          child: Icon(Icons.check, color: Colors.white, size: 10),
-        ),
+        child: Icon(Icons.check, color: Colors.white, size: 10),
       ),
     );
   }
@@ -1209,6 +1034,199 @@ class _CheckoutState extends State<Checkout> {
           ],
         ));
       },
+    );
+  }
+}
+
+class _AlertDialogDetailsWidget extends StatelessWidget {
+  const _AlertDialogDetailsWidget({
+    required String? subTotalString,
+    required String? taxString,
+    required String shippingCostString,
+    required String? discountString,
+    required String? totalString,
+  }) : _subTotalString = subTotalString, _taxString = taxString, _shippingCostString = shippingCostString, _discountString = discountString, _totalString = totalString;
+
+  final String? _subTotalString;
+  final String? _taxString;
+  final String _shippingCostString;
+  final String? _discountString;
+  final String? _totalString;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.all(2).copyWith(top: 16),
+      content: Padding(
+        padding: const EdgeInsetsDirectional.only(start: 8.0, end: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      child: Text(
+                        AppLocalizations.of(context)!.subtotal_all_capital,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      SystemConfig.systemCurrency != null
+                          ? _subTotalString!.replaceAll(
+                              SystemConfig.systemCurrency!.code!,
+                              SystemConfig.systemCurrency!.symbol!)
+                          : _subTotalString!,
+                      style: TextStyle(
+                          color: MyTheme.font_grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
+            
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      child: Text(
+                        AppLocalizations.of(context)!.tax_all_capital,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      SystemConfig.systemCurrency != null
+                          ? _taxString!.replaceAll(
+                              SystemConfig.systemCurrency!.code!,
+                              SystemConfig.systemCurrency!.symbol!)
+                          : _taxString!,
+                      style: TextStyle(
+                          color: MyTheme.font_grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .shipping_cost_all_capital,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      SystemConfig.systemCurrency != null
+                          ? _shippingCostString.replaceAll(
+                              SystemConfig.systemCurrency!.code!,
+                              SystemConfig.systemCurrency!.symbol!)
+                          : _shippingCostString,
+                      style: TextStyle(
+                          color: MyTheme.font_grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      child: Text(
+                        AppLocalizations.of(context)!.discount_all_capital,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      SystemConfig.systemCurrency != null
+                          ? _discountString!.replaceAll(
+                              SystemConfig.systemCurrency!.code!,
+                              SystemConfig.systemCurrency!.symbol!)
+                          : _discountString!,
+                      style: TextStyle(
+                          color: MyTheme.font_grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
+            Divider(
+              indent: 8.0,
+            ),
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .grand_total_all_capital,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      SystemConfig.systemCurrency != null
+                          ? _totalString!.replaceAll(
+                              SystemConfig.systemCurrency!.code!,
+                              SystemConfig.systemCurrency!.symbol!)
+                          : _totalString!,
+                      style: TextStyle(
+                          color: MyTheme.accent_color,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
+          ],
+        ),
+      ),
+      actions: [
+        Btn.basic(
+          child: Text(
+            AppLocalizations.of(context)!.close_all_lower,
+            style: TextStyle(color: MyTheme.medium_grey),
+          ),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
+      ],
     );
   }
 }

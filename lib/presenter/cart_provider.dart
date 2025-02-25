@@ -261,6 +261,7 @@ import 'package:provider/provider.dart';
 
 import '../custom/aiz_route.dart';
 import '../custom/btn.dart';
+import '../custom/lang_text.dart';
 import '../helpers/shared_value_helper.dart';
 import '../my_theme.dart';
 import '../screens/checkout/select_address.dart';
@@ -283,12 +284,24 @@ class CartProvider extends ChangeNotifier {
   double get cartTotal => _cartTotal;
   String get cartTotalString => _cartTotalString;
 
+  int get itemsCount {
+    int count = 0;
+    for (var e in _shopList) {
+      count += ((e?.cartItems?.length as int?) ?? 0);
+    }
+    return count;
+  }
+
+  bool get isMinOrderQuantityNotEnough => shopList.isNotEmpty && minOrderQuantityNotEnough(itemsCount);
+  bool get isMinOrderAmountNotEnough => shopList.isNotEmpty && minOrderAmountNotEnough(_cartTotal);
+
   void initState(BuildContext context) {
     fetchData(context);
   }
 
   void dispose() {
     _mainScrollController.dispose();
+    super.dispose();
   }
 
   void fetchData(BuildContext context) async {
@@ -314,6 +327,7 @@ class CartProvider extends ChangeNotifier {
     _cartTotalString = _shopResponse!.grandTotal!.replaceAll(
         SystemConfig.systemCurrency!.code!,
         SystemConfig.systemCurrency!.symbol!);
+    _cartTotal = double.tryParse(_cartTotalString.replaceAll(",",'').replaceAll("${SystemConfig.systemCurrency!.symbol}",'').replaceAll("${SystemConfig.systemCurrency!.code}",'')) ?? 0;
 
     notifyListeners();
   }
@@ -329,7 +343,7 @@ class CartProvider extends ChangeNotifier {
       ToastComponent.showDialog(
           "${AppLocalizations.of(context)!.cannot_order_more_than} ${_shopList[sellerIndex].cartItems[itemIndex].upperLimit} ${AppLocalizations.of(context)!.items_of_this_all_lower}",
           gravity: ToastGravity.CENTER,
-          duration: Toast.LENGTH_LONG);
+          toastLength: Toast.LENGTH_LONG);
     }
   }
 
@@ -449,6 +463,19 @@ class CartProvider extends ChangeNotifier {
       if (mode == "update") {
         fetchData(context);
       } else if (mode == "proceed_to_shipping") {
+        if(isMinOrderQuantityNotEnough){
+          ToastComponent.showDialog(
+            '${LangText(context).local.minimum_order_qty_is} ${minimum_order_quantity.$}',
+            color: Theme.of(context).colorScheme.error
+          );
+          return;
+        }else if(isMinOrderAmountNotEnough){
+          ToastComponent.showDialog(
+            '${LangText(context).local.minimum_order_amount_is} ${minimum_order_amount.$}',
+            color: Theme.of(context).colorScheme.error
+          );
+          return;
+        }
         if (guest_checkout_status.$ && !is_logged_in.$) {
           // Handle guest checkout logic
           // For example, navigate to guest checkout page
