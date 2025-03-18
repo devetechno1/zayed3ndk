@@ -9,8 +9,8 @@ class AppConfig {
   //configure this
   // static String copyright_text =
   //     "@ Deve Finance " + this_year; //this shows in the splash screen
-  static const String app_name_ar = "زايد عندك";
-  static const String app_name_en = "زايد عندك";
+  static const String app_name_ar = "متجر زايد عندك";
+  static const String app_name_en = "متجر زايد عندك";
   /// This get the name of the application in deviceLocale
   static String appNameOnDeviceLang = PlatformDispatcher.instance.locale.languageCode == 'ar' ? app_name_ar : app_name_en;
 
