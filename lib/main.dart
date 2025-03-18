@@ -282,12 +282,15 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             builder: OneContext().builder,
             theme: ThemeData(
-              primaryColor: MyTheme.white,
+              primaryColor: MyTheme.accent_color,
               scaffoldBackgroundColor: MyTheme.white,
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: "PublicSansSerif",
               textTheme: MyTheme.textTheme1,
               fontFamilyFallback: ['NotoSans'],
+              colorScheme: ColorScheme.light(
+                primary: MyTheme.accent_color,
+              ),
               scrollbarTheme: ScrollbarThemeData(
                 thumbVisibility: WidgetStateProperty.all<bool>(false),
               ),

@@ -341,7 +341,7 @@ class _OfflineState extends State<OfflineScreen> {
                   controller: _nameController,
                   autofocus: false,
                   decoration: InputDecorations.buildInputDecoration_1(
-                      hint_text: "John Doe"),
+                      hint_text: "الاسم"),
                 ),
               ),
             ),

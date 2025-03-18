@@ -574,7 +574,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               autofocus: false,
               style: TextStyle(color: Color(0xff999999), fontSize: 12),
               decoration:
-                  InputDecorations.buildInputDecoration_1(hint_text: "John Doe")
+                  InputDecorations.buildInputDecoration_1(hint_text: "الاسم")
                       .copyWith(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,

@@ -230,7 +230,7 @@ class _RegistrationState extends State<Registration> {
                     controller: _nameController,
                     autofocus: false,
                     decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "John Doe"),
+                        hint_text: "الاسم"),
                   ),
                 ),
               ),
