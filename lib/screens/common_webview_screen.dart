@@ -38,11 +38,12 @@ class _CommonWebviewScreenState extends State<CommonWebviewScreen> {
       ..loadRequest(Uri.parse(widget.url));
   }
 
+  TextDirection get direction => app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection:
-          app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: direction,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: buildAppBar(context),
@@ -54,7 +55,7 @@ class _CommonWebviewScreenState extends State<CommonWebviewScreen> {
   buildBody() {
     return SizedBox.expand(
       child: Container(
-        child: WebViewWidget(controller: _webViewController),
+        child: WebViewWidget(controller: _webViewController, layoutDirection: direction),
       ),
     );
   }

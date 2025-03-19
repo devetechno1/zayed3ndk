@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.zayed3ndk.zayed3ndkstore"
+        applicationId "com.zayed3ndk.store"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

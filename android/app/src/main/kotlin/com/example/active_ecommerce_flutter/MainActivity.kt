@@ -1,4 +1,4 @@
-package com.zayed3ndk.zayed3ndkstore
+package com.zayed3ndk.store
 
 import io.flutter.embedding.android.FlutterActivity
 
