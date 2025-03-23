@@ -64,9 +64,47 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:401571568774:android:1858beb698d806597b0507",
+        "mobilesdk_app_id": "1:401571568774:android:0806cd7ad6e97b427b0507",
         "android_client_info": {
           "package_name": "com.zayed3ndk.zayed3ndkstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu8cq0T0eejz9BS8PMCFUCrej440bLe60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401571568774:android:fea2ade4b50453dc7b0507",
+        "android_client_info": {
+          "package_name": "com.zayed3ndk.zayedstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu8cq0T0eejz9BS8PMCFUCrej440bLe60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401571568774:android:3770f831746c3ffd7b0507",
+        "android_client_info": {
+          "package_name": "com.zayed3ndkstore.zayed3ndkstore"
         }
       },
       "oauth_client": [],
