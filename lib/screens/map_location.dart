@@ -17,6 +17,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 
+import '../app_config.dart';
+
 class MapLocation extends StatefulWidget {
   const MapLocation({Key? key, this.address}) : super(key: key);
   final address;
@@ -28,8 +30,7 @@ class MapLocation extends StatefulWidget {
 class MapLocationState extends State<MapLocation>
     with SingleTickerProviderStateMixin {
   PickResult? selectedPlace;
-  static LatLng kInitialPosition = LatLng(
-      51.52034098371205, -0.12637399200000668); // London , arbitary value
+  static LatLng kInitialPosition = AppConfig.initPlace;
 
   // GoogleMapController? _controller;
 
@@ -59,17 +60,16 @@ class MapLocationState extends State<MapLocation>
   }
 
   setDummyInitialLocation() {
-    kInitialPosition = LatLng(
-        51.52034098371205, -0.12637399200000668); // London , arbitary value
+    kInitialPosition = AppConfig.initPlace;
     setState(() {});
   }
 
-  onTapPickHere(selectedPlace) async {
+  onTapPickHere(PickResult selectedPlace) async {
     var addressUpdateLocationResponse = await AddressRepository()
         .getAddressUpdateLocationResponse(
             widget.address.id,
-            selectedPlace.geometry.location.lat,
-            selectedPlace.geometry.location.lng);
+            selectedPlace.geometry?.location.lat,
+            selectedPlace.geometry?.location.lng);
 
     if (addressUpdateLocationResponse.result == false) {
       ToastComponent.showDialog(
@@ -91,7 +91,9 @@ class MapLocationState extends State<MapLocation>
       hintText: AppLocalizations.of(context)!.your_delivery_location,
       apiKey: OtherConfig.GOOGLE_MAP_API_KEY,
       initialPosition: kInitialPosition,
-      useCurrentLocation: true,
+      useCurrentLocation: !widget.address.location_available,
+      selectInitialPosition: true,
+
       //selectInitialPosition: true,
       //onMapCreated: _onMapCreated, // this causes error , do not open this
       //initialMapType: MapType.terrain,
@@ -123,10 +125,10 @@ class MapLocationState extends State<MapLocation>
             ? SizedBox()
             : FloatingCard(
                 height: 50,
-                bottomPosition: 120.0,
+                bottomPosition: 40.0,
                 // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                leftPosition: 0.0,
-                rightPosition: 0.0,
+                leftPosition: 16.0,
+                rightPosition: 16.0,
                 width: 500,
                 borderRadius: const BorderRadius.only(
                   topLeft: const Radius.circular(8.0),
