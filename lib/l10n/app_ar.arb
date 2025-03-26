@@ -1,4 +1,8 @@
 {
+    "longitude": "خط الطول",
+    "latitude": "خط العرض",
+    "you_have_to_add_location_here": "يجب عليك إضافة الموقع هنا",
+    "you_have_to_add_location_first": "يجب عليك إضافة الموقع أولًا",
     "check_your_WhatsApp_messages_to_retrieve_the_verification_code":"تحقق من رسائل الواتساب الخاصة بك لاستلام رمز التحقق",
     "minimum_order_amount_is": "الحد الأدنى لمبلغ الطلب هو",
     "minimum_order_qty_is": "الحد الأدنى للمنتجات المختلفة هو",

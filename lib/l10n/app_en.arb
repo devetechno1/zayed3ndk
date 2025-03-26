@@ -1,4 +1,8 @@
 {
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "you_have_to_add_location_here": "You have to add location here",
+  "you_have_to_add_location_first": "You have to add location first",
   "check_your_WhatsApp_messages_to_retrieve_the_verification_code":"Check your WhatsApp messages to retrieve the verification code",
   "minimum_order_amount_is": "Minimum order amount is",
   "minimum_order_qty_is": "The minimum order quantity for different products is",
