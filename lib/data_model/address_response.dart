@@ -20,7 +20,7 @@ class AddressResponse {
   int? status;
 
   factory AddressResponse.fromJson(Map<String, dynamic> json) => AddressResponse(
-    addresses: List<Address>.from(json["data"].map((x) => Address.fromJson(x))),
+    addresses: List<Address>.from((json["data"]?.map((x) => Address.fromJson(x))) ?? []),
     success: json["success"],
     status: json["status"],
   );

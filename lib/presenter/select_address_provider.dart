@@ -9,7 +9,7 @@ import '../screens/checkout/shipping_info.dart';
 class SelectAddressProvider with ChangeNotifier {
   ScrollController mainScrollController = ScrollController();
 
-  int? selectedShippingAddress = 0;
+  int? selectedShippingAddress = -1;
   List<dynamic> shippingAddressList = [];
   bool isVisible = true;
   bool faceData = false;
@@ -27,9 +27,9 @@ class SelectAddressProvider with ChangeNotifier {
     super.dispose();
   }
 
-  void fetchAll(BuildContext context) {
+  Future<void> fetchAll(BuildContext context) async{
     if (is_logged_in.$ == true) {
-      fetchShippingAddressList(context);
+      await fetchShippingAddressList(context);
     }
   }
 
@@ -38,8 +38,12 @@ class SelectAddressProvider with ChangeNotifier {
     var addressResponse = await AddressRepository().getAddressList();
     shippingAddressList.addAll(addressResponse.addresses);
     if (shippingAddressList.isNotEmpty) {
-      selectedShippingAddress = shippingAddressList[0].id;
-
+      for (int i = 0; i < shippingAddressList.length; i++) {
+        if (shippingAddressList[i].location_available == true) {
+          selectedShippingAddress = shippingAddressList[i].id;
+          break;
+        }
+      }
       for (var address in shippingAddressList) {
         if (address.set_default == 1) {
           selectedShippingAddress = address.id;
@@ -53,14 +57,14 @@ class SelectAddressProvider with ChangeNotifier {
   void reset() {
     shippingAddressList.clear();
     faceData = false;
-    selectedShippingAddress = 0;
+    selectedShippingAddress = -1;
     notifyListeners();
   }
 
   Future<void> onRefresh(BuildContext context) async {
     reset();
     if (is_logged_in.$ == true) {
-      fetchAll(context);
+      await fetchAll(context);
     }
   }
 
@@ -82,7 +86,7 @@ class SelectAddressProvider with ChangeNotifier {
   }
 
   Future<void> onPressProceed(BuildContext context) async {
-    if (selectedShippingAddress == 0) {
+    if (selectedShippingAddress == -1) {
       ToastComponent.showDialog(
         LangText(context).local.choose_an_address_or_pickup_point,
       );
@@ -91,7 +95,7 @@ class SelectAddressProvider with ChangeNotifier {
 
     late var addressUpdateInCartResponse;
 
-    if (selectedShippingAddress != 0) {
+    if (selectedShippingAddress != -1) {
       addressUpdateInCartResponse = await AddressRepository()
           .getAddressUpdateInCartResponse(address_id: selectedShippingAddress);
     }

@@ -78,7 +78,7 @@ class MapLocationState extends State<MapLocation>
       return;
     }
 
-    Navigator.pop(context);
+    Navigator.pop(context, selectedPlace);
 
     ToastComponent.showDialog(
       addressUpdateLocationResponse.message,
@@ -91,7 +91,7 @@ class MapLocationState extends State<MapLocation>
       hintText: AppLocalizations.of(context)!.your_delivery_location,
       apiKey: OtherConfig.GOOGLE_MAP_API_KEY,
       initialPosition: kInitialPosition,
-      useCurrentLocation: false,
+      useCurrentLocation: true,
       //selectInitialPosition: true,
       //onMapCreated: _onMapCreated, // this causes error , do not open this
       //initialMapType: MapType.terrain,
@@ -120,7 +120,7 @@ class MapLocationState extends State<MapLocation>
               gravity: Toast.center, duration: Toast.lengthLong);
         }*/
         return isSearchBarFocused
-            ? Container()
+            ? SizedBox()
             : FloatingCard(
                 height: 50,
                 bottomPosition: 120.0,

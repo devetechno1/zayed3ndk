@@ -16,8 +16,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class Address extends StatefulWidget {
-  Address({Key? key, this.from_shipping_info = false}) : super(key: key);
-  bool from_shipping_info;
+  const Address({Key? key, this.from_shipping_info = false}) : super(key: key);
+  final bool from_shipping_info;
 
   @override
   _AddressState createState() => _AddressState();
@@ -63,13 +63,13 @@ class _AddressState extends State<Address> {
     }
   }
 
-  fetchAll() {
-    fetchShippingAddressList();
+  Future fetchAll() async{
+    await fetchShippingAddressList();
 
     setState(() {});
   }
 
-  fetchShippingAddressList() async {
+  Future fetchShippingAddressList() async {
     // print("enter fetchShippingAddressList");
     var addressResponse = await AddressRepository().getAddressList();
     _shippingAddressList.addAll(addressResponse.addresses);
@@ -77,7 +77,7 @@ class _AddressState extends State<Address> {
       _isInitial = false;
     });
     if (_shippingAddressList.length > 0) {
-      var count = 0;
+      // var count = 0;
       _shippingAddressList.forEach((address) {
         if (address.set_default == 1) {
           _default_shipping_address = address.id;
@@ -146,9 +146,9 @@ class _AddressState extends State<Address> {
     fetchAll();
   }
 
-  afterAddingAnAddress() {
+  Future afterAddingAnAddress() async{
     reset();
-    fetchAll();
+    await fetchAll();
   }
 
   afterDeletingAnAddress() {
@@ -293,7 +293,9 @@ class _AddressState extends State<Address> {
     );
 
     Navigator.of(context, rootNavigator: true).pop();
-    afterAddingAnAddress();
+    await afterAddingAnAddress();
+    final int i = _shippingAddressList.length - 1;
+    _choosePlace(i);
   }
 
   onAddressUpdate(context, index, id) async {
@@ -454,16 +456,20 @@ class _AddressState extends State<Address> {
         onPressDelete(_shippingAddressList[listIndex].id);
         break;
       case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return MapLocation(address: _shippingAddressList[listIndex]);
-        })).then((value) {
-          onPopped(value);
-        });
+        _choosePlace(listIndex);
         //deleteProduct(productId);
         break;
       default:
         break;
     }
+  }
+
+  void _choosePlace(int listIndex) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MapLocation(address: _shippingAddressList[listIndex]);
+    })).then((value) {
+      onPopped(value);
+    });
   }
 
   @override
@@ -503,7 +509,7 @@ class _AddressState extends State<Address> {
                     child: Column(
                       children: [
                         Text(
-                          "${AppLocalizations.of(context)!.no_address_is_added}",
+                          "${AppLocalizations.of(context)!.add_new_address}",
                           style: TextStyle(
                               fontSize: 13,
                               color: MyTheme.dark_font_grey,
@@ -845,7 +851,7 @@ class _AddressState extends State<Address> {
                       width: 1,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 28.0),
+                      padding: const EdgeInsetsDirectional.only(start: 28.0),
                       child: Btn.minWidthFixHeight(
                         minWidth: 75,
                         height: 40,
@@ -854,7 +860,7 @@ class _AddressState extends State<Address> {
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                         child: Text(
-                          LangText(context).local.add_ucf,
+                          LangText(context).local.continue_ucf,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -892,7 +898,7 @@ class _AddressState extends State<Address> {
             const Radius.circular(6.0),
           ),
         ),
-        contentPadding: EdgeInsets.only(left: 8.0, top: 6.0, bottom: 6.0));
+        contentPadding: EdgeInsetsDirectional.only(start: 8.0, top: 6.0, bottom: 6.0));
   }
 
   Future buildShowUpdateFormDialog(BuildContext context, index) {
@@ -1182,7 +1188,7 @@ class _AddressState extends State<Address> {
                       width: 1,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 28.0),
+                      padding: const EdgeInsetsDirectional.only(start: 28.0),
                       child: Btn.minWidthFixHeight(
                         minWidth: 75,
                         height: 40,
@@ -1233,7 +1239,7 @@ class _AddressState extends State<Address> {
                 fontWeight: FontWeight.bold),
           ),
           Text(
-            "* ${AppLocalizations.of(context)!.double_tap_on_an_address_to_make_it_default}",
+            "* ${AppLocalizations.of(context)!.tap_on_an_address_to_make_it_default}",
             style: TextStyle(fontSize: 12, color: Color(0xff6B7377)),
           ),
         ],
@@ -1285,15 +1291,21 @@ class _AddressState extends State<Address> {
     }
   }
 
-  GestureDetector buildAddressItemCard(index) {
-    return GestureDetector(
-      onDoubleTap: () {
+  InkWell buildAddressItemCard(int index) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(6),
+      onTap: () {
+        if(_shippingAddressList[index].location_available != true){
+          _choosePlace(index);
+          // ToastComponent.showDialog(AppLocalizations.of(context)!.you_have_to_add_location_first,isError: true,gravity: ToastGravity.BOTTOM);
+          return;
+        }
         if (_default_shipping_address != _shippingAddressList[index].id) {
           onAddressSwitch(_shippingAddressList[index].id);
         }
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 400),
+        duration: Duration(milliseconds: 200),
         decoration: BoxDecorations.buildBoxDecoration_1().copyWith(
             border: Border.all(
                 color:
@@ -1307,186 +1319,81 @@ class _AddressState extends State<Address> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0).copyWith(bottom: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.address_ucf,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          width: 175,
-                          child: Text(
-                            _shippingAddressList[index].address,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
+                  LineData(
+                    name: AppLocalizations.of(context)!.address_ucf, 
+                    body: "${_shippingAddressList[index].address}",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.city_ucf,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          child: Text(
-                            _shippingAddressList[index].city_name,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
+                  LineData(
+                    name: AppLocalizations.of(context)!.city_ucf, 
+                    body: "${_shippingAddressList[index].city_name}",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.state_ucf,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          child: Text(
-                            _shippingAddressList[index].state_name,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
+                  LineData(
+                    name: AppLocalizations.of(context)!.state_ucf, 
+                    body: "${_shippingAddressList[index].state_name}",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.country_ucf,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          child: Text(
-                            _shippingAddressList[index].country_name,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
+                  LineData(
+                    name: AppLocalizations.of(context)!.country_ucf, 
+                    body: "${_shippingAddressList[index].country_name}",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.postal_code,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          child: Text(
-                            _shippingAddressList[index].postal_code,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
+                  LineData(
+                    name: AppLocalizations.of(context)!.postal_code, 
+                    body: "${_shippingAddressList[index].postal_code}",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 75,
-                          child: Text(
-                            AppLocalizations.of(context)!.phone_ucf,
-                            style: TextStyle(
-                                color: const Color(0xff6B7377),
-                                fontWeight: FontWeight.normal),
+                  LineData(
+                    name: AppLocalizations.of(context)!.phone_ucf, 
+                    body: "${_shippingAddressList[index].phone}",
+                  ),
+                  _shippingAddressList[index].location_available != true 
+                  ? Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 8),
+                      padding: EdgeInsets.symmetric(vertical: 3,horizontal: 9),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.error,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Text(
+                          AppLocalizations.of(context)!.you_have_to_add_location_here,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Container(
-                          width: 200,
-                          child: Text(
-                            _shippingAddressList[index].phone,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: MyTheme.dark_grey,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
                     ),
+                  )
+                  : Column(
+                    children: [
+                      LineData(
+                        name: AppLocalizations.of(context)!.latitude, 
+                        body: "${_shippingAddressList[index].lat}",
+                      ),
+                      LineData(
+                        name: AppLocalizations.of(context)!.longitude, 
+                        body: "${_shippingAddressList[index].lang}",
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            app_language_rtl.$!
-                ? Positioned(
-                    left: 0.0,
-                    top: 10.0,
+            // app_language_rtl.$!
+                // ? 
+                PositionedDirectional(
+                    end: 0.0,
+                    top: 20,
                     child: showOptions(listIndex: index),
                   )
-                : Positioned(
-                    right: 0.0,
-                    top: 10.0,
-                    child: showOptions(listIndex: index),
-                  ),
+                // : Positioned(
+                //     right: 0.0,
+                //     top: 10.0,
+                //     child: showOptions(listIndex: index),
+                //   ),
             /*  app_language_rtl.$
                 ? Positioned(
                     left: 0,
@@ -1589,7 +1496,7 @@ class _AddressState extends State<Address> {
       child: Container(
         width: 45,
         padding: EdgeInsets.symmetric(horizontal: 15),
-        alignment: Alignment.topRight,
+        alignment: AlignmentDirectional.topEnd,
         child: Image.asset("assets/more.png",
             width: 4,
             height: 16,
@@ -1602,6 +1509,7 @@ class _AddressState extends State<Address> {
         //   //_menuOptionSelected = result;
         // });
       },
+      position: PopupMenuPosition.under,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuOptions>>[
         PopupMenuItem<MenuOptions>(
           value: MenuOptions.Edit,
@@ -1613,9 +1521,48 @@ class _AddressState extends State<Address> {
         ),
         PopupMenuItem<MenuOptions>(
           value: MenuOptions.AddLocation,
-          child: Text(AppLocalizations.of(context)!.add_location_ucf),
+          child: Text(AppLocalizations.of(context)!.edit_location),
         ),
       ],
+    );
+  }
+}
+
+class LineData extends StatelessWidget {
+  const LineData({super.key, required this.name, required this.body});
+
+  final String name; 
+  final String? body; 
+
+
+  @override
+  Widget build(BuildContext context) {
+    if(body?.isNotEmpty != true) return const SizedBox();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 75,
+            child: Text(
+              name,
+              style: TextStyle(
+                  color: const Color(0xff6B7377),
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              body!,
+              maxLines: 2,
+              style: TextStyle(
+                  color: MyTheme.dark_grey,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

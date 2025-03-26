@@ -10,9 +10,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../map_location.dart';
+
 class SelectAddress extends StatefulWidget {
-  int? owner_id;
-  SelectAddress({Key? key, this.owner_id}) : super(key: key);
+  final int? owner_id;
+  const SelectAddress({Key? key, this.owner_id}) : super(key: key);
 
   @override
   State<SelectAddress> createState() => _SelectAddressState();
@@ -75,7 +77,7 @@ class _SelectAddressState extends State<SelectAddress> {
     );
   }
 
-  Widget buildAddOrEditAddress(BuildContext context, provider) {
+  Widget buildAddOrEditAddress(BuildContext context, SelectAddressProvider provider) {
     return Container(
       height: 40,
       child: Center(
@@ -129,7 +131,7 @@ class _SelectAddressState extends State<SelectAddress> {
     );
   }
 
-  buildShippingInfoList(selectAddressProvider, BuildContext context) {
+  buildShippingInfoList(SelectAddressProvider selectAddressProvider, BuildContext context) {
     if (is_logged_in.$ == false) {
       return Container(
           height: 100,
@@ -172,9 +174,22 @@ class _SelectAddressState extends State<SelectAddress> {
   }
 
   GestureDetector buildShippingInfoItemCard(
-      index, selectAddressProvider, BuildContext context) {
+      int index, SelectAddressProvider selectAddressProvider, BuildContext context) {
     return GestureDetector(
-      onTap: () => selectAddressProvider.shippingInfoCardFnc(index, context),
+      onTap: (){ 
+        if(selectAddressProvider.shippingAddressList[index].location_available == true){
+          selectAddressProvider.shippingInfoCardFnc(index, context);
+        }else{
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MapLocation(address: selectAddressProvider.shippingAddressList[index]);
+          })).then((value) async{
+            if (value != null) {
+              await selectAddressProvider.onRefresh(context);
+              selectAddressProvider.shippingInfoCardFnc(index, context);
+            }
+          });
+        }
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           side: selectAddressProvider.selectedShippingAddress ==
@@ -187,198 +202,269 @@ class _SelectAddressState extends State<SelectAddress> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildShippingInfoItemAddress(index, selectAddressProvider),
-              buildShippingInfoItemCity(index, selectAddressProvider),
-              buildShippingInfoItemState(index, selectAddressProvider),
-              buildShippingInfoItemCountry(index, selectAddressProvider),
-              buildShippingInfoItemPostalCode(index, selectAddressProvider),
-              buildShippingInfoItemPhone(index, selectAddressProvider),
-            ],
-          ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: LineData(
+                          name: LangText(context).local.address_ucf, 
+                          body: "${selectAddressProvider.shippingAddressList[index].address}",
+                        ),
+                      ),
+                      buildShippingOptionsCheckContainer(
+                        selectAddressProvider.selectedShippingAddress ==
+                            selectAddressProvider.shippingAddressList[index].id)
+                    ],
+                  ),
+                  LineData(
+                    name: LangText(context).local.city_ucf, 
+                    body: "${selectAddressProvider.shippingAddressList[index].city_name}",
+                  ),
+                  LineData(
+                    name: LangText(context).local.state_ucf, 
+                    body: "${selectAddressProvider.shippingAddressList[index].state_name}",
+                  ),
+                  LineData(
+                    name: LangText(context).local.country_ucf, 
+                    body: "${selectAddressProvider.shippingAddressList[index].country_name}",
+                  ),
+                  LineData(
+                    name: LangText(context).local.postal_code, 
+                    body: "${selectAddressProvider.shippingAddressList[index].postal_code}",
+                  ),
+                  LineData(
+                    name: LangText(context).local.phone_ucf, 
+                    body: "${selectAddressProvider.shippingAddressList[index].phone}",
+                  ),
+                  selectAddressProvider.shippingAddressList[index].location_available != true 
+                  ? Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 8),
+                      padding: EdgeInsets.symmetric(vertical: 3,horizontal: 9),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.error,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Text(
+                          LangText(context).local.you_have_to_add_location_here,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                    ),
+                  )
+                  : Column(
+                    children: [
+                      LineData(
+                        name: LangText(context).local.latitude, 
+                        body: "${selectAddressProvider.shippingAddressList[index].lat}",
+                      ),
+                      LineData(
+                        name: LangText(context).local.longitude, 
+                        body: "${selectAddressProvider.shippingAddressList[index].lang}",
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     buildShippingInfoItemAddress(index, selectAddressProvider),
+          //     buildShippingInfoItemCity(index, selectAddressProvider),
+          //     buildShippingInfoItemState(index, selectAddressProvider),
+          //     buildShippingInfoItemCountry(index, selectAddressProvider),
+          //     buildShippingInfoItemPostalCode(index, selectAddressProvider),
+          //     buildShippingInfoItemPhone(index, selectAddressProvider),
+          //   ],
+          // ),
         ),
       ),
     );
   }
 
-  Padding buildShippingInfoItemPhone(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.phone_ucf,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 200,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].phone,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemPhone(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.phone_ucf,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 200,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].phone,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Padding buildShippingInfoItemPostalCode(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.postal_code,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 200,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].postal_code,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemPostalCode(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.postal_code,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 200,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].postal_code,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Padding buildShippingInfoItemCountry(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.country_ucf,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 200,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].country_name,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemCountry(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.country_ucf,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 200,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].country_name,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Padding buildShippingInfoItemState(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.state_ucf,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 200,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].state_name,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemState(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.state_ucf,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 200,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].state_name,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Padding buildShippingInfoItemCity(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.city_ucf,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 200,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].city_name,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemCity(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.city_ucf,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 200,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].city_name,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Padding buildShippingInfoItemAddress(index, selectAddressProvider) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 75,
-            child: Text(
-              LangText(context).local.address_ucf,
-              style: TextStyle(
-                color: MyTheme.grey_153,
-              ),
-            ),
-          ),
-          Container(
-            width: 175,
-            child: Text(
-              selectAddressProvider.shippingAddressList[index].address,
-              maxLines: 2,
-              style: TextStyle(
-                  color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
-            ),
-          ),
-          Spacer(),
-          buildShippingOptionsCheckContainer(
-              selectAddressProvider.selectedShippingAddress ==
-                  selectAddressProvider.shippingAddressList[index].id)
-        ],
-      ),
-    );
-  }
+  // Padding buildShippingInfoItemAddress(index, selectAddressProvider) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8.0),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 75,
+  //           child: Text(
+  //             LangText(context).local.address_ucf,
+  //             style: TextStyle(
+  //               color: MyTheme.grey_153,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 175,
+  //           child: Text(
+  //             selectAddressProvider.shippingAddressList[index].address,
+  //             maxLines: 2,
+  //             style: TextStyle(
+  //                 color: MyTheme.dark_grey, fontWeight: FontWeight.w600),
+  //           ),
+  //         ),
+  //         Spacer(),
+  //         buildShippingOptionsCheckContainer(
+  //             selectAddressProvider.selectedShippingAddress ==
+  //                 selectAddressProvider.shippingAddressList[index].id)
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Container buildShippingOptionsCheckContainer(bool check) {
     return check
