@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../custom/lang_text.dart';
 import '../../helpers/main_helpers.dart';
 import '../profile.dart';
 
@@ -111,7 +112,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
               getData();
             } else if (page.contains("/paypal/payment/cancel")) {
               ToastComponent.showDialog(
-                "Payment cancelled",
+                LangText(context).local.payment_cancelled_ucf
               );
               Navigator.of(context).pop();
               return;

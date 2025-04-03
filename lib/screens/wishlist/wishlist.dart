@@ -108,7 +108,7 @@ class _WishlistState extends State<Wishlist> {
         child: ShimmerHelper().buildListShimmer(item_count: 10),
       );
     } else if (_wishlistItems.length > 0) {
-      return WishListGridView(wishlistItems: _wishlistItems);
+      return WishListGridView(onPopFromProduct: _onPageRefresh, wishlistItems: _wishlistItems);
     } else {
       return Container(
         height: 100,

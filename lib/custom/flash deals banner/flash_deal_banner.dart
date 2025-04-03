@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import '../lang_text.dart';
+
 class FlashDealBanner extends StatelessWidget {
   final HomePresenter? homeData;
   final BuildContext? context;
@@ -20,7 +22,7 @@ class FlashDealBanner extends StatelessWidget {
     if (homeData == null) {
       return Container(
         height: 100,
-        child: Center(child: Text('No data available')),
+        child: Center(child: Text(LangText(context).local.no_data_is_available)),
       );
     }
 

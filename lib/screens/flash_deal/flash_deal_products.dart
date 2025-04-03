@@ -17,6 +17,8 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../custom/lang_text.dart';
+
 class FlashDealProducts extends StatefulWidget {
   FlashDealProducts({
     Key? key,
@@ -172,7 +174,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             )
-          : Text('Loading.....'),
+          : Text(LangText(context).local.loading_ucf),
       elevation: 0.0,
       titleSpacing: 0,
       scrolledUnderElevation: 0.0,
@@ -354,7 +356,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                 height: 5,
               ),
               Text(
-                'Days',
+                LangText(context).local.days_ucf,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -373,7 +375,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                 height: 5,
               ),
               Text(
-                'Hours',
+                LangText(context).local.hours,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -392,7 +394,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                 height: 5,
               ),
               Text(
-                'Minutes',
+                LangText(context).local.minutes,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],
@@ -411,7 +413,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                 height: 5,
               ),
               Text(
-                'Seconds',
+                LangText(context).local.seconds,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               )
             ],

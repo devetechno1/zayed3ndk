@@ -33,9 +33,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderDetails extends StatefulWidget {
-  int? id;
+  final int? id;
   final bool from_notification;
-  bool go_back;
+  final bool go_back;
 
   OrderDetails(
       {Key? key, this.id, this.from_notification = false, this.go_back = true})
@@ -156,8 +156,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     var orderDetailsResponse =
         await OrderRepository().getOrderDetails(id: widget.id);
 
-    if (orderDetailsResponse.detailed_orders.length > 0) {
-      _orderDetails = orderDetailsResponse.detailed_orders[0];
+    if (orderDetailsResponse!.detailed_orders!.length > 0) {
+      _orderDetails = orderDetailsResponse.detailed_orders![0];
       setStepIndex(_orderDetails!.delivery_status);
     }
 
@@ -241,20 +241,20 @@ class _OrderDetailsState extends State<OrderDetails> {
   _showCancelDialog(id) {
     return ConfirmDialog.show(
       context,
-      title: "Please ensure us.",
-      message: "Do you want to cancel this order?",
-      yesText: "Yes",
-      noText: "No",
+      title: LangText(context).local.pleaseEnsureUs,
+      message: LangText(context).local.do_you_want_to_cancel_this_order,
+      yesText: LangText(context).local.yes_ucf,
+      noText: LangText(context).local.no_ucf,
       pressYes: () {
         _onPressCancelOrder(id);
       },
     );
   }
 
-  _make_re_payment(amount) {
+  _make_re_payment(String amount) {
     String currencyPattern = r"^[A-Z]{3}(?:[,.]?)";
-    String amountWithoutCountryCode =
-        amount.replaceAll(RegExp(currencyPattern), "");
+    String amountWithoutCountryCode = amount.replaceAll(RegExp(r'[^\d.,]+'), '');;
+
 
     double convertToDouble(String amountStr) {
       String amountWithoutCurrency =
@@ -269,15 +269,14 @@ class _OrderDetailsState extends State<OrderDetails> {
       }
     }
 
-    double convertedAmount = convertToDouble(amount);
-    print(convertedAmount);
+    double convertedAmount = convertToDouble(amountWithoutCountryCode);
     return Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => Checkout(
-          title: "Order Re Payment",
+          title: LangText(context).local.order_repayment,
           rechargeAmount: convertedAmount,
-          paymentFor: PaymentFor.OrderRePayment,
+          paymentFor: PaymentFor.ManualPayment,
           packageId: 0,
           order_id: _orderDetails!.id,
         ),
@@ -1443,7 +1442,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   color: MyTheme.accent_color,
                   onPressed: () {
                     // _showCancelDialog(_orderDetails!.id);
-                    _make_re_payment(_orderDetails!.grand_total);
+                    _make_re_payment(_orderDetails!.grand_total ?? '');
                   },
                   child: Text(
                     LangText(context).local.make_payment_ucf,

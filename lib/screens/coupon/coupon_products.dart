@@ -61,7 +61,7 @@ class _CouponProductsState extends State<CouponProducts> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              code ?? 'No Code',
+              code ?? LangText(context).local.no_code,
               style: TextStyle(
                   fontSize: 16,
                   color: MyTheme.dark_font_grey,
@@ -98,12 +98,12 @@ class _CouponProductsState extends State<CouponProducts> {
         future: CouponRepository().getCouponProductList(id: widget.id),
         builder: (context, AsyncSnapshot<ProductMiniResponse> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text("An error occurred"));
+            return Center(child: Text(LangText(context).local.an_error_occurred));
           } else if (snapshot.hasData) {
             var productResponse = snapshot.data;
             if (productResponse?.products == null ||
                 productResponse!.products!.isEmpty) {
-              return Center(child: Text("No products found"));
+              return Center(child: Text(LangText(context).local.no_products_found));
             }
             return SingleChildScrollView(
               child: MasonryGridView.count(

@@ -1,6 +1,7 @@
 import 'package:zayed3ndk/custom/AIZTypeDef.dart';
 import 'package:zayed3ndk/custom/btn.dart';
 import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
 import 'package:zayed3ndk/my_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class ConfirmDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Please ensure us."),
+          title: Text(LangText(context).local.pleaseEnsureUs),
           content: Row(
             children: [
               SizedBox(
@@ -45,7 +46,7 @@ class ConfirmDialog {
                 pressYes();
               },
               child: Text(
-                "Yes",
+                LangText(context).local.yes_ucf,
                 style: TextStyle(fontSize: 14, color: MyTheme.white),
               ),
             ),

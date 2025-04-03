@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../app_config.dart';
+import '../../custom/lang_text.dart';
 import '../../repositories/address_repository.dart';
 
 class PasswordForget extends StatefulWidget {
@@ -84,14 +85,14 @@ class _PasswordForgetState extends State<PasswordForget> {
 
   fetch_country() async {
     var data = await AddressRepository().getCountryList();
-    data.countries.forEach((c) => countries_code.add(c.code));
+    data.countries?.forEach((c) => countries_code.add(c.code));
   }
 
   @override
   Widget build(BuildContext context) {
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
-        context, "Forget Password!", buildBody(_screen_width, context));
+        context, LangText(context).local.forget_password, buildBody(_screen_width, context));
   }
 
   Column buildBody(double _screen_width, BuildContext context) {
@@ -128,7 +129,7 @@ class _PasswordForgetState extends State<PasswordForget> {
                           controller: _emailController,
                           autofocus: false,
                           decoration: InputDecorations.buildInputDecoration_1(
-                              hint_text: "johndoe@example.com"),
+                              hint_text: "user@example.com"),
                         ),
                       ),
                       otp_addon_installed.$
@@ -161,6 +162,8 @@ class _PasswordForgetState extends State<PasswordForget> {
                         height: 36,
                         child: CustomInternationalPhoneNumberInput(
                           countries: countries_code,
+                          hintText: LangText(context).local.phone_number_ucf,
+                          errorMessage: LangText(context).local.invalid_phone_number,
                           initialValue: PhoneNumber(isoCode: AppConfig.default_country),
                           onInputChanged: (PhoneNumber number) {
                             //print(number.phoneNumber);
@@ -186,7 +189,7 @@ class _PasswordForgetState extends State<PasswordForget> {
                               signed: true, decimal: true),
                           inputDecoration:
                               InputDecorations.buildInputDecoration_phone(
-                                  hint_text: "01710 333 558"),
+                                  hint_text: "01XX XXX XXXX"),
                           onSaved: (PhoneNumber number) {
                             //print('On Saved: $number');
                           },
@@ -222,7 +225,7 @@ class _PasswordForgetState extends State<PasswordForget> {
                       ),
                     ),
                     child: Text(
-                      "Send Code",
+                      LangText(context).local.send_code_ucf,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 13,

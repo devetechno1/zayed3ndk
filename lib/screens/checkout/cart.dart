@@ -14,8 +14,32 @@ import '../../custom/cart_seller_item_list_widget.dart';
 import '../../custom/lang_text.dart';
 import '../../presenter/cart_provider.dart';
 
-class Cart extends StatefulWidget {
-  Cart(
+class Cart extends StatelessWidget {
+  const Cart(
+      {Key? key,
+      this.has_bottomnav,
+      this.from_navigation = false,
+      this.counter})
+      : super(key: key);
+  final bool? has_bottomnav;
+  final bool from_navigation;
+  final CartCounter? counter;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: _Cart(
+        counter: counter,
+        from_navigation: from_navigation,
+        has_bottomnav: has_bottomnav,
+      ),
+    );
+  }
+}
+
+class _Cart extends StatefulWidget {
+  _Cart(
       {Key? key,
       this.has_bottomnav,
       this.from_navigation = false,
@@ -29,7 +53,7 @@ class Cart extends StatefulWidget {
   _CartState createState() => _CartState();
 }
 
-class _CartState extends State<Cart> {
+class _CartState extends State<_Cart> {
   @override
   void initState() {
     // TODO: implement initState
@@ -42,85 +66,81 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(builder: (context, cartProvider, _) {
-      return Directionality(
-        textDirection:
-            app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
-        child: Scaffold(
-          key: cartProvider.scaffoldKey,
-          backgroundColor: MyTheme.mainColor,
-          appBar: buildAppBar(context),
-          body: Stack(
-            children: [
-              RefreshIndicator(
-                color: MyTheme.accent_color,
-                backgroundColor: Colors.white,
-                onRefresh: () => cartProvider.onRefresh(context),
-                displacement: 0,
-                child: CustomScrollView(
-                  controller: cartProvider.mainScrollController,
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            height: cartProvider.isMinOrderQuantityNotEnough ? 25:0,
-                            width: double.maxFinite,
-                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
-                            color: MyTheme.accent_color,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: RichText(
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.white),
-                                  children: [
-                                    TextSpan(text: '${LangText(context).local.minimum_order_qty_is} ${minimum_order_quantity.$} , '),
-                                    TextSpan(text: LangText(context).local.remaining),
-                                    TextSpan(text: ' ${minimum_order_quantity.$ - (cartProvider.shopList.firstOrNull?.cartItems?.length ?? 0)} '),
-                                  ]
-                                ),
+      return Scaffold(
+        key: cartProvider.scaffoldKey,
+        backgroundColor: MyTheme.mainColor,
+        appBar: buildAppBar(context),
+        body: Stack(
+          children: [
+            RefreshIndicator(
+              color: MyTheme.accent_color,
+              backgroundColor: Colors.white,
+              onRefresh: () => cartProvider.onRefresh(context),
+              displacement: 0,
+              child: CustomScrollView(
+                controller: cartProvider.mainScrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: cartProvider.isMinOrderQuantityNotEnough ? 25:0,
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+                          color: MyTheme.accent_color,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(color: Colors.white),
+                                children: [
+                                  TextSpan(text: '${LangText(context).local.minimum_order_qty_is} ${minimum_order_quantity.$} , '),
+                                  TextSpan(text: LangText(context).local.remaining),
+                                  TextSpan(text: ' ${minimum_order_quantity.$ - (cartProvider.shopList.firstOrNull?.cartItems?.length ?? 0)} '),
+                                ]
                               ),
                             ),
                           ),
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            height: cartProvider.isMinOrderAmountNotEnough?25:0,
-                            width: double.maxFinite,
-                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
-                            color: MyTheme.accent_color,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: RichText(
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.white),
-                                  children: [
-                                    TextSpan(text: '${LangText(context).local.minimum_order_amount_is} ${minimum_order_amount.$} , '),
-                                    TextSpan(text: LangText(context).local.remaining),
-                                    TextSpan(text: ' ${minimum_order_amount.$ - cartProvider.cartTotal} '),
-                                  ]
-                                ),
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: cartProvider.isMinOrderAmountNotEnough?25:0,
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+                          color: MyTheme.accent_color,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(color: Colors.white),
+                                children: [
+                                  TextSpan(text: '${LangText(context).local.minimum_order_amount_is} ${minimum_order_amount.$} , '),
+                                  TextSpan(text: LangText(context).local.remaining),
+                                  TextSpan(text: ' ${minimum_order_amount.$ - cartProvider.cartTotal} '),
+                                ]
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                            child: buildCartSellerList(cartProvider, context),
-                          ),
-                          SizedBox(height: widget.has_bottomnav! ? 140 : 100),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                          child: buildCartSellerList(cartProvider, context),
+                        ),
+                        SizedBox(height: widget.has_bottomnav! ? 140 : 100),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: buildBottomContainer(cartProvider),
-              )
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: buildBottomContainer(cartProvider),
+            )
+          ],
         ),
       );
     });

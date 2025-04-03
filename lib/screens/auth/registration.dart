@@ -37,7 +37,7 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   String _register_by =  otp_addon_installed.$ ? "phone" : "email"; //phone or email
-  String initialCountry = 'US';
+  String initialCountry = 'EG';
 
   List<String?> countries_code = <String?>[];
 
@@ -64,7 +64,7 @@ class _RegistrationState extends State<Registration> {
 
   fetch_country() async {
     var data = await AddressRepository().getCountryList();
-    data.countries.forEach((c) => countries_code.add(c.code));
+    data.countries?.forEach((c) => countries_code.add(c.code));
     setState(() {});
   }
 
@@ -230,7 +230,7 @@ class _RegistrationState extends State<Registration> {
                     controller: _nameController,
                     autofocus: false,
                     decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "الاسم"),
+                        hint_text: LangText(context).local.name_ucf),
                   ),
                 ),
               ),
@@ -289,6 +289,8 @@ class _RegistrationState extends State<Registration> {
                         height: 36,
                         child: CustomInternationalPhoneNumberInput(
                           countries: countries_code,
+                          hintText: LangText(context).local.phone_number_ucf,
+                          errorMessage: LangText(context).local.invalid_phone_number,
                           initialValue: PhoneNumber(isoCode: AppConfig.default_country),
                           onInputChanged: (PhoneNumber number) {
                             setState(() {

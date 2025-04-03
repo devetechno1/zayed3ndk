@@ -13,6 +13,7 @@ import 'package:one_context/one_context.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../custom/lang_text.dart';
 import '../helpers/shimmer_helper.dart';
 import 'navigation_service.dart';
 
@@ -150,11 +151,11 @@ class PushNotificationService {
         ),
         actions: <Widget>[
           Btn.basic(
-            child: Text('Close'),
+            child: Text(LangText(context).local.close_ucf),
             onPressed: () => Navigator.of(context).pop(),
           ),
           Btn.basic(
-            child: Text('GO'),
+            child: Text(LangText(context).local.go),
             onPressed: () {
               Navigator.of(context).pop();
               _serialiseAndNavigate(message.toMap());
@@ -170,15 +171,15 @@ class PushNotificationService {
       OneContext().showDialog(
           // barrierDismissible: false,
           builder: (context) => AlertDialog(
-                title: new Text("You are not logged in"),
-                content: new Text("Please log in"),
+                title:  Text(LangText(context).local.you_are_not_logged_in),
+                content:  Text(LangText(context).local.please_log_in),
                 actions: <Widget>[
                   Btn.basic(
-                    child: Text('close'),
+                    child: Text(LangText(context).local.close_ucf),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Btn.basic(
-                      child: Text('Login'),
+                      child: Text(LangText(context).local.log_in),
                       onPressed: () {
                         Navigator.of(context).pop();
                         OneContext().push(MaterialPageRoute(builder: (_) {

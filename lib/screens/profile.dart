@@ -40,6 +40,7 @@ import 'auction/auction_bidded_products.dart';
 import 'auction/auction_purchase_history.dart';
 import 'change_language.dart';
 import 'chat/messenger_list.dart';
+import 'checkout/cart.dart';
 import 'club_point.dart';
 import 'common_webview_screen.dart';
 import 'currency_change.dart';
@@ -163,14 +164,14 @@ class _ProfileState extends State<Profile> {
     return newtxt;
   }
 
-  reset() {
+  void reset() {
     _cartCounter = 0;
     _cartCounterString = "00";
     _wishlistCounter = 0;
     _wishlistCounterString = "00";
     _orderCounter = 0;
     _orderCounterString = "00";
-    setState(() {});
+    // setState(() {});
   }
 
   List<int> listItem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -1079,50 +1080,59 @@ class _ProfileState extends State<Profile> {
         buildCountersRowItem(
           _cartCounterString,
           AppLocalizations.of(context)!.in_your_cart_all_lower,
+          onTap: () =>  Navigator.push(context, PageAnimation.fadeRoute(Cart(has_bottomnav: false))),
         ),
         buildCountersRowItem(
           _wishlistCounterString,
           AppLocalizations.of(context)!.in_your_wishlist_all_lower,
+          onTap: () =>  Navigator.push(context, PageAnimation.fadeRoute(Wishlist())),
         ),
         buildCountersRowItem(
           _orderCounterString,
           AppLocalizations.of(context)!.your_ordered_all_lower,
+          onTap: () => Navigator.push(context, PageAnimation.fadeRoute(OrderList())),
         ),
       ],
     );
   }
 
-  Widget buildCountersRowItem(String counter, String title) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(vertical: 14),
-      width: DeviceInfo(context).width! / 3.5,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        color: MyTheme.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            counter,
-            maxLines: 2,
-            style: TextStyle(
-                fontSize: 18,
-                color: MyTheme.dark_font_grey,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            title,
-            maxLines: 2,
-            style: TextStyle(
-              color: Color(0xff3E4447),
+  Widget buildCountersRowItem(String counter, String title, {Future<void> Function()? onTap}) {
+    return InkWell(
+      onTap: is_logged_in.$ && onTap != null
+      ?  () => onTap.call().then((_) => onPopped(null))
+      : null,
+      borderRadius: BorderRadius.circular(6),
+      child: Container(
+        margin: EdgeInsets.only(top: 20),
+        padding: EdgeInsets.symmetric(vertical: 14),
+        width: DeviceInfo(context).width! / 3.5,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: MyTheme.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              counter,
+              maxLines: 2,
+              style: TextStyle(
+                  fontSize: 18,
+                  color: MyTheme.dark_font_grey,
+                  fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              title,
+              maxLines: 2,
+              style: TextStyle(
+                color: Color(0xff3E4447),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

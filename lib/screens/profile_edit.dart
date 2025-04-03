@@ -16,6 +16,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+import '../app_config.dart';
+import '../custom/intl_phone_input.dart';
+import '../repositories/address_repository.dart';
 
 class ProfileEdit extends StatefulWidget {
   @override
@@ -23,21 +28,20 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  ScrollController _mainScrollController = ScrollController();
-
-  TextEditingController _nameController =
-      TextEditingController(text: "${user_name.$}");
-
-  TextEditingController _phoneController =
-      TextEditingController(text: "${user_phone.$}");
-
-  TextEditingController _emailController =
-      TextEditingController(text: "${user_email.$}");
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _passwordConfirmController = TextEditingController();
+  final ScrollController _mainScrollController = ScrollController();
+  final TextEditingController _nameController = TextEditingController(text: "${user_name.$}");
+  final TextEditingController _phoneController = TextEditingController(text: "${user_phone.$}");
+  final TextEditingController _emailController = TextEditingController(text: "${user_email.$}");
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController = TextEditingController();
 
   bool _showPassword = false;
   bool _showConfirmPassword = false;
+
+  String _phone = "";
+  List<String?> countries_code = <String?>[];
+  PhoneNumber initialValue = PhoneNumber(isoCode: AppConfig.default_country);
+  bool _isValidPhoneNumber = false;
 
   //for image uploading
   final ImagePicker _picker = ImagePicker();
@@ -111,9 +115,8 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   Future<void> _onPageRefresh() async {}
 
-  onPressUpdate() async {
+  Future<void> onPressUpdate() async {
     var name = _nameController.text.toString();
-    var phone = _phoneController.text.toString();
 
     if (name == "") {
       ToastComponent.showDialog(
@@ -121,14 +124,21 @@ class _ProfileEditState extends State<ProfileEdit> {
       );
       return;
     }
-    if (phone == "") {
+    if (_phone.trim().isEmpty) {
       ToastComponent.showDialog(
         AppLocalizations.of(context)!.enter_phone_number,
+        color: Theme.of(context).colorScheme.error
+      );
+      return;
+    }else if(!_isValidPhoneNumber){
+      ToastComponent.showDialog(
+        AppLocalizations.of(context)!.invalid_phone_number,
+        color: Theme.of(context).colorScheme.error
       );
       return;
     }
 
-    var post_body = jsonEncode({"name": "${name}", "phone": phone});
+    var post_body = jsonEncode({"name": "${name}", "phone": _phone.trim()});
 
     var profileUpdateResponse = await ProfileRepository()
         .getProfileUpdateResponse(post_body: post_body);
@@ -136,19 +146,21 @@ class _ProfileEditState extends State<ProfileEdit> {
     if (profileUpdateResponse.result == false) {
       ToastComponent.showDialog(
         profileUpdateResponse.message,
+        color: Theme.of(context).colorScheme.error
       );
     } else {
       ToastComponent.showDialog(
         profileUpdateResponse.message,
+        color: Colors.green
       );
 
       user_name.$ = name;
-      user_phone.$ = phone;
+      user_phone.$ = _phone;
       setState(() {});
     }
   }
 
-  onPressUpdatePassword() async {
+  Future<void> onPressUpdatePassword() async {
     var password = _passwordController.text.toString();
     var password_confirm = _passwordConfirmController.text.toString();
 
@@ -199,6 +211,39 @@ class _ProfileEditState extends State<ProfileEdit> {
       );
       setState(() {});
     }
+  }
+  
+  Future<void> fetch_country() async {
+    var data = await AddressRepository().getCountryList();
+    data.countries?.forEach((c) => countries_code.add(c.code));
+    setState(() {});
+  }
+  
+  Future<void> getInitVal() async {
+    _phone = user_phone.$.trim();
+    initialValue = await PhoneNumber.getRegionInfoFromPhoneNumber(_phone);
+    _phoneController.text = initialValue.parseNumber().replaceAll("+", '');
+    _isValidPhoneNumber = _phoneController.text.isNotEmpty;
+    setState(() {});
+  }
+ 
+  @override
+  void initState() {
+    super.initState();
+    fetch_country();
+    getInitVal();
+  }
+
+  @override
+  void dispose() {
+    _mainScrollController.dispose();
+
+   _nameController.dispose();
+   _phoneController.dispose();
+   _emailController.dispose();
+   _passwordController.dispose();
+   _passwordConfirmController.dispose();
+    super.dispose();
   }
 
   @override
@@ -420,7 +465,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             children: [
               Container(
                 decoration: BoxDecorations.buildBoxDecoration_with_shadow(),
-                height: 40,
+                height: 36,
                 child: TextField(
                   style: TextStyle(fontSize: 12),
                   controller: _passwordController,
@@ -478,7 +523,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Container(
             decoration: BoxDecorations.buildBoxDecoration_with_shadow(),
-            height: 40,
+            height: 36,
             child: TextField(
               controller: _passwordConfirmController,
               autofocus: false,
@@ -524,7 +569,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   borderRadius: BorderRadius.circular(8)),
               child: Text(
                 textAlign: TextAlign.center,
-                'Save Changes',
+                LangText(context).local.save_changes,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -568,13 +613,13 @@ class _ProfileEditState extends State<ProfileEdit> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
                 boxShadow: [MyTheme.commonShadow()]),
-            height: 40,
+            height: 36,
             child: TextField(
               controller: _nameController,
               autofocus: false,
               style: TextStyle(color: Color(0xff999999), fontSize: 12),
               decoration:
-                  InputDecorations.buildInputDecoration_1(hint_text: "الاسم")
+                  InputDecorations.buildInputDecoration_1(hint_text: LangText(context).local.name_ucf)
                       .copyWith(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -596,86 +641,97 @@ class _ProfileEditState extends State<ProfileEdit> {
                 fontWeight: FontWeight.normal),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 14.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                boxShadow: [MyTheme.commonShadow()]),
-            height: 40,
-            child: TextField(
-              controller: _phoneController,
-              enabled: otp_addon_installed.$,
-              autofocus: false,
-              keyboardType: TextInputType.phone,
-              style: TextStyle(color: Color(0xff999999), fontSize: 12),
-              decoration: InputDecorations.buildInputDecoration_1(
-                      hint_text: "+01xxxxxxxxxx")
-                  .copyWith(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: MyTheme.accent_color),
-                ),
-              ),
-            ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 14.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: [MyTheme.commonShadow()],
+          ),
+          height: 36,
+          child: CustomInternationalPhoneNumberInput(
+            countries: countries_code,
+            hintText: LangText(context).local.phone_number_ucf,
+            errorMessage: LangText(context).local.invalid_phone_number,
+            initialValue: initialValue,
+            onInputChanged: (PhoneNumber number) {
+              setState(() {
+                if(number.isoCode != null) AppConfig.default_country = number.isoCode!;
+                _phone = number.phoneNumber ?? '';
+                print(_phone);
+              });
+            },
+            onInputValidated: (bool value) {
+              print(value);
+              _isValidPhoneNumber = value;
+              setState(() {
+                
+              });
+            },
+            selectorConfig: SelectorConfig(selectorType: PhoneInputSelectorType.DIALOG),
+            ignoreBlank: false,
+            autoValidateMode: AutovalidateMode.disabled,
+            selectorTextStyle: TextStyle(color: MyTheme.font_grey),
+            textStyle: TextStyle(color: MyTheme.font_grey),
+            textFieldController: _phoneController,
+            formatInput: true,
+            keyboardType: TextInputType.numberWithOptions(signed: true),
+            inputDecoration: InputDecorations.buildInputDecoration_phone(hint_text: "01XXX XXX XXX"),
+            onSaved: (PhoneNumber number) {
+              print('On Saved: $number');
+            },
           ),
         ),
-        Visibility(
-          visible: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  AppLocalizations.of(context)!.email_ucf,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xff3E4447),
-                      fontWeight: FontWeight.normal),
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Text(
+                AppLocalizations.of(context)!.email_ucf,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff3E4447),
+                    fontWeight: FontWeight.normal),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 14.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [MyTheme.commonShadow()]),
-                    height: 40,
-                    padding: EdgeInsets.symmetric(horizontal: 14),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _emailController.text,
-                      style: TextStyle(fontSize: 12, color: Color(0xff999999)),
-                    )
-                    /*TextField(
-                          style: TextStyle(color:MyTheme.grey_153,fontSize: 12),
-                          enabled: false,
-                          enableIMEPersonalizedLearning: true,
-                          controller: _emailController,
-                          autofocus: false,
-                          decoration: InputDecorations.buildInputDecoration_1(
-
-                              hint_text: "jhon@example.com").copyWith(
-                            //enabled: false,
-                        labelStyle: TextStyle(color: MyTheme.grey_153),
-                        enabledBorder: OutlineInputBorder(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 14.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [MyTheme.commonShadow()]),
+                  height: 36,
+                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    _emailController.text,
+                    style: TextStyle(fontSize: 12, color: Color(0xff999999)),
+                  )
+                  /*TextField(
+                        style: TextStyle(color:MyTheme.grey_153,fontSize: 12),
+                        enabled: false,
+                        enableIMEPersonalizedLearning: true,
+                        controller: _emailController,
+                        autofocus: false,
+                        decoration: InputDecorations.buildInputDecoration_1(
+        
+                            hint_text: "jhon@example.com").copyWith(
+                          //enabled: false,
+                      labelStyle: TextStyle(color: MyTheme.grey_153),
+                      enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      ),
+        
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-
-                        ),),
-                        ),*/
-                    ),
-              ),
-            ],
-          ),
+        
+                      ),),
+                      ),*/
+                  ),
+            ),
+          ],
         ),
         Align(
           alignment: Alignment.centerRight,
@@ -692,7 +748,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   borderRadius: BorderRadius.circular(8)),
               child: Text(
                 textAlign: TextAlign.center,
-                'Update Profile',
+                LangText(context).local.update_profile_ucf,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,

@@ -964,11 +964,14 @@ class _ProductDetailsState extends State<ProductDetails>
                               InkWell(
                                 onTap: onWishTap,
                                 borderRadius: BorderRadius.circular(100),
-                                child: TappableIconWidget(
-                                  icon: Icons.favorite,
-                                  color: _isInWishList
-                                      ? Color.fromRGBO(230, 46, 4, 1)
-                                      : MyTheme.dark_font_grey,
+                                child: _isInWishList 
+                                ? TappableIconWidget(
+                                  icon:  Icons.favorite,
+                                  color: Color.fromRGBO(230, 46, 4, 1),
+                                )
+                                : TappableIconWidget(
+                                  icon:  Icons.favorite_border,
+                                  color: MyTheme.dark_font_grey,
                                 ),
                               ),
                             ],

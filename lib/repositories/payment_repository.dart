@@ -27,7 +27,7 @@ class PaymentRepository {
         headers: {
           "App-Language": app_language.$!,
           "Authorization": "Bearer ${access_token.$}",
-          "App-Language": app_language.$!,
+          // "App-Language": app_language.$!,
         },
         middleware: BannedUser());
 

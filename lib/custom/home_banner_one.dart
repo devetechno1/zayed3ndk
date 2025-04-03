@@ -5,6 +5,7 @@ import '../helpers/shimmer_helper.dart';
 import '../presenter/home_presenter.dart';
 import '../services/navigation_service.dart';
 import 'aiz_image.dart';
+import 'lang_text.dart';
 
 class HomeBannerOne extends StatelessWidget {
   final HomePresenter? homeData;
@@ -18,7 +19,7 @@ class HomeBannerOne extends StatelessWidget {
     if (homeData == null) {
       return Container(
         height: 100,
-        child: Center(child: Text('No data available')),
+        child: Center(child: Text(LangText(context).local.no_data_is_available)),
       );
     }
 

@@ -3,6 +3,7 @@ import 'package:zayed3ndk/presenter/home_presenter.dart';
 import 'package:zayed3ndk/screens/category_list_n_product/category_products.dart';
 import 'package:flutter/material.dart';
 import '../my_theme.dart';
+import 'lang_text.dart';
 
 class FeaturedCategoriesWidget extends StatelessWidget {
   final HomePresenter homeData;
@@ -40,6 +41,7 @@ class FeaturedCategoriesWidget extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) {
                       return CategoryProducts(
+                        name: homeData.featuredCategoryList[index].name ?? '',
                         slug: homeData.featuredCategoryList[index].slug,
                       );
                     },
@@ -100,7 +102,7 @@ class FeaturedCategoriesWidget extends StatelessWidget {
         height: 100,
         child: Center(
           child: Text(
-            "No category found",
+            LangText(context).local.no_category_found,
             style: TextStyle(color: MyTheme.font_grey),
           ),
         ),

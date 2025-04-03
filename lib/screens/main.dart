@@ -61,6 +61,7 @@ class _MainState extends State<Main> {
       Home(),
       CategoryList(
         slug: "",
+        name: "",
         is_base_category: true,
       ),
       Cart(

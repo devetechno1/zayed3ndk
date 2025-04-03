@@ -950,7 +950,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
     return SingleChildScrollView(
       child: ListView.separated(
         separatorBuilder: (context, index) => SizedBox(
-          height: 14,
+          height: 24,
         ),
         itemCount: _deliveryInfoList[seller_index].cartItems!.length,
         scrollDirection: Axis.vertical,
@@ -965,46 +965,70 @@ class _ShippingInfoState extends State<ShippingInfo> {
 
   buildCartSellerItemCard(itemIndex, sellerIndex) {
     return Container(
-      height: 80,
+      height: 100,
       decoration: BoxDecorations.buildBoxDecoration_1(),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-        Container(
-          width: DeviceInfo(context).width! / 4,
-          height: 120,
-          child: ClipRRect(
-            borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(6), right: Radius.zero),
-            child: FadeInImage.assetNetwork(
-              placeholder: 'assets/placeholder.png',
-              image: _deliveryInfoList[sellerIndex]
-                  .cartItems![itemIndex]
-                  .productThumbnailImage!,
-              fit: BoxFit.cover,
+        SizedBox(
+          width: 100,
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(6), right: Radius.zero),
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/placeholder.png',
+                image: _deliveryInfoList[sellerIndex]
+                    .cartItems![itemIndex]
+                    .productThumbnailImage!,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          //color: Colors.red,
-          width: DeviceInfo(context).width! / 2,
+        SizedBox(width: 10),
+        Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  _deliveryInfoList[sellerIndex]
-                      .cartItems![itemIndex]
-                      .productName!,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(
-                      color: MyTheme.font_grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+                Expanded(
+                  child: Text(
+                    _deliveryInfoList[sellerIndex]
+                        .cartItems![itemIndex]
+                        .productName!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: TextStyle(
+                        color: MyTheme.font_grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+                
+                Builder(
+                  builder: (context) {
+                    String priceWithCurrency = SystemConfig.systemCurrency != null
+                          ? "${_deliveryInfoList[sellerIndex].cartItems![itemIndex].productPrice}"
+                              .replaceAll(
+                                  SystemConfig.systemCurrency!.code!,
+                                  SystemConfig.systemCurrency!.symbol!)
+                          : "${_deliveryInfoList[sellerIndex].cartItems![itemIndex].productPrice}";
+                    if(SystemConfig.systemCurrency?.symbol != null && !priceWithCurrency.contains("${SystemConfig.systemCurrency?.symbol}")){
+                      priceWithCurrency += " ${SystemConfig.systemCurrency!.symbol!}";
+                    }
+                    return Text(
+                      "$priceWithCurrency × ${_deliveryInfoList[sellerIndex].cartItems![itemIndex].productQuantity}",
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color: MyTheme.accent_color,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    );
+                  }
                 ),
               ],
             ),

@@ -40,4 +40,18 @@ class InputDecorations {
                 bottomRight: Radius.circular(6.0))),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.0));
   }
+
+  static InputDecoration buildInputDecoration_with_border(String hint_text) {
+    final OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+      borderSide: BorderSide(color: MyTheme.textfield_grey, width: 0.5),
+      borderRadius: BorderRadius.circular(6),
+    );
+    return InputDecoration(
+        hintText: hint_text,
+        hintStyle: TextStyle(fontSize: 12.0, color: MyTheme.textfield_grey),
+        enabledBorder: outlineInputBorder,
+        focusedBorder: outlineInputBorder,
+        border: outlineInputBorder,
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.0));
+  }
 }

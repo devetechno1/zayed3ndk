@@ -2107,7 +2107,7 @@ class _FeaturedProductCardState extends State<FeaturedProductCard> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                         child: Text(
-                          widget.name ?? 'No Name',
+                          widget.name ?? LangText(context).local.no_name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
@@ -2224,7 +2224,7 @@ class _FeaturedProductCardState extends State<FeaturedProductCard> {
                           ],
                         ),
                         child: Text(
-                          "Wholesale",
+                          LangText(context).local.wholesale,
                           style: TextStyle(
                             fontSize: 10,
                             color: Colors.white,

@@ -28,7 +28,7 @@ class MyTheme {
   static Color amber_medium = Color.fromRGBO(254, 240, 215, 1);
   static Color golden_shadow = Color.fromRGBO(255, 168, 0, .4);
   static Color green = Colors.green;
-  static Color? green_light = Colors.green[200];
+  static Color green_light = Colors.green[200]!;
   static Color shimmer_base = Colors.grey.shade50;
   static Color shimmer_highlighted = Colors.grey.shade200;
   //testing shimmer

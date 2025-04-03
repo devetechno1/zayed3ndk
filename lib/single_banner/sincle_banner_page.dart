@@ -2,6 +2,7 @@ import 'package:zayed3ndk/helpers/shimmer_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../custom/lang_text.dart';
 import 'photo_provider.dart'; // Path to your provider file
 
 class PhotoWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class PhotoWidget extends StatelessWidget {
 
         if (snapshot.hasError) {
           return Center(
-              child: Text('Error loading photos')); // Handle API call errors
+              child: Text(LangText(context).local.error_loading_photos)); // Handle API call errors
         }
 
         return Consumer<PhotoProvider>(

@@ -3,22 +3,22 @@ import "package:flutter/material.dart";
 
 class Btn {
   static Widget basic(
-      {color = const Color.fromARGB(0, 0, 0, 0),
-      shape = const RoundedRectangleBorder(),
-      child = const SizedBox(),
-      EdgeInsetsGeometry padding = EdgeInsets.zero,
-      dynamic minWidth,
-      dynamic onPressed}) {
+      {Color color = const Color.fromARGB(0, 0, 0, 0),
+      OutlinedBorder shape = const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+      Widget child = const SizedBox(),
+      EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 9,vertical: 3),
+      double? minWidth,
+      void Function()? onPressed}) {
     //if (width != null && height != null)
     return TextButton(
       style: TextButton.styleFrom(
           padding: padding,
           backgroundColor: color,
           // primary: MyTheme.noColor,
-          minimumSize: minWidth == null ? null : Size(minWidth.toDouble(), 10),
+          minimumSize: minWidth == null ? null : Size(minWidth, 10),
           shape: shape),
       child: child,
-      onPressed: onPressed != null ? onPressed : () {},
+      onPressed: () => onPressed?.call(),
     );
   }
 

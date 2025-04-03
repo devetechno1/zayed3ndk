@@ -84,6 +84,10 @@ class CustomInternationalPhoneNumberInput extends StatefulWidget {
 
   final List<String?>? countries;
 
+  final Color? backgroundColor;
+
+  final double? height;
+
   CustomInternationalPhoneNumberInput(
       {Key? key,
       this.selectorConfig = const SelectorConfig(),
@@ -121,7 +125,10 @@ class CustomInternationalPhoneNumberInput extends StatefulWidget {
       this.focusNode,
       this.cursorColor,
       this.autofillHints,
-      this.countries})
+      this.countries, 
+      this.backgroundColor, 
+      this.height,
+    })
       : super(key: key);
 
   @override
@@ -288,6 +295,8 @@ class _InputWidgetState extends State<CustomInternationalPhoneNumberInput> {
         isEnabled: widget.isEnabled,
         autoFocusSearchField: widget.autoFocusSearch,
         isScrollControlled: widget.countrySelectorScrollControlled,
+        backgroundColor: widget.backgroundColor,
+        height: widget.height,
       ));
     }
 
@@ -395,6 +404,8 @@ class _InputWidgetView
                 isEnabled: widget.isEnabled,
                 autoFocusSearchField: widget.autoFocusSearch,
                 isScrollControlled: widget.countrySelectorScrollControlled,
+                backgroundColor: widget.backgroundColor,
+                height: widget.height, //+ 8,
               ),
               SizedBox(
                 height: state.selectorButtonBottomPadding,
@@ -454,6 +465,8 @@ class CustomSelectorButton extends StatelessWidget {
   final String? locale;
   final bool isEnabled;
   final bool isScrollControlled;
+  final Color? backgroundColor;
+  final double? height;
 
   final ValueChanged<Country?> onCountryChanged;
 
@@ -468,7 +481,9 @@ class CustomSelectorButton extends StatelessWidget {
     required this.locale,
     required this.onCountryChanged,
     required this.isEnabled,
-    required this.isScrollControlled,
+    required this.isScrollControlled, 
+    required this.backgroundColor, 
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -496,9 +511,9 @@ class CustomSelectorButton extends StatelessWidget {
                 textStyle: selectorTextStyle,
               )
         : Container(
-            height: 36,
+            height: height ?? 36,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: backgroundColor ?? Colors.white,
                 border: Border.all(color: MyTheme.textfield_grey, width: .5),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5.0),
@@ -508,7 +523,7 @@ class CustomSelectorButton extends StatelessWidget {
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
                 minimumSize: Size(0, 20),
-                backgroundColor: Colors.white,
+                backgroundColor: backgroundColor ?? Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: const BorderRadius.only(
                   topLeft: const Radius.circular(5.0),

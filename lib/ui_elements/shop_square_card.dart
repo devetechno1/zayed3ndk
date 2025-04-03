@@ -3,6 +3,8 @@ import 'package:zayed3ndk/screens/seller_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../custom/lang_text.dart';
+
 class ShopSquareCard extends StatefulWidget {
   final int? id;
   final String? image;
@@ -95,7 +97,7 @@ class _ShopSquareCardState extends State<ShopSquareCard> {
 
   Widget _buildName() {
     return Text(
-      widget.name ?? 'No name',
+      widget.name ?? LangText(context).local.no_name,
       textAlign: TextAlign.left,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
@@ -140,7 +142,7 @@ class _ShopSquareCardState extends State<ShopSquareCard> {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
-        "Visit Store",
+        LangText(context).local.visit_store_ucf,
         style: TextStyle(
           fontSize: 10,
           color: Colors.amber.shade700,

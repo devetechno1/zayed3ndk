@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../custom/lang_text.dart';
 import '../../helpers/shared_value_helper.dart';
 import '../profile.dart';
 
@@ -116,7 +117,7 @@ class _BkashScreenState extends State<BkashScreen> {
               getData();
             } else if (page.contains("/bkash/api/fail")) {
               ToastComponent.showDialog(
-                "Payment cancelled",
+                LangText(context).local.payment_cancelled_ucf,
               );
               Navigator.of(context).pop();
               return;

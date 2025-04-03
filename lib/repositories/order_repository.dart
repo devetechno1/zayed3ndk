@@ -28,7 +28,7 @@ class OrderRepository {
     return orderMiniResponseFromJson(response.body);
   }
 
-  Future<dynamic> getOrderDetails({int? id = 0}) async {
+  Future<OrderDetailResponse?> getOrderDetails({int? id = 0}) async {
     String url =
         ("${AppConfig.BASE_URL}/purchase-history-details/" + id.toString());
 

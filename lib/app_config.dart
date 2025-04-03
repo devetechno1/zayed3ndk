@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
@@ -18,7 +19,7 @@ class AppConfig {
   /// This get the name of the application in appLocal
   static String appNameOnAppLang(BuildContext context)=> Localizations.localeOf(context).languageCode == 'ar' ? app_name_ar : app_name_en;
   
-  static String search_bar_text = ""; //this will show in app Search bar.
+  static String search_bar_text(BuildContext context) => AppLocalizations.of(context)!.search_in_active_ecommerce_cms; //this will show in app Search bar.
   static String purchase_code =
       "a"; //enter your purchase code for the app from codecanyon
   static String system_key =

@@ -5,6 +5,8 @@ import 'package:zayed3ndk/screens/auction/auction_products_details.dart';
 import 'package:zayed3ndk/screens/product/product_details.dart';
 import 'package:flutter/material.dart';
 
+import '../custom/lang_text.dart';
+
 class ProductCardBlack extends StatefulWidget {
   final dynamic identifier;
   final int? id;
@@ -83,7 +85,7 @@ class _ProductCardBlackState extends State<ProductCardBlack> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                         child: Text(
-                          widget.name ?? 'No Name',
+                          widget.name ?? LangText(context).local.no_name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
@@ -200,7 +202,7 @@ class _ProductCardBlackState extends State<ProductCardBlack> {
                           ],
                         ),
                         child: Text(
-                          "Wholesale",
+                          LangText(context).local.wholesale,
                           style: TextStyle(
                             fontSize: 10,
                             color: Colors.white,

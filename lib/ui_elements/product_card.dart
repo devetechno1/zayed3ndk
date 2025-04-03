@@ -1,10 +1,11 @@
 import 'package:zayed3ndk/helpers/system_config.dart';
 import 'package:zayed3ndk/my_theme.dart';
-import 'package:zayed3ndk/screens/product/product_details.dart';
 import 'package:flutter/material.dart';
 
+import '../custom/lang_text.dart';
 import '../helpers/shared_value_helper.dart';
 import '../screens/auction/auction_products_details.dart';
+import '../screens/product/product_details.dart';
 
 class ProductCard extends StatefulWidget {
   final dynamic identifier;
@@ -17,6 +18,7 @@ class ProductCard extends StatefulWidget {
   final bool has_discount;
   final bool? isWholesale;
   final String? discount;
+  final void Function()? onPopFromProduct;
 
   ProductCard({
     Key? key,
@@ -29,7 +31,8 @@ class ProductCard extends StatefulWidget {
     this.stroked_price,
     this.has_discount = false,
     bool? is_wholesale = false, // Corrected to use is_wholesale
-    this.discount,
+    this.discount, 
+    this.onPopFromProduct,
   })  : isWholesale = is_wholesale, // Assigning isWholesale to is_wholesale
         super(key: key);
 
@@ -53,7 +56,7 @@ class _ProductCardState extends State<ProductCard> {
                   : ProductDetails(slug: widget.slug);
             },
           ),
-        );
+        ).then((_) => widget.onPopFromProduct?.call());
       },
       child: Container(
         child: Stack(
@@ -98,7 +101,7 @@ class _ProductCardState extends State<ProductCard> {
                             ],
                           ),
                           child: Text(
-                            "Wholesale",
+                            LangText(context).local.wholesale,
                             style: TextStyle(
                               fontSize: 10,
                               color: Colors.white,
@@ -122,7 +125,7 @@ class _ProductCardState extends State<ProductCard> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                         child: Text(
-                          widget.name ?? 'No Name',
+                          widget.name ?? LangText(context).local.no_name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(

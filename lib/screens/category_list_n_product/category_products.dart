@@ -11,8 +11,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class CategoryProducts extends StatefulWidget {
-  CategoryProducts({Key? key, required this.slug}) : super(key: key);
+  CategoryProducts({Key? key, required this.slug, required this.name}) : super(key: key);
   final String slug;
+  final String name;
 
   @override
   _CategoryProductsState createState() => _CategoryProductsState();
@@ -141,23 +142,18 @@ class _CategoryProductsState extends State<CategoryProducts> {
   }
 
   AppBar buildAppBar(BuildContext context) {
+    final double subCatHeight = _subCategoryList.isEmpty ? 0 : 100;
     return AppBar(
       automaticallyImplyLeading: false,
-      toolbarHeight: _subCategoryList.isEmpty
-          ? DeviceInfo(context).height! / 10
-          : DeviceInfo(context).height! / 6.5,
-      flexibleSpace: Container(
-        height: DeviceInfo(context).height! / 4,
-        width: DeviceInfo(context).width,
-        color: MyTheme.mainColor,
-        alignment: Alignment.topRight,
-      ),
+      toolbarHeight: DeviceInfo(context).height! / 10 + subCatHeight,
+      backgroundColor: MyTheme.mainColor,
+      forceMaterialTransparency: true,
       bottom: PreferredSize(
           child: AnimatedContainer(
+            height: subCatHeight,
             color: MyTheme.mainColor,
-            height: _subCategoryList.isEmpty ? 0 : 40,
-            duration: Duration(milliseconds: 500),
-            child: !_isInitial ? buildSubCategory() : buildSubCategory(),
+            duration: Duration(milliseconds: 300),
+            child:  buildSubCategory(subCatHeight),
           ),
           preferredSize: Size.fromHeight(-35)),
       title: buildAppBarTitle(context),
@@ -178,26 +174,23 @@ class _CategoryProductsState extends State<CategoryProducts> {
         duration: Duration(milliseconds: 500));
   }
 
-  Container buildAppBarTitleOption(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 37),
+  Padding buildAppBarTitleOption(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 8, end: 20),
       child: Row(
         children: [
-          Container(
-            width: 20,
-            child: UsefulElements.backButton(context, color: "black"),
-          ),
-          Container(
-            padding: EdgeInsetsDirectional.only(start: 10),
-            width: DeviceInfo(context).width! / 2,
-            child: Text(
-              categoryInfo?.name ?? "",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          UsefulElements.backButton(context, color: "black"),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsetsDirectional.only(start: 10),
+              child: Text(
+                categoryInfo?.name ?? widget.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-          Spacer(),
           SizedBox(
               width: 20,
               child: GestureDetector(
@@ -258,29 +251,12 @@ class _CategoryProductsState extends State<CategoryProducts> {
     );
   }
 
-  ListView buildSubCategory() {
+  ListView buildSubCategory(double subCatHeight) {
     return ListView.separated(
-      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        Color containerColor;
-        if (index == 0) {
-          containerColor = Color(0xffE52C04); // First container
-        } else if (index == 1) {
-          containerColor = Color(0xffF5931B); // Second container
-        } else {
-          containerColor = Color(0xffE9EAEB); // Other containers
-        }
-
-        Color textColor;
-        if (index == 0 || index == 1) {
-          textColor = Colors.white; // First and second container text color
-        } else {
-          textColor =
-              MyTheme.font_grey; // Default text color for other containers
-        }
-
         return InkWell(
           onTap: () {
             Navigator.push(
@@ -288,38 +264,52 @@ class _CategoryProductsState extends State<CategoryProducts> {
               MaterialPageRoute(
                 builder: (context) {
                   return CategoryProducts(
+                    name: _subCategoryList[index].name ?? '',
                     slug: _subCategoryList[index].slug!,
                   );
                 },
               ),
             );
           },
-          child: Container(
-            height: _subCategoryList.isEmpty ? 0 : 30,
-            width: _subCategoryList.isEmpty ? 0 : 99,
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              color: containerColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              _subCategoryList[index].name!,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: textColor,
-              ),
-              textAlign: TextAlign.center,
+          borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            width: 80,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 12,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/placeholder.png',
+                        image: _subCategoryList[index].coverImage ??'',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Flexible(
+                  flex: 5,
+                  child: Text(
+                    _subCategoryList[index].name!,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
             ),
           ),
         );
       },
-      separatorBuilder: (context, index) {
-        return SizedBox(
-          width: 10,
-        );
-      },
+      separatorBuilder: (context, index) => SizedBox(width: 10),
       itemCount: _subCategoryList.length,
     );
   }

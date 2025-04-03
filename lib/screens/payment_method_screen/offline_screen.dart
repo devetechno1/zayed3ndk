@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:zayed3ndk/custom/btn.dart';
 import 'package:zayed3ndk/custom/enum_classes.dart';
 import 'package:zayed3ndk/custom/input_decorations.dart';
@@ -70,9 +72,9 @@ class _OfflineState extends State<OfflineScreen> {
   }
 
   onPressSubmit() async {
-    var amount = _amountController.text.toString();
-    var name = _nameController.text.toString();
-    var trx_id = _trxIdController.text.toString();
+    String amount = _amountController.text.toString();
+    String name = _nameController.text.toString();
+    String trx_id = _trxIdController.text.toString();
 
     if (amount == "" || name == "" || trx_id == "") {
       ToastComponent.showDialog(
@@ -321,7 +323,7 @@ class _OfflineState extends State<OfflineScreen> {
                   controller: _amountController,
                   autofocus: false,
                   decoration: InputDecorations.buildInputDecoration_1(
-                      hint_text: "12,000 or Tweleve Thousand Only"),
+                      hint_text: AppLocalizations.of(context)!.twelve_thousand_only ),
                 ),
               ),
             ),
@@ -341,7 +343,7 @@ class _OfflineState extends State<OfflineScreen> {
                   controller: _nameController,
                   autofocus: false,
                   decoration: InputDecorations.buildInputDecoration_1(
-                      hint_text: "الاسم"),
+                      hint_text: AppLocalizations.of(context)!.name_ucf),
                 ),
               ),
             ),
@@ -412,6 +414,19 @@ class _OfflineState extends State<OfflineScreen> {
                     : Container()
               ],
             ),
+            if(_photo_file != null) 
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(8),
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.sizeOf(context).shortestSide * .5,
+                    maxWidth: MediaQuery.sizeOf(context).shortestSide * .5,
+                  ),
+                  child: Image.file(File(_photo_file!.path)),
+                ),
+              ),
             Row(
               children: [
                 Spacer(),

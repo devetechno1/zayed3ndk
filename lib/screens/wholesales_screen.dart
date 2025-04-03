@@ -13,6 +13,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../custom/lang_text.dart';
+
 class WholesalesScreen extends StatefulWidget {
   const WholesalesScreen({super.key});
 
@@ -73,7 +75,7 @@ class _WholesalesScreenState extends State<WholesalesScreen> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
-            return Center(child: Text('Error loading products'));
+            return Center(child: Text(LangText(context).local.error_loading_products));
           }
 
           // Safely check if data and products exist
@@ -218,7 +220,7 @@ class _WholeSalesProductCardState extends State<WholeSalesProductCard> {
                             ],
                           ),
                           child: Text(
-                            "Wholesale",
+                            LangText(context).local.wholesale,
                             style: TextStyle(
                               fontSize: 10,
                               color: Colors.white,
@@ -242,7 +244,7 @@ class _WholeSalesProductCardState extends State<WholeSalesProductCard> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                         child: Text(
-                          widget.name ?? 'No Name',
+                          widget.name ?? LangText(context).local.no_name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(

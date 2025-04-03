@@ -30,6 +30,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:twitter_login/twitter_login.dart';
 
+import '../../custom/lang_text.dart';
 import '../../custom/loading.dart';
 import '../../repositories/address_repository.dart';
 import 'otp.dart';
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
 
   fetch_country() async {
     var data = await AddressRepository().getCountryList();
-    data.countries.forEach((c) => countries_code.add(c.code));
+    data.countries?.forEach((c) => countries_code.add(c.code));
     setState(() {});
   }
 
@@ -441,6 +442,8 @@ class _LoginState extends State<Login> {
                         height: 36,
                         child: CustomInternationalPhoneNumberInput(
                           countries: countries_code,
+                          hintText: LangText(context).local.phone_number_ucf,
+                          errorMessage: LangText(context).local.invalid_phone_number,
                           initialValue: PhoneNumber(isoCode: AppConfig.default_country),
                           onInputChanged: (PhoneNumber number) {
                             setState(() {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:zayed3ndk/custom/device_info.dart';
+import 'package:zayed3ndk/custom/lang_text.dart';
 import 'package:zayed3ndk/custom/useful_elements.dart';
 import 'package:zayed3ndk/helpers/shared_value_helper.dart';
 import 'package:zayed3ndk/helpers/shimmer_helper.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart' as intl;
+// import 'package:intl/intl.dart' as intl;
 import 'package:shimmer/shimmer.dart';
 
 class Chat extends StatefulWidget {
@@ -34,7 +35,7 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final TextEditingController _chatTextController = TextEditingController();
   final ScrollController _chatScrollController = ScrollController();
-  final ScrollController _xcrollController = ScrollController();
+  // final ScrollController _xcrollController = ScrollController();
   final lastKey = GlobalKey();
 
   var uid = user_id;
@@ -46,7 +47,7 @@ class _ChatState extends State<Chat> {
   bool _showLoadingContainer = false;
   int? _last_id = 0;
   Timer? timer;
-  String _message = "";
+  // String _message = "";
 
   @override
   void initState() {
@@ -96,11 +97,11 @@ class _ChatState extends State<Chat> {
     _chatTextController.clear();
     //print(chatText);
     if (chatText != "") {
-      final DateTime now = DateTime.now();
-      final intl.DateFormat date_formatter = intl.DateFormat('yyyy-MM-dd');
-      final intl.DateFormat time_formatter = intl.DateFormat('hh:ss');
-      final String formatted_date = date_formatter.format(now);
-      final String formatted_time = time_formatter.format(now);
+      // final DateTime now = DateTime.now();
+      // final intl.DateFormat date_formatter = intl.DateFormat('yyyy-MM-dd');
+      // final intl.DateFormat time_formatter = intl.DateFormat('hh:ss');
+      // final String formatted_date = date_formatter.format(now);
+      // final String formatted_time = time_formatter.format(now);
 
       var messageResponse = await ChatRepository().getInserMessageResponse(
           conversation_id: widget.conversation_id, message: chatText);
@@ -620,8 +621,8 @@ class _ChatState extends State<Chat> {
                 child: TextField(
                   controller: _chatTextController,
                   textAlign: TextAlign.start,
-                  decoration: const InputDecoration(
-                    hintText: "  Type your message here . . .",
+                  decoration: InputDecoration(
+                    hintText: "  ${LangText(context).local.type_your_message_here}",
                     hintStyle:
                         TextStyle(color: Color(0xff999999), fontSize: 12),
                     border: InputBorder.none,

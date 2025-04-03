@@ -1097,7 +1097,7 @@ class _AuctionProductsDetailsState extends State<AuctionProductsDetails>
                         onTap: () {
                           if (is_logged_in == false) {
                             ToastComponent.showDialog(
-                              "You need to log in",
+                              LangText(context).local.you_need_to_log_in,
                             );
                             return;
                           }
@@ -1226,7 +1226,7 @@ class _AuctionProductsDetailsState extends State<AuctionProductsDetails>
                         }
 
                         return null;
-                        ;
+                        
                       },
                     ),
                     Row(

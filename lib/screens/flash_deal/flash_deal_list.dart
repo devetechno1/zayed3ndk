@@ -199,28 +199,30 @@ class _FlashDealListState extends State<FlashDealList> {
                                         fontWeight: FontWeight.w600),
                                   )
                                 : buildTimerRow(time)),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          child: Container(
-                            padding:
-                                EdgeInsetsDirectional.only(top: 0, start: 2, bottom: 17),
-                            width: 460,
-                            child: Wrap(
-                              runSpacing: 10,
-                              spacing: 10,
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              runAlignment: WrapAlignment.spaceBetween,
-                              alignment: WrapAlignment.start,
-                              direction: Axis.vertical,
-
-                              children: List.generate(
-                                flashDealResponse.flashDeals![index].products!
-                                    .products!.length,
-                                (productIndex) {
-                                  return buildFlashDealsProductItem(
-                                      flashDealResponse, index, productIndex);
-                                },
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: BouncingScrollPhysics(),
+                            child: Container(
+                              padding:
+                                  EdgeInsetsDirectional.only(top: 0, start: 2, bottom: 17),
+                              width: 460,
+                              child: Wrap(
+                                runSpacing: 10,
+                                spacing: 10,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                runAlignment: WrapAlignment.spaceBetween,
+                                alignment: WrapAlignment.start,
+                                direction: Axis.vertical,
+                          
+                                children: List.generate(
+                                  flashDealResponse.flashDeals![index].products!
+                                      .products!.length,
+                                  (productIndex) {
+                                    return buildFlashDealsProductItem(
+                                        flashDealResponse, index, productIndex);
+                                  },
+                                ),
                               ),
                             ),
                           ),

@@ -18,12 +18,14 @@ class CategoryList extends StatefulWidget {
   CategoryList({
     Key? key,
     required this.slug,
+    required this.name,
     this.is_base_category = false,
     this.is_top_category = false,
     this.bottomAppbarIndex,
   }) : super(key: key);
 
   final String slug;
+  final String name;
   final bool is_base_category;
   final bool is_top_category;
   final BottomAppbarIndex? bottomAppbarIndex;
@@ -206,6 +208,7 @@ class _CategoryListState extends State<CategoryList> {
                       MaterialPageRoute(
                         builder: (context) {
                           return CategoryProducts(
+                            name: widget.name,
                             slug: widget.slug,
                           );
                         },

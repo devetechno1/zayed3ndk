@@ -18,7 +18,7 @@ class DeliveryInfoResponse {
   });
 
   String? name;
-  var ownerId;
+  int? ownerId;
   List<CartItem>? cartItems;
   Carriers? carriers;
   List<PickupPoint>? pickupPoints;
@@ -98,15 +98,19 @@ class CartItem {
     this.ownerId,
     this.userId,
     this.productId,
+    this.productQuantity,
+    this.productPrice,
     this.productName,
     this.productThumbnailImage,
     this.isDigital,
   });
 
-  var id;
-  var ownerId;
-  var userId;
-  var productId;
+  int? id;
+  int? ownerId;
+  int? userId;
+  int? productId;
+  double? productPrice;
+  int? productQuantity;
   String? productName;
   String? productThumbnailImage;
   bool? isDigital;
@@ -117,6 +121,8 @@ class CartItem {
     userId: json["user_id"],
     productId: json["product_id"],
     productName: json["product_name"],
+    productPrice: double.tryParse('${json["product_price"]}'),
+    productQuantity: json["product_quantity"],
     productThumbnailImage: json["product_thumbnail_image"],
     isDigital: json["product_is_digital"],
   );
@@ -127,6 +133,8 @@ class CartItem {
     "user_id": userId,
     "product_id": productId,
     "product_name": productName,
+    "product_price": productPrice,
+    "product_quantity": productQuantity,
     "product_thumbnail_image": productThumbnailImage,
   };
 }

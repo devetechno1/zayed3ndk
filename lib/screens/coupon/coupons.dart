@@ -260,12 +260,12 @@ class _CouponsState extends State<Coupons> {
           CouponRepository().getCouponProductList(id: _couponsList[index].id!),
       builder: (context, AsyncSnapshot<ProductMiniResponse> snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text("An error occurred"));
+          return Center(child: Text(LangText(context).local.an_error_occurred));
         } else if (snapshot.hasData) {
           var products = snapshot.data?.products ?? [];
           if (products.isEmpty) {
             return Text(
-              "No products found",
+              LangText(context).local.no_products_found,
               style: TextStyle(color: Colors.white),
             );
           }

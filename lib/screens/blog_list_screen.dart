@@ -9,6 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
+import '../custom/lang_text.dart';
+
 class BlogListScreen extends StatefulWidget {
   const BlogListScreen({super.key});
 
@@ -115,7 +117,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
           ),
           filled: true,
           fillColor: MyTheme.white.withOpacity(0.6),
-          hintText: "Search in Blogs..." //widget.category_name!
+          hintText: LangText(context).local.search_in_blogs //widget.category_name!
           ,
           hintStyle: TextStyle(fontSize: 14.0, color: MyTheme.font_grey),
           enabledBorder: OutlineInputBorder(

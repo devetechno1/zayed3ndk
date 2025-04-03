@@ -1,6 +1,5 @@
 import 'package:zayed3ndk/app_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeSearchBox extends StatelessWidget {
   final BuildContext? context;
@@ -36,7 +35,7 @@ class HomeSearchBox extends StatelessWidget {
               width: 10,
             ),
             Text(
-              AppConfig.search_bar_text,
+              AppConfig.search_bar_text(context),
               style: TextStyle(fontSize: 13.0, color: Color(0xff7B7980)),
             ),
           ],

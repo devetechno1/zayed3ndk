@@ -6,10 +6,11 @@ import 'package:zayed3ndk/screens/checkout/select_address.dart';
 import 'package:zayed3ndk/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AIZRoute {
-  static final otpRoute = Otp(
-    title: "Verify your account",
+  static Otp otpRoute(BuildContext context) => Otp(
+    title: AppLocalizations.of(context)!.verifyYourAccount,
     fromRegistration: false,
   );
 
@@ -17,7 +18,7 @@ class AIZRoute {
       BuildContext context, Widget route) {
     if (_isMailVerifiedRoute(route)) {
       return Navigator.push(
-          context, MaterialPageRoute(builder: (context) => otpRoute));
+          context, MaterialPageRoute(builder: (context) => otpRoute(context)));
     }
     return Navigator.push(
         context, MaterialPageRoute(builder: (context) => route));
@@ -26,7 +27,7 @@ class AIZRoute {
   static Future<T?> slideLeft<T extends Object?>(
       BuildContext context, Widget route) {
     if (_isMailVerifiedRoute(route)) {
-      return Navigator.push(context, _leftTransition<T>(otpRoute));
+      return Navigator.push(context, _leftTransition<T>(otpRoute(context)));
     }
 
     return Navigator.push(context, _leftTransition<T>(route));
@@ -35,7 +36,7 @@ class AIZRoute {
   static Future<T?> slideRight<T extends Object?>(
       BuildContext context, Widget route) {
     if (_isMailVerifiedRoute(route)) {
-      return Navigator.push(context, _rightTransition<T>(otpRoute));
+      return Navigator.push(context, _rightTransition<T>(otpRoute(context)));
     }
     return Navigator.push(context, _rightTransition<T>(route));
   }

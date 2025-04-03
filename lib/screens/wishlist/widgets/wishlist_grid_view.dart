@@ -7,9 +7,11 @@ class WishListGridView extends StatelessWidget {
   const WishListGridView({
     super.key,
     required List wishlistItems,
+    this.onPopFromProduct,
   }) : _wishlistItems = wishlistItems;
 
   final List _wishlistItems;
+  final void Function()? onPopFromProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class WishListGridView extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return ProductCard(
+            onPopFromProduct: onPopFromProduct,
             id: _wishlistItems[index].product.id,
             slug: _wishlistItems[index].product.slug,
             image: _wishlistItems[index].product.thumbnail_image,

@@ -9,7 +9,7 @@ import '../screens/main.dart';
 class UsefulElements {
   static backButton(context, {color = 'black'}) {
     return IconButton(
-      // padding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       icon: Icon(
           app_language_rtl.$!
               ? CupertinoIcons.arrow_right

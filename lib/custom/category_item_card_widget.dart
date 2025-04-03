@@ -111,6 +111,7 @@ class CategoryItemCardWidget extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) {
                 return CategoryProducts(
+                  name: categoryResponse.categories![index].name ?? "",
                   slug: categoryResponse.categories![index].slug ?? "",
                 );
               },
