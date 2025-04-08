@@ -624,6 +624,8 @@ import 'package:zayed3ndk/repositories/sliders_repository.dart';
 import 'package:zayed3ndk/single_banner/model.dart';
 import 'package:flutter/material.dart';
 
+import '../repositories/brand_repository.dart';
+
 class HomePresenter extends ChangeNotifier {
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   int current_slider = 0;
@@ -666,6 +668,8 @@ class HomePresenter extends ChangeNotifier {
   bool isTodayDeal = false;
   bool isFlashDeal = false;
 
+  bool isBrands = false;
+
   var allProductList = [];
   bool isAllProductInitial = true;
   int? totalAllProductData = 0;
@@ -684,6 +688,14 @@ class HomePresenter extends ChangeNotifier {
     fetchFlashDealData();
     fetchBannerFlashDeal();
     fetchFlashDealBannerImages();
+    fetchBrands();
+  }
+
+  void fetchBrands() {
+    BrandRepository().getBrands().then((value) {
+      isBrands = !value.noBrandsAvailable;
+      notifyListeners();
+    },);
   }
 
   Future<void> fetchBannerFlashDeal() async {
@@ -729,7 +741,7 @@ class HomePresenter extends ChangeNotifier {
   }
 
   fetchCarouselImages() async {
-    var carouselResponse = await SlidersRepository().getSliders();
+    SliderResponse carouselResponse = await SlidersRepository().getSliders();
     carouselResponse.sliders!.forEach((slider) {
       carouselImageList.add(slider);
     });

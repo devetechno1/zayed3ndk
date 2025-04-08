@@ -1,7 +1,6 @@
 import 'package:zayed3ndk/app_config.dart';
 import 'package:zayed3ndk/custom/flash%20deals%20banner/flash_deal_banner.dart';
 import 'package:zayed3ndk/helpers/shared_value_helper.dart';
-import 'package:zayed3ndk/helpers/shimmer_helper.dart';
 import 'package:zayed3ndk/my_theme.dart';
 import 'package:zayed3ndk/presenter/home_presenter.dart';
 import 'package:zayed3ndk/screens/filter.dart';
@@ -121,11 +120,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               ),
                               SizedBox(height: 16),
 
-                              if (homeData.isFlashDeal || homeData.isTodayDeal)
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 16.0),
-                                  child: buildHomeMenu(context, homeData),
-                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: buildHomeMenu(context, homeData),
+                              ),
                               // SizedBox(height: 16),
 
                               //Home slider one
@@ -294,17 +292,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget buildHomeMenu(BuildContext context, HomePresenter homeData) {
     // Check if the menu is loading (assuming both deals are false when data is not available)
-    if (!homeData.isFlashDeal && !homeData.isTodayDeal) {
-      return Container(
-        height: 40,
-        child: ShimmerHelper().buildHorizontalGridShimmerWithAxisCount(
-          crossAxisSpacing: 12.0,
-          mainAxisSpacing: 12.0,
-          item_count: 4, // Adjust as needed
-          mainAxisExtent: 40.0, // Height of each item
-        ),
-      );
-    }
+    // if (!homeData.isFlashDeal && !homeData.isTodayDeal) {
+    //   return Container(
+    //     height: 40,
+    //     child: ShimmerHelper().buildHorizontalGridShimmerWithAxisCount(
+    //       crossAxisSpacing: 12.0,
+    //       mainAxisSpacing: 12.0,
+    //       item_count: 4, // Adjust as needed
+    //       mainAxisExtent: 40.0, // Height of each item
+    //     ),
+    //   );
+    // }
 
     final List<Map<String, dynamic>> menuItems = [
       if (homeData.isTodayDeal)
@@ -316,7 +314,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               return TodaysDealProducts();
             }));
           },
-          "Textcolor": Colors.white,
+          "textColor": Colors.white,
+          "backgroundColor": const Color(0xffE62D05),
         },
       if (homeData.isFlashDeal)
         {
@@ -327,18 +326,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               return FlashDealList();
             }));
           },
-          "Textcolor": Colors.white,
+          "textColor": Colors.white,
+          "backgroundColor": const Color(0xffF6941C),
         },
-      {
-        "title": AppLocalizations.of(context)!.brands_ucf,
-        "image": "assets/brands.png",
-        "onTap": () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Filter(selected_filter: "brands");
-          }));
+      if(homeData.isBrands)
+        {
+          "title": AppLocalizations.of(context)!.brands_ucf,
+          "image": "assets/brands.png",
+          "onTap": () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Filter(selected_filter: "brands");
+            }));
+          },
+          "textColor": Color(0xff263140),
+          "backgroundColor": const Color(0xffE9EAEB),
         },
-        "Textcolor": Color(0xff263140),
-      },
       // Ensure `vendor_system.$` is valid or properly defined
       if (vendor_system.$)
         {
@@ -349,9 +351,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               return TopSellers();
             }));
           },
-          "Textcolor": Color(0xff263140),
+          "textColor": Color(0xff263140),
+          "backgroundColor": const Color(0xffE9EAEB),
         },
     ];
+    
+
+    if(menuItems.isEmpty) return const SizedBox();
 
     return Container(
       height: 40,
@@ -361,15 +367,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         itemCount: menuItems.length,
         itemBuilder: (context, index) {
           final item = menuItems[index];
-          Color containerColor;
-
-          if (index == 0) {
-            containerColor = Color(0xffE62D05);
-          } else if (index == 1) {
-            containerColor = Color(0xffF6941C);
-          } else {
-            containerColor = Color(0xffE9EAEB);
-          }
 
           return GestureDetector(
             onTap: item['onTap'],
@@ -379,7 +376,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               width: 106,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: containerColor,
+                color: item['backgroundColor'],
               ),
               child: Center(
                 child: Row(
@@ -393,7 +390,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         alignment: Alignment.center,
                         child: Image.asset(
                           item['image'],
-                          color: item['Textcolor'],
+                          color: item['textColor'],
                         ),
                       ),
                     ),
@@ -402,7 +399,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         item['title'],
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: item['Textcolor'],
+                          color: item['textColor'],
                           fontWeight: FontWeight.w300,
                           fontSize: 10,
                         ),

@@ -743,7 +743,7 @@ class _CheckoutState extends State<Checkout> {
                       bottomLeft: const Radius.circular(8.0),
                     ),
                   ),
-                  contentPadding: EdgeInsets.only(left: 16.0)),
+                  contentPadding: EdgeInsetsDirectional.only(start: 16.0)),
             ),
           ),
         ),

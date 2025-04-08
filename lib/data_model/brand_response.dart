@@ -20,6 +20,7 @@ class BrandResponse {
   Meta? meta;
   bool? success;
   int? status;
+  bool get noBrandsAvailable => brands?.isEmpty ?? true;
 
   factory BrandResponse.fromJson(Map<String, dynamic> json) => BrandResponse(
     brands: List<Brands>.from(json["data"].map((x) => Brands.fromJson(x))),

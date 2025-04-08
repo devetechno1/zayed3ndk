@@ -1,11 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../app_config.dart';
 import '../helpers/shimmer_helper.dart';
-import '../my_theme.dart';
 import '../presenter/home_presenter.dart';
 import 'aiz_image.dart';
 
@@ -72,15 +70,7 @@ class HomeCarouselSlider extends StatelessWidget {
       );
     } else if (!homeData!.isCarouselInitial &&
         homeData!.carouselImageList.isEmpty) {
-      return Container(
-        height: 100,
-        child: Center(
-          child: Text(
-            AppLocalizations.of(context)!.no_carousel_image_found,
-            style: TextStyle(color: MyTheme.font_grey),
-          ),
-        ),
-      );
+      return const SizedBox();
     } else {
       return Container(height: 100);
     }

@@ -44,6 +44,7 @@ import '../video_description_screen.dart';
 import 'product_reviews.dart';
 import 'widgets/product_slider_image_widget.dart';
 import 'widgets/tappable_icon_widget.dart';
+import 'package:one_context/one_context.dart';
 
 class ProductDetails extends StatefulWidget {
   final String slug;
@@ -406,7 +407,7 @@ class _ProductDetailsState extends State<ProductDetails>
     }
 
     var cartAddResponse = await CartRepository().getCartAddResponse(
-        _productDetails!.id, _variant, user_id.$, _quantity);
+        _productDetails?.id, _variant, user_id.$, _quantity);
 
     temp_user_id.$ = cartAddResponse.tempUserId;
     temp_user_id.save();
@@ -815,7 +816,7 @@ class _ProductDetailsState extends State<ProductDetails>
       action: SnackBarAction(
         label: AppLocalizations.of(context)!.show_cart_all_capital,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.push(OneContext().context!, MaterialPageRoute(builder: (context) {
             return Cart(has_bottomnav: false);
           })).then((value) {
             onPopped(value);
