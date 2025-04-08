@@ -53,7 +53,7 @@ class CartRepository {
       url: url,
       headers: {
         "Content-Type": "application/json",
-        "App-Language": app_language.$!,
+        "App-Language": app_language.$ ?? AppConfig.default_language,
       },
       body: postBody,
     );

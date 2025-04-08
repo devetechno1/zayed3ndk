@@ -42,7 +42,7 @@ final SharedValue<String> user_phone = SharedValue(
   key: "user_phone", // disk storage key for shared_preferences
 );
 final SharedValue<String?> app_language = SharedValue(
-  value: AppConfig.default_language, // initial value
+  value: null, // initial value
   key: "app_language", // disk storage key for shared_preferences
 );
 

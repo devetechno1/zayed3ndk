@@ -14,7 +14,7 @@ String capitalize(String text) {
 
 Map<String, String> get commonHeader => {
       "Content-Type": "application/json",
-      "App-Language": app_language.$!,
+      "App-Language": app_language.$ ?? AppConfig.default_language,
       "Accept": "application/json",
       "System-Key": AppConfig.system_key
     };

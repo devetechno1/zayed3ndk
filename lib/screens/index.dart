@@ -20,15 +20,18 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   Future<String?> getSharedValueHelperData() async {
+    await BusinessSettingHelper.setInitLang();
     access_token.load().whenComplete(() {
       AuthHelper().fetch_and_set();
     });
     AddonsHelper().setAddonsData();
     BusinessSettingHelper().setBusinessSettingData();
-    await app_language.load();
-    await app_mobile_language.load();
-    await app_language_rtl.load();
-    await system_currency.load();
+    await Future.wait([ 
+      app_language.load(),
+      app_mobile_language.load(),
+      app_language_rtl.load(),
+      system_currency.load(),
+    ]);
     Provider.of<CurrencyPresenter>(context, listen: false).fetchListData();
 
     // print("new splash screen ${app_mobile_language.$}");
