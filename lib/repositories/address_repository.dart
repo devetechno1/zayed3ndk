@@ -17,7 +17,7 @@ import 'package:zayed3ndk/middlewares/banned_user.dart';
 import 'package:zayed3ndk/repositories/api-request.dart';
 
 class AddressRepository {
-  Future<dynamic> getAddressList() async {
+  Future<AddressResponse> getAddressList() async {
     String url = ("${AppConfig.BASE_URL}/user/shipping/address");
     final response = await ApiRequest.get(
       url: url,

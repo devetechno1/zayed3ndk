@@ -36,7 +36,7 @@ class SelectAddressProvider with ChangeNotifier {
   Future<void> fetchShippingAddressList(BuildContext context) async {
     reset();
     var addressResponse = await AddressRepository().getAddressList();
-    shippingAddressList.addAll(addressResponse.addresses);
+    shippingAddressList.addAll(addressResponse.addresses ?? []);
     if (shippingAddressList.isNotEmpty) {
       for (int i = 0; i < shippingAddressList.length; i++) {
         if (shippingAddressList[i].location_available == true) {

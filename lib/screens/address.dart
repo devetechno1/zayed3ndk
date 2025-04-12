@@ -19,7 +19,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '../app_config.dart';
 import '../custom/input_decorations.dart';
 import '../custom/intl_phone_input.dart';
-import 'guest_checkout_pages/old_guest.dart';
+import '../data_model/address_response.dart' as res;
 
 class Address extends StatefulWidget {
   const Address({Key? key, this.from_shipping_info = false}) : super(key: key);
@@ -35,7 +35,7 @@ class _AddressState extends State<Address> {
   int? _default_shipping_address = 0;
 
   bool _isInitial = true;
-  List<dynamic> _shippingAddressList = [];
+  List<res.Address> _shippingAddressList = [];
 
 
   //for update purpose
@@ -67,8 +67,8 @@ class _AddressState extends State<Address> {
 
   Future fetchShippingAddressList() async {
     // print("enter fetchShippingAddressList");
-    var addressResponse = await AddressRepository().getAddressList();
-    _shippingAddressList.addAll(addressResponse.addresses);
+    res.AddressResponse addressResponse = await AddressRepository().getAddressList();
+    _shippingAddressList.addAll(addressResponse.addresses ?? []);
     setState(() {
       _isInitial = false;
     });
@@ -228,7 +228,7 @@ class _AddressState extends State<Address> {
     afterDeletingAnAddress();
   }
 
-  _tabOption(int index, listIndex) {
+  _tabOption(int index,int listIndex) {
     switch (index) {
       case 0:
         buildShowUpdateFormDialog(context, listIndex);
@@ -237,7 +237,7 @@ class _AddressState extends State<Address> {
         onPressDelete(_shippingAddressList[listIndex].id);
         break;
       case 2:
-        _choosePlace(listIndex);
+        _choosePlace(_shippingAddressList[listIndex]);
         //deleteProduct(productId);
         break;
       default:
@@ -245,9 +245,9 @@ class _AddressState extends State<Address> {
     }
   }
 
-  void _choosePlace(int listIndex) {
+  void _choosePlace(res.Address address) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return MapLocation(address: _shippingAddressList[listIndex]);
+      return MapLocation(address: address);
     })).then((value) {
       onPopped(value);
     });
@@ -329,7 +329,7 @@ class _AddressState extends State<Address> {
           return AddAddressDialog(
             shippingAddressList: _shippingAddressList, 
             afterAddingAnAddress: afterAddingAnAddress, 
-            choosePlace: _choosePlace,
+            choosePlace: (index) =>  _choosePlace(_shippingAddressList[index]),
           );
         });
   }
@@ -368,7 +368,7 @@ class _AddressState extends State<Address> {
             selected_country: _selected_country_list_for_update[index], 
             addressControllerText: _addressControllerListForUpdate[index].text, 
             postalCodeControllerText: _postalCodeControllerListForUpdate[index].text, 
-            phoneControllerText: _shippingAddressList[index].phone, 
+            phoneControllerText: _shippingAddressList[index].phone ?? '', 
             cityControllerText: _cityControllerListForUpdate[index].text, 
             stateControllerText: _stateControllerListForUpdate[index].text, 
             countryControllerText: _countryControllerListForUpdate[index].text,
@@ -459,7 +459,7 @@ class _AddressState extends State<Address> {
       borderRadius: BorderRadius.circular(6),
       onTap: () {
         if (_shippingAddressList[index].location_available != true) {
-          _choosePlace(index);
+          _choosePlace(_shippingAddressList[index]);
           // ToastComponent.showDialog(AppLocalizations.of(context)!.you_have_to_add_location_first,isError: true,gravity: ToastGravity.BOTTOM);
           return;
         }
@@ -589,7 +589,7 @@ class _AddressState extends State<Address> {
     );
   }
 
-  Widget showOptions({listIndex, productId}) {
+  Widget showOptions({required int listIndex,int? productId}) {
     return PopupMenuButton<MenuOptions>(
       offset: Offset(-25, 0),
       child: Container(

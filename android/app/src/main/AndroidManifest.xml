@@ -122,7 +122,7 @@
             android:value="2" />
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDQgdcDWlNJ6o8BU3972EF8P3SKLltqFj8"/>
+            android:value="AIzaSyACtt1uT3NDCjqCAQtJwMDEx66R095M24M"/>
 
         <!-- Facebook Login configuration -->
         <meta-data android:name="com.facebook.sdk.ApplicationId"

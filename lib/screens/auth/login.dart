@@ -16,7 +16,7 @@ import 'package:zayed3ndk/repositories/profile_repository.dart';
 import 'package:zayed3ndk/screens/auth/password_forget.dart';
 import 'package:zayed3ndk/screens/auth/registration.dart';
 import 'package:zayed3ndk/screens/main.dart';
-import 'package:zayed3ndk/social_config.dart';
+// import 'package:zayed3ndk/social_config.dart';
 import 'package:zayed3ndk/ui_elements/auth_ui.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -28,7 +28,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:twitter_login/twitter_login.dart';
+// import 'package:twitter_login/twitter_login.dart';
 
 import '../../custom/lang_text.dart';
 import '../../custom/loading.dart';
@@ -258,46 +258,46 @@ class _LoginState extends State<Login> {
     }
   }
 
-  onPressedTwitterLogin() async {
-    try {
-      final twitterLogin = new TwitterLogin(
-          apiKey: SocialConfig().twitter_consumer_key,
-          apiSecretKey: SocialConfig().twitter_consumer_secret,
-          redirectURI: 'activeecommerceflutterapp://');
-      // Trigger the sign-in flow
+  // onPressedTwitterLogin() async {
+  //   try {
+  //     final twitterLogin = new TwitterLogin(
+  //         apiKey: SocialConfig().twitter_consumer_key,
+  //         apiSecretKey: SocialConfig().twitter_consumer_secret,
+  //         redirectURI: 'activeecommerceflutterapp://');
+  //     // Trigger the sign-in flow
 
-      final authResult = await twitterLogin.login();
+  //     final authResult = await twitterLogin.login();
 
-      // print("authResult");
+  //     // print("authResult");
 
-      // print(json.encode(authResult));
+  //     // print(json.encode(authResult));
 
-      var loginResponse = await AuthRepository().getSocialLoginResponse(
-          "twitter",
-          authResult.user!.name,
-          authResult.user!.email,
-          authResult.user!.id.toString(),
-          access_token: authResult.authToken,
-          secret_token: authResult.authTokenSecret);
+  //     var loginResponse = await AuthRepository().getSocialLoginResponse(
+  //         "twitter",
+  //         authResult.user!.name,
+  //         authResult.user!.email,
+  //         authResult.user!.id.toString(),
+  //         access_token: authResult.authToken,
+  //         secret_token: authResult.authTokenSecret);
 
-      if (loginResponse.result == false) {
-        ToastComponent.showDialog(
-          loginResponse.message!,
-        );
-      } else {
-        ToastComponent.showDialog(
-          loginResponse.message!,
-        );
-        AuthHelper().setUserData(loginResponse);
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Main();
-        }));
-      }
-    } on Exception catch (e) {
-      print("error is ....... $e");
-      // TODO
-    }
-  }
+  //     if (loginResponse.result == false) {
+  //       ToastComponent.showDialog(
+  //         loginResponse.message!,
+  //       );
+  //     } else {
+  //       ToastComponent.showDialog(
+  //         loginResponse.message!,
+  //       );
+  //       AuthHelper().setUserData(loginResponse);
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //         return Main();
+  //       }));
+  //     }
+  //   } on Exception catch (e) {
+  //     print("error is ....... $e");
+  //     // TODO
+  //   }
+  // }
 
   String generateNonce([int length = 32]) {
     final charset =
@@ -653,19 +653,19 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        if (allow_twitter_login.$)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: InkWell(
-                              onTap: () {
-                                onPressedTwitterLogin();
-                              },
-                              child: Container(
-                                width: 28,
-                                child: Image.asset("assets/twitter_logo.png"),
-                              ),
-                            ),
-                          ),
+                        // if (allow_twitter_login.$)
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(left: 15.0),
+                        //     child: InkWell(
+                        //       onTap: () {
+                        //         onPressedTwitterLogin();
+                        //       },
+                        //       child: Container(
+                        //         width: 28,
+                        //         child: Image.asset("assets/twitter_logo.png"),
+                        //       ),
+                        //     ),
+                        //   ),
                         /* if (Platform.isIOS)
                           Padding(
                             padding: const EdgeInsets.only(left: 15.0),

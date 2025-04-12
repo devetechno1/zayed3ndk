@@ -93,7 +93,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
   fetchShippingAddressList() async {
     // print("enter fetchShippingAddressList");
     var addressResponse = await AddressRepository().getAddressList();
-    _shippingAddressList.addAll(addressResponse.addresses);
+    _shippingAddressList.addAll(addressResponse.addresses ?? []);
     setState(() {
       _isInitial = false;
     });

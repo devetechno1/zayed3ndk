@@ -81,8 +81,8 @@ class Address {
     phone: json["phone"]== null ? "" :  json["phone"],
     set_default: json["set_default"],
     location_available: json["location_available"],
-    lat: json["lat"],
-    lang: json["lang"],
+    lat: double.tryParse("${json["lat"]}"),
+    lang:  double.tryParse("${json["lang"]}"),
   );
 
   Map<String, dynamic> toJson() => {

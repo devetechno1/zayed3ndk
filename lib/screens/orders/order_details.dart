@@ -1309,7 +1309,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _orderDetails!.pickupPoint!.name != null
+                            _orderDetails!.pickupPoint?.name != null
                                 ? Text(
                                     "${AppLocalizations.of(context)!.name_ucf}: ${_orderDetails!.pickupPoint!.name}",
                                     maxLines: 3,
@@ -1319,7 +1319,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   )
                                 : Container(),
                             Text(
-                              "${AppLocalizations.of(context)!.address_ucf}: ${_orderDetails!.pickupPoint!.address}",
+                              "${AppLocalizations.of(context)!.address_ucf}: ${_orderDetails!.pickupPoint?.address}",
                               maxLines: 3,
                               style: TextStyle(
                                 color: MyTheme.grey_153,

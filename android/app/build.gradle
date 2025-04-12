@@ -23,7 +23,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
+    namespace "com.zayed3ndkstore.zayed3ndkstore"
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     sourceSets {
@@ -46,7 +47,7 @@ android {
     defaultConfig {
         applicationId "com.zayed3ndkstore.zayed3ndkstore"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
